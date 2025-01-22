@@ -23,20 +23,17 @@ public class User {
 	@Column(name = "id", updatable = false, nullable = false)
 	private long id;
 
-	private String firstName;
-
-	private String lastName;
-
-	private LocalDate dob;
-
-	private String gender;
-
-	private String role;
+	@Column(unique=true)
+	private String usuario;
+	
+	private String rol;
 
 	@Column(unique=true)
 	private String email;
 
 	private String password;
+	
+	
 
 	public long getId() {
 		return id;
@@ -44,46 +41,6 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public LocalDate getDob() {
-		return dob;
-	}
-
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 
 	public String getEmail() {
@@ -102,10 +59,29 @@ public class User {
 		this.password = password;
 	}
 
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob + ", email="
-				+ email + "]";
+		return "User [id=" + id + ", usuario=" + usuario + ", rol=" + rol + ", email=" + email + ", password="
+				+ password + "]";
 	}
+
+	
+
 
 }
