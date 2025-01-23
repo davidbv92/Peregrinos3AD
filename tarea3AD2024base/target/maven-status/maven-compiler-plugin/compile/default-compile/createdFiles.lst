@@ -1,3 +1,4 @@
+com\luisdbb\tarea3AD2024base\view\FxmlView$3.class
 com\luisdbb\tarea3AD2024base\repositorios\VisitaRepository.class
 com\luisdbb\tarea3AD2024base\modelo\Carnet.class
 com\luisdbb\tarea3AD2024base\modelo\Parada.class
@@ -9,10 +10,14 @@ com\luisdbb\tarea3AD2024base\config\AppJavaConfig.class
 com\luisdbb\tarea3AD2024base\Tarea3Ad2024baseApplication.class
 com\luisdbb\tarea3AD2024base\repositorios\EstanciaRepository.class
 com\luisdbb\tarea3AD2024base\services\UserService.class
+com\luisdbb\tarea3AD2024base\view\FxmlView$6.class
+com\luisdbb\tarea3AD2024base\controller\RegistroPeregrinoController.class
+com\luisdbb\tarea3AD2024base\controller\LoginControllerViejo.class
 com\luisdbb\tarea3AD2024base\controller\LoginController.class
 com\luisdbb\tarea3AD2024base\repositorios\PeregrinoRepository.class
 com\luisdbb\tarea3AD2024base\modelo\Estancia.class
 com\luisdbb\tarea3AD2024base\repositorios\ParadaRepository.class
+com\luisdbb\tarea3AD2024base\view\FxmlView$4.class
 com\luisdbb\tarea3AD2024base\config\StageManager.class
 com\luisdbb\tarea3AD2024base\modelo\TipoSesion.class
 com\luisdbb\tarea3AD2024base\modelo\Visita.class
@@ -21,4 +26,5 @@ com\luisdbb\tarea3AD2024base\repositorios\UserRepository.class
 com\luisdbb\tarea3AD2024base\modelo\Peregrino.class
 com\luisdbb\tarea3AD2024base\repositorios\CarnetRepository.class
 com\luisdbb\tarea3AD2024base\view\FxmlView$2.class
+com\luisdbb\tarea3AD2024base\view\FxmlView$5.class
 com\luisdbb\tarea3AD2024base\modelo\MiAlerta.class

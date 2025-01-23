@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController">
    <children>
       <VBox prefHeight="400.0" prefWidth="300.0">
          <children>
@@ -29,7 +29,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField promptText="usuario">
+                  <TextField fx:id="txtUsuario" promptText="usuario">
                      <VBox.margin>
                         <Insets bottom="15.0" />
                      </VBox.margin>
@@ -39,7 +39,7 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField promptText="contraseña">
+                  <PasswordField fx:id="txtPassword" promptText="contraseña">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
@@ -48,8 +48,8 @@
                      <children>
                         <HBox prefHeight="33.0" prefWidth="260.0">
                            <children>
-                              <Hyperlink prefHeight="23.0" prefWidth="148.0" text="Recuperar contraseña" />
-                              <Button prefWidth="113.0" style="-fx-background-color: #00528c;" text="_Iniciar Sesión" textFill="WHITE">
+                              <Hyperlink fx:id="linkRecuperar" prefHeight="23.0" prefWidth="148.0" text="Recuperar contraseña" onAction="#onRecuperarPassword"/>
+                              <Button fx:id="btnInicioSesion" prefWidth="113.0" style="-fx-background-color: #00528c;" text="_Iniciar Sesión" textFill="WHITE" onAction="#onIniciarSesion">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Button>
@@ -59,7 +59,7 @@
                            </padding>
                         </HBox>
                         <Label text="¿No tienes cuenta aún?" />
-                        <Hyperlink text="Registrarse" />
+                        <Hyperlink fx:id="linkRegistro" text="Registrarse" onAction="#onRegistrarse"/>
                      </children>
                   </FlowPane>
                </children>

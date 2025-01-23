@@ -39,7 +39,21 @@ public class UserService {
 	}
 
 	public boolean authenticate(String username, String password) {
-		User user = this.findByEmail(username);
+//		User user = this.findByUsuario(username);
+//		if (user == null) {
+//			return false;
+//		} else {
+//			if (password.equals(user.getPassword()))
+//				return true;
+//			else
+//				return false;
+//		}
+		
+		User user=this.findByUsuario(username);
+		if(user == null) {
+			user=this.findByEmail(username);
+		}
+		
 		if (user == null) {
 			return false;
 		} else {
@@ -48,6 +62,10 @@ public class UserService {
 			else
 				return false;
 		}
+	}
+
+	public User findByUsuario(String username) {
+		return userRepository.findByUsuario(username);
 	}
 
 	public User findByEmail(String email) {

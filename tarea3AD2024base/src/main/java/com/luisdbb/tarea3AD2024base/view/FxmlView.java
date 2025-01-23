@@ -24,6 +24,46 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/MiLogin.fxml";
 		}
+	},REGISTRO_PEREGRINO {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("registroPeregrino.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Registro_Peregrino.fxml";
+		}
+	},VENTANA_ADMIN {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("ventanaAdmin.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Ventana_Admin.fxml";
+		}
+	},VENTANA_PEREGRINO {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("ventanaPeregrino.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Ventana_Peregrino.fxml";
+		}
+	},VENTANA_PARADA {
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("ventanaParada.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Ventana_Parada.fxml";
+		}
 	};
 
 	public abstract String getTitle();
