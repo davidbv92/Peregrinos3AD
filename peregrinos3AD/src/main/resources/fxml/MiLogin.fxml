@@ -48,7 +48,7 @@
                      <children>
                         <HBox prefHeight="33.0" prefWidth="260.0">
                            <children>
-                              <Hyperlink fx:id="linkRecuperar" prefHeight="23.0" prefWidth="148.0" text="Recuperar contraseña" />
+                              <Hyperlink fx:id="linkRecuperar" prefHeight="23.0" prefWidth="148.0" text="Recuperar contraseña" onAction="#onRecuperarPassword"/>
                               <Button fx:id="btnInicioSesion" prefWidth="113.0" style="-fx-background-color: #00528c;" text="_Iniciar Sesión" textFill="WHITE" onAction="#onIniciarSesion">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -59,7 +59,7 @@
                            </padding>
                         </HBox>
                         <Label text="¿No tienes cuenta aún?" />
-                        <Hyperlink fx:id="linkRegistro" text="Registrarse" />
+                        <Hyperlink fx:id="linkRegistro" text="Registrarse" onAction="#onRegistrarse"/>
                      </children>
                   </FlowPane>
                </children>
