@@ -43,6 +43,7 @@ public class StageManager {
         primaryStage.centerOnScreen();
         
         try {
+        	primaryStage.setResizable(false);
             primaryStage.show();
         } catch (Exception exception) {
             logAndExit ("Unable to show scene for title" + title,  exception);
