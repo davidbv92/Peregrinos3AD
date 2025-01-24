@@ -11,6 +11,7 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -82,5 +83,21 @@ public class StageManager {
         LOG.error(errorMsg, exception, exception.getCause());
         Platform.exit();
     }
+    
+    public void openModal(final FxmlView view) {
+        Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.getFxmlFile());
+        showModal(viewRootNodeHierarchy, view.getTitle());
+    }
+
+    private void showModal(final Parent rootnode, String title) {
+        Stage modalStage = new Stage();
+        modalStage.initModality(Modality.APPLICATION_MODAL);
+        modalStage.setTitle(title);
+        Scene scene = new Scene(rootnode);
+        modalStage.setScene(scene);
+        modalStage.showAndWait();
+    }
+    
+    
 
 }

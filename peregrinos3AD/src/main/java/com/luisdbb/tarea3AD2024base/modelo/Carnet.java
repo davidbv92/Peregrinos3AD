@@ -51,36 +51,40 @@ public class Carnet implements Serializable{
 	
 	
 	//constructores
-//	public Carnet(Long id, Parada paradaInicial) {
-//		super();
-//		this.id = id;
-//		this.fechaexp = LocalDate.now();
-//		this.distancia = 0.0;
-//		this.nvips = 0;
-//		this.paradaInicial = paradaInicial;
-//	}
+	public Carnet(Long id, Parada paradaInicial) {
+		super();
+		this.id = id;
+		this.fechaexp = LocalDate.now();
+		this.distancia = 0.0;
+		this.nvips = 0;
+		this.paradaInicial = paradaInicial;
+	}
 	
 	
 
-//	public Carnet(Long id, LocalDate fechaexp, double distancia, int nvips, Parada paradaInicial) {
-//		super();
-//		this.id = id;
-//		this.fechaexp = fechaexp;
-//		this.distancia = distancia;
-//		this.nvips = nvips;
-//		this.paradaInicial = paradaInicial;
-//	}
+	public Carnet(Long id, LocalDate fechaexp, double distancia, int nvips, Parada paradaInicial) {
+		super();
+		this.id = id;
+		this.fechaexp = fechaexp;
+		this.distancia = distancia;
+		this.nvips = nvips;
+		this.paradaInicial = paradaInicial;
+	}
 
 
 
-//	public Carnet(int id, LocalDate fechaExpedicion, double distancia, int nvips, Parada paradaInicial) {
-//		super();
-//		this.id = (long) id;
-//		this.fechaexp = fechaExpedicion;
-//		this.distancia = distancia;
-//		this.nvips = nvips;
-//		this.paradaInicial = paradaInicial;
-//	}
+	public Carnet(int id, LocalDate fechaExpedicion, double distancia, int nvips, Parada paradaInicial) {
+		super();
+		this.id = (long) id;
+		this.fechaexp = fechaExpedicion;
+		this.distancia = distancia;
+		this.nvips = nvips;
+		this.paradaInicial = paradaInicial;
+	}
+	
+	public Carnet() {
+		
+	}
 	
 	
 	//getter y setter

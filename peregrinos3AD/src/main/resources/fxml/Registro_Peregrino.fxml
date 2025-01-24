@@ -29,7 +29,7 @@
                   <Insets left="10.0" right="10.0" />
                </FlowPane.margin>
             </Button>
-            <Button fx:id="btnSalir" text="_Salir" onAction="#onSalir">
+            <Button fx:id="btnSalir" text="_Salir" onAction="#onCerrarSesion">
                <FlowPane.margin>
                   <Insets left="10.0" right="10.0" />
                </FlowPane.margin>

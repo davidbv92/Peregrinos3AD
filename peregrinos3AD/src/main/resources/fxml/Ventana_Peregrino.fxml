@@ -12,25 +12,25 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.VentanaPeregrinoController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu text="_Opciones">
             <items>
-              <MenuItem mnemonicParsing="false" text="Mostrar Carnet" />
-                  <MenuItem mnemonicParsing="false" text="Modificar Datos " />
-                  <MenuItem mnemonicParsing="false" text="Exportar Carnet" />
+              <MenuItem fx:id="itemMostrarDatos" mnemonicParsing="false" text="Mostrar Carnet" onAction="#onMostrarDatos"/>
+                  <MenuItem fx:id="itemModificarDatos" mnemonicParsing="false" text="Modificar Datos " onAction="#onModificarDatos"/>
+                  <MenuItem fx:id="itemExportarCarnet" mnemonicParsing="false" text="Exportar Carnet" onAction="#onExportarCarnet"/>
             </items>
           </Menu>
           <Menu text="_Ayuda">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Información de la Ventana" />
+                  <MenuItem fx:id="itemInformacion" mnemonicParsing="false" text="Información de la Ventana" onAction="#onInformacion"/>
             </items>
           </Menu>
           <Menu text="_Salir">
             <items>
-              <MenuItem mnemonicParsing="false" text="Salir" />
+              <MenuItem fx:id="itemSalir" mnemonicParsing="false" text="Salir" onAction="#onCerrarSesion"/>
             </items>
           </Menu>
         </menus>
@@ -39,14 +39,14 @@
    <bottom>
       <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button text="_Cerrar Sesión" />
+            <Button fx:id="btnCerrarSesion" text="_Cerrar Sesión" onAction="#onCerrarSesion"/>
          </children>
       </FlowPane>
    </bottom>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="BIENVENIDO, PEREGRINO" BorderPane.alignment="CENTER">
+            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="BIENVENIDO, PEREGRINO" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -55,17 +55,17 @@
          <center>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button prefWidth="150.0" text="_Mostrar Datos">
+                  <Button fx:id="btnMostrarDatos" prefWidth="150.0" text="_Mostrar Datos" onAction="#onMostrarDatos">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button prefWidth="150.0" text="Mo_dificar Datos">
+                  <Button fx:id="btnModificarDatos" prefWidth="150.0" text="Mo_dificar Datos" onAction="#onModificarDatos">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button prefWidth="150.0" text="E_xportar Carnet">
+                  <Button fx:id="btnExportarCarnet" prefWidth="150.0" text="E_xportar Carnet" onAction="#onExportarCarnet">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>

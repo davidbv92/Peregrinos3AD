@@ -19,13 +19,12 @@ import jakarta.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", updatable = false, nullable = false)
-	private long id;
-
 	@Column(unique=true)
 	private String usuario;
 	
+	@Column( updatable = false, nullable = false)
+	private long id;
+
 	private String rol;
 
 	@Column(unique=true)

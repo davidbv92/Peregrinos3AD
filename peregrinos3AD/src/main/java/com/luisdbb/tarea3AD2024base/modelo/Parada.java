@@ -11,7 +11,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -37,6 +39,10 @@ public class Parada implements Serializable{
 	private char region;
 	
 	private String responsable;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn
+	private User usuario;
 	
 	@OneToMany(mappedBy = "parada", cascade = CascadeType.ALL)
 	private List<Visita> peregrinos=new ArrayList<Visita>();
@@ -76,6 +82,9 @@ public class Parada implements Serializable{
 		this.responsable=responsable;
 	}
 	
+	public Parada() {
+		
+	}
 	
 	//getter y setter
 	public Long getId() {

@@ -12,25 +12,25 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.VentanaParadaController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu text="_Opciones">
             <items>
-              <MenuItem mnemonicParsing="false" text="Mostrar Datos" />
-                  <MenuItem mnemonicParsing="false" text="Sellar Carnet" />
-                  <MenuItem mnemonicParsing="false" text="Exportar Datos" />
+              <MenuItem fx:id="itemMostrarDatos" mnemonicParsing="false" text="Mostrar Datos" onAction="#onMostrarDatos"/>
+                  <MenuItem fx:id="itemSellarCarnet" mnemonicParsing="false" text="Sellar Carnet" onAction="#onSellarCarnet"/>
+                  <MenuItem fx:id="itemExportarDatos" mnemonicParsing="false" text="Exportar Datos" onAction="#onExportarDatos"/>
             </items>
           </Menu>
           <Menu text="_Ayuda">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Información de la Ventana" />
+                  <MenuItem fx:id="itemInformacion" mnemonicParsing="false" text="Información de la Ventana" onAction="#onInformacion"/>
             </items>
           </Menu>
           <Menu text="_Salir">
             <items>
-              <MenuItem mnemonicParsing="false" text="Salir" />
+              <MenuItem fx:id="itemSalir" mnemonicParsing="false" text="Salir" onAction="#onCerrarSesion"/>
             </items>
           </Menu>
         </menus>
@@ -39,14 +39,14 @@
    <bottom>
       <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button text="_Cerrar Sesión" />
+            <Button fx:id="btnCerrarSesion" text="_Cerrar Sesión" />
          </children>
       </FlowPane>
    </bottom>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="BIENVENIDO, adminparada" BorderPane.alignment="CENTER">
+            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="BIENVENIDO, adminparada" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -55,17 +55,17 @@
          <center>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button prefWidth="150.0" text="_Mostrar Datos">
+                  <Button fx:id="btnMostrarDatos" prefWidth="150.0" text="_Mostrar Datos" onAction="#onMostrarDatos">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button prefWidth="150.0" text="_Sellar Carnet">
+                  <Button fx:id="btnSellarCarnet" prefWidth="150.0" text="_Sellar Carnet" onAction="#onSellarCarnet">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button prefWidth="150.0" text="E_xportar Datos">
+                  <Button fx:id="btnExportarDatos" prefWidth="150.0" text="E_xportar Datos" onAction="#onExportarDatos">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>

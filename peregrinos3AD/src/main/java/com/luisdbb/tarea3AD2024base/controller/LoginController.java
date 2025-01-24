@@ -9,7 +9,12 @@ import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+import com.luisdbb.tarea3AD2024base.modelo.Parada;
+import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
+import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.User;
+import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
+import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
@@ -46,10 +51,18 @@ public class LoginController implements Initializable{
 	
 	@Autowired
     private UserService userService;
+	
+	@Autowired
+    private PeregrinoService peregrinoService;
+	
+	@Autowired
+    private ParadaService paradaService;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		Sesion.getInstancia().setId(null);
+		Sesion.getInstancia().setNombre("Invitado");
+		Sesion.getInstancia().setTipo("Invitado");
 		
 	}
 	
@@ -65,19 +78,27 @@ public class LoginController implements Initializable{
     				stageManager.switchScene(FxmlView.VENTANA_ADMIN);
     				break;
     			}case "peregrino":{
+    				Peregrino peregrino=peregrinoService.findByUsuario(usuario);
+    				Sesion.getInstancia().setId(peregrino.getId());
+    				Sesion.getInstancia().setNombre(peregrino.getNombre());
+    				Sesion.getInstancia().setTipo("peregrino");
     				stageManager.switchScene(FxmlView.VENTANA_PEREGRINO);
     				break;
     			}case "parada":{
+    				Parada parada=paradaService.findByUsuario(usuario);
+    				Sesion.getInstancia().setId(parada.getId());
+    				Sesion.getInstancia().setNombre(parada.getResponsable());
+    				Sesion.getInstancia().setTipo("parada");
     				stageManager.switchScene(FxmlView.VENTANA_PARADA);
     				break;
     			}default:{
-    				MiAlerta.showInformationAlert("Ha ocurrido un problema con su cuenta, póngase en contacto con el administrador.");
+    				MiAlerta.showErrorAlert("Ha ocurrido un problema con su cuenta, póngase en contacto con el administrador.");
     				break;
     			}
     		}
     		
     	}else{
-    		MiAlerta.showInformationAlert("Las credenciales introducidas no encajan con ninguna cuenta existente. Pruebe otra vez o regístrese."); 
+    		MiAlerta.showWarningAlert("Las credenciales introducidas no encajan con ninguna cuenta existente. Pruebe otra vez o regístrese."); 
     	}
 		
 	}

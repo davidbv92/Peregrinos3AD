@@ -87,7 +87,7 @@ public class RegistroPeregrinoController implements Initializable{
 	
 	public void onRegistrar() {
 		if(camposValidos()) {
-			Carnet c=new Carnet()
+			Carnet c=new Carnet();
 			Peregrino p=new Peregrino();
 		}
 	}

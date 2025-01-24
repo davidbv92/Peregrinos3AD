@@ -41,6 +41,10 @@ public class Peregrino implements Serializable{
 	
 	@OneToOne(cascade=CascadeType.ALL)
     @JoinColumn
+	private User usuario;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn
 	private Carnet carnet;
 	
 	@OneToMany(mappedBy = "peregrino", cascade = CascadeType.ALL)
