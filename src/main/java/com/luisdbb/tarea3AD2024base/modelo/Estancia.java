@@ -86,21 +86,21 @@ public class Estancia implements Serializable{
 		this.vip = vip;
 	}
 
-//	public Peregrino getPeregrino() {
-//		return peregrino;
-//	}
-//
-//	public void setPeregrino(Peregrino peregrino) {
-//		this.peregrino = peregrino;
-//	}
-//
-//	public Parada getParada() {
-//		return parada;
-//	}
-//
-//	public void setParada(Parada parada) {
-//		this.parada = parada;
-//	}
+	public Peregrino getPeregrino() {
+		return peregrino;
+	}
+
+	public void setPeregrino(Peregrino peregrino) {
+		this.peregrino = peregrino;
+	}
+
+	public Parada getParada() {
+		return parada;
+	}
+
+	public void setParada(Parada parada) {
+		this.parada = parada;
+	}
 	
 	
 	//métodos

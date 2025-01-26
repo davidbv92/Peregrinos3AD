@@ -135,6 +135,14 @@ public class Carnet implements Serializable{
 	public void setParadaInicial(Parada paradaInicial) {
 		this.paradaInicial = paradaInicial;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Carnet [id=" + id + ", fechaexp=" + fechaexp + ", distancia=" + distancia + ", nvips=" + nvips
+				+ ", peregrino=" + peregrino.getId() + ", paradaInicial=" + paradaInicial + "]";
+	}
 	
 	
 	//métodos

@@ -21,4 +21,8 @@ public class PeregrinoService {
 		return peregrinoRepository.save(entity);
 	}
 
+	public Peregrino find(Long id) {
+		return peregrinoRepository.findById(id).get();
+	}
+
 }

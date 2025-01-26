@@ -1,6 +1,8 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,17 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Carnet;
+import com.luisdbb.tarea3AD2024base.modelo.Estancia;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+import com.luisdbb.tarea3AD2024base.modelo.Parada;
+import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
+import com.luisdbb.tarea3AD2024base.modelo.Visita;
+import com.luisdbb.tarea3AD2024base.services.CarnetService;
+import com.luisdbb.tarea3AD2024base.services.ParadaService;
+import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
+import com.luisdbb.tarea3AD2024base.services.VisitaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
@@ -48,15 +59,26 @@ public class VentanaPeregrinoController implements Initializable{
 	private Button btnExportarCarnet;
 	@FXML
 	private Button btnCerrarSesion;
-	
+
+	private Peregrino peregrino;
 	
 	@Lazy
     @Autowired
     private StageManager stageManager;
+	@Autowired
+	private PeregrinoService peregrinoService;
+	@Autowired
+	private CarnetService carnetService;
+	@Autowired
+	private ParadaService paradaService;
+	@Autowired
+	private VisitaService visitaService;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//objeto peregrino actual
+		peregrino=peregrinoService.find(Sesion.getInstancia().getId());
 		//personalizar según sesión
 		lblTitulo.setText("BIENVENIDO, "+Sesion.getInstancia().getNombre());
 	}
@@ -69,7 +91,18 @@ public class VentanaPeregrinoController implements Initializable{
 	}
 	
 	public void onExportarCarnet() {
-		MiAlerta.showInformationAlert("Exportar Carnet accionado");
+		List<Visita>visitas=visitaService.findByPeregrino_Id(peregrino.getId());
+		List<Parada> paradas=new ArrayList<>();
+		List<Estancia> estancias=new ArrayList<>();
+		for(Visita v:visitas) {
+			Parada p=paradaService.find(v.getParada().getId());
+			paradas.add(p);
+		}
+		peregrino.setParadas(paradas);
+		peregrino.setEstancias(estancias);
+		Carnet c=carnetService.findByPeregrino_Id(peregrino.getId());
+		peregrino.exportarCarnetXML();
+		MiAlerta.showInformationAlert(peregrino.toString()+"\n"+c.toString());
 	}
 	
 	public void onMostrarDatos() {

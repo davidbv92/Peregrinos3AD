@@ -1,5 +1,6 @@
 package com.luisdbb.tarea3AD2024base.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,9 @@ public class ParadaService {
 
 	public Parada save(Parada entity) {
 		return paradaRepository.save(entity);
+	}
+	
+	public List<Parada> findAll() {
+		return paradaRepository.findAll();
 	}
 }

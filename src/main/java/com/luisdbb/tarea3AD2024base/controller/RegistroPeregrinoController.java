@@ -3,6 +3,8 @@ package com.luisdbb.tarea3AD2024base.controller;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -85,10 +87,27 @@ public class RegistroPeregrinoController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		//cargar los combobox
 		cargarNacionalidades();
+		cargarParadas();
 		
-		cbParadaInicial.getItems().add("1");
-		cbParadaInicial.getItems().add("2");
+	}
+
+	private void cargarParadas() {
+		List<Parada> paradas=paradaService.findAll();
+		List<String> datos=convertirParadasString(paradas);
+		for(String d:datos) {
+			cbParadaInicial.getItems().add(d);
+		}
 		
+		
+	}
+
+	private List<String> convertirParadasString(List<Parada> paradas) {
+		List<String> resultado=new ArrayList<>();
+		for(Parada p:paradas) {
+			String s=p.getId()+": "+p.getNombre()+" ("+p.getRegion()+")";
+			resultado.add(s);
+		}
+		return resultado;
 	}
 
 	private void cargarNacionalidades() {
@@ -141,7 +160,11 @@ public class RegistroPeregrinoController implements Initializable{
 		String nombre=txtNombre.getText();
 		String nacionalidad=(String) cbNacionalidad.getValue();
 		String correo=txtCorreo.getText();
-		Long idParada=Long.parseLong( (String) cbParadaInicial.getValue());
+		
+		String seleccion = (String) cbParadaInicial.getValue();
+		String[]partes = seleccion.split(":"); 
+		String id=partes[0];
+		Long idParada=Long.parseLong(id);
 		
 		
 		Parada parada=paradaService.find(idParada);	
