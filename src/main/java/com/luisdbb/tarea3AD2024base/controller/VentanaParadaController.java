@@ -75,7 +75,7 @@ public class VentanaParadaController implements Initializable {
 	}
 	
 	public void onMostrarDatos() {
-		MiAlerta.showInformationAlert("Mostrar datos accionado");
+		stageManager.switchScene(FxmlView.DATOS_PARADA);
 	}
 	
 	public void onExportarDatos() {
