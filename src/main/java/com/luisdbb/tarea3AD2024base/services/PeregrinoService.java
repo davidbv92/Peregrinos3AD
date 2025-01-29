@@ -1,5 +1,7 @@
 package com.luisdbb.tarea3AD2024base.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,10 @@ public class PeregrinoService {
 
 	public Peregrino find(Long id) {
 		return peregrinoRepository.findById(id).get();
+	}
+
+	public List<Peregrino> findAll() {
+		return peregrinoRepository.findAll();
 	}
 
 }

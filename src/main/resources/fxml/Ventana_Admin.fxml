@@ -11,24 +11,23 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.VentanaAdminController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu text="_Opciones">
             <items>
-                  <MenuItem fx:id="itemRegistrarParada" mnemonicParsing="false" text="Registrar Nueva Parada" onAction="#onRegistrarParada"/>
+                  <MenuItem fx:id="itemRegistrarParada" mnemonicParsing="false" onAction="#onRegistrarParada" text="Registrar Nueva Parada" />
             </items>
           </Menu>
           <Menu text="_Ayuda">
             <items>
-                  <MenuItem fx:id="itemInformacion" mnemonicParsing="false" text="Información de la Ventana" onAction="#onInformacion"/>
+                  <MenuItem fx:id="itemInformacion" mnemonicParsing="false" onAction="#onInformacion" text="Información de la Ventana" />
             </items>
           </Menu>
           <Menu text="_Salir">
             <items>
-              <MenuItem fx:id="itemSalir" mnemonicParsing="false" text="Salir" onAction="#onCerrarSesion"/>
+              <MenuItem fx:id="itemSalir" mnemonicParsing="false" onAction="#onCerrarSesion" text="Salir" />
             </items>
           </Menu>
         </menus>
@@ -37,7 +36,7 @@
    <bottom>
       <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCerrarSesion" text="_Cerrar Sesión" onAction="#onCerrarSesion"/>
+            <Button fx:id="btnCerrarSesion" onAction="#onCerrarSesion" prefWidth="100.0" text="_Cerrar Sesión" />
          </children>
       </FlowPane>
    </bottom>
@@ -53,7 +52,7 @@
          <center>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnRegistrarParada" prefWidth="150.0" text="_Registrar Nueva Parada" onAction="#onRegistrarParada">
+                  <Button fx:id="btnRegistrarParada" onAction="#onRegistrarParada" prefWidth="150.0" text="_Registrar Nueva Parada">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>

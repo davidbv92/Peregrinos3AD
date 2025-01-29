@@ -98,6 +98,9 @@ public class StageManager {
         modalStage.setTitle(title);
         Scene scene = new Scene(rootnode);
         modalStage.setScene(scene);
+        modalStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/concha.png")));
+        modalStage.setX(primaryStage.getX() + 100);
+        modalStage.setY(primaryStage.getY() + 100);
         modalStage.showAndWait();
     }
     

@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -40,9 +41,9 @@ public class DatosParadaController implements Initializable{
 	@FXML
 	private DatePicker fechaFin;
 	@FXML
-	private DatePicker mostrarFechaInicio;
+	private TextField mostrarFechaInicio;
 	@FXML
-	private DatePicker mostrarFechaFin;
+	private TextField mostrarFechaFin;
 	@FXML
 	private Button btnBuscar;
 	@FXML
@@ -98,8 +99,9 @@ public class DatosParadaController implements Initializable{
 			txtId.setText(parada.getId().toString());
 			txtNombre.setText(parada.getNombre());
 			txtRegion.setText(parada.getRegion()+"");
-			mostrarFechaInicio.setValue(fechaInicioSeleccionada);
-			mostrarFechaFin.setValue(fechaFinSeleccionada);
+			DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			mostrarFechaInicio.setText(fechaInicioSeleccionada.format(formato));
+			mostrarFechaFin.setText(fechaFinSeleccionada.format(formato));
 		}
 		
 	}

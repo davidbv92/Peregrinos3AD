@@ -16,53 +16,39 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<<<<<<< HEAD
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-=======
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.DatosParadaController">
->>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
    <top>
       <FlowPane alignment="CENTER" prefHeight="100.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 0 0 3px 0;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Fecha Inicio:">
+            <Label text="Fecha Inicio:" textFill="#00528c">
                <FlowPane.margin>
                   <Insets right="5.0" />
                </FlowPane.margin>
             </Label>
-<<<<<<< HEAD
-            <DatePicker prefWidth="150.0">
-=======
             <DatePicker fx:id="fechaInicio" prefWidth="150.0">
->>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
                <FlowPane.margin>
                   <Insets right="15.0" />
                </FlowPane.margin>
             </DatePicker>
-            <Label text="Fecha Fin:">
+            <Label text="Fecha Fin:" textFill="#00528c">
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
-<<<<<<< HEAD
-            <DatePicker prefWidth="150.0">
-=======
             <DatePicker fx:id="fechaFin" prefWidth="150.0">
->>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
                <FlowPane.margin>
                   <Insets right="30.0" />
                </FlowPane.margin>
             </DatePicker>
-<<<<<<< HEAD
-            <Button text="_Buscar Datos" />
-=======
-            <Button fx:id="btnBuscar" text="_Buscar Datos" onAction="#onBuscar"/>
->>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
+            <Button fx:id="btnBuscar" onAction="#onBuscar" prefHeight="0.0" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Buscar Datos" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
          </children>
       </FlowPane>
    </top>
    <center>
-      <HBox prefHeight="500.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: #00528c;" BorderPane.alignment="CENTER">
          <children>
             <GridPane prefHeight="500.0" prefWidth="250.0">
               <columnConstraints>
@@ -77,24 +63,31 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="ID:" />
-                  <Label text="Nombre:" GridPane.rowIndex="1" />
-                  <Label text="Fecha Fin:" GridPane.rowIndex="4" />
-                  <Label text="Región:" GridPane.rowIndex="2" />
-                  <Label text="Fecha Inicio:" GridPane.rowIndex="3" />
-<<<<<<< HEAD
-                  <TextField editable="false" GridPane.columnIndex="1" />
-                  <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-=======
+                  <Label text="ID:" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Nombre:" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Fecha Fin:" textFill="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Región:" textFill="WHITE" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <Label text="Fecha Inicio:" textFill="WHITE" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
                   <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
                   <TextField fx:id="txtNombre" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="txtRegion" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <DatePicker fx:id="mostrarFechaInicio" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <DatePicker fx:id="mostrarFechaFin" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
->>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
+                  <TextField fx:id="mostrarFechaInicio" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="mostrarFechaFin" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" top="10.0" />
@@ -102,24 +95,17 @@
             </GridPane>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="350.0">
                <children>
-                  <Label text="Estancias">
+                  <Label text="Estancias" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-<<<<<<< HEAD
-                  <TableView prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-=======
                   <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn fx:id="colId" text="ID" />
 				      <TableColumn fx:id="colPeregrino" text="Peregrino" />
 				      <TableColumn fx:id="colFecha" text="Fecha" />
 				      <TableColumn fx:id="colVip" text="VIP" />
->>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
                     </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />

@@ -71,15 +71,13 @@ public class VentanaParadaController implements Initializable {
 	}
 	
 	public void onSellarCarnet() {
-		MiAlerta.showInformationAlert("Sellar Carnet accionado");
+		//MiAlerta.showInformationAlert("Sellar Carnet accionado");
+		stageManager.switchScene(FxmlView.VENTANA_SELLADO);
 	}
 	
 	public void onMostrarDatos() {
-<<<<<<< HEAD
-		MiAlerta.showInformationAlert("Mostrar datos accionado");
-=======
-		stageManager.switchScene(FxmlView.DATOS_PARADA);
->>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
+		//MiAlerta.showInformationAlert("Mostrar datos accionado");
+		stageManager.openModal(FxmlView.DATOS_PARADA);
 	}
 	
 	public void onExportarDatos() {
