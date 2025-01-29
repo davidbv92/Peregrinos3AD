@@ -8,9 +8,9 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.VentanaPeregrinoController">
    <top>
@@ -18,60 +18,120 @@
         <menus>
           <Menu text="_Opciones">
             <items>
-              <MenuItem fx:id="itemMostrarDatos" mnemonicParsing="false" text="Mostrar Carnet" onAction="#onMostrarDatos"/>
-                  <MenuItem fx:id="itemModificarDatos" mnemonicParsing="false" text="Modificar Datos " onAction="#onModificarDatos"/>
-                  <MenuItem fx:id="itemExportarCarnet" mnemonicParsing="false" text="Exportar Carnet" onAction="#onExportarCarnet"/>
+              <MenuItem fx:id="itemMostrarDatos" mnemonicParsing="false" onAction="#onMostrarDatos" text="Mostrar Carnet" />
+                  <MenuItem fx:id="itemModificarDatos" mnemonicParsing="false" onAction="#onModificarDatos" text="Modificar Datos " />
+                  <MenuItem fx:id="itemExportarCarnet" mnemonicParsing="false" onAction="#onExportarCarnet" text="Exportar Carnet" />
             </items>
           </Menu>
           <Menu text="_Ayuda">
             <items>
-                  <MenuItem fx:id="itemInformacion" mnemonicParsing="false" text="Información de la Ventana" onAction="#onInformacion"/>
+                  <MenuItem fx:id="itemInformacion" mnemonicParsing="false" onAction="#onInformacion" text="Información de la Ventana" />
             </items>
           </Menu>
           <Menu text="_Salir">
             <items>
-              <MenuItem fx:id="itemSalir" mnemonicParsing="false" text="Salir" onAction="#onCerrarSesion"/>
+              <MenuItem fx:id="itemSalir" mnemonicParsing="false" onAction="#onCerrarSesion" text="Salir" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
    </top>
-   <bottom>
-      <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnCerrarSesion" text="_Cerrar Sesión" onAction="#onCerrarSesion"/>
-         </children>
-      </FlowPane>
-   </bottom>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="BIENVENIDO, PEREGRINO" BorderPane.alignment="CENTER">
+            <Label fx:id="lblTitulo" alignment="CENTER" prefHeight="50.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 0 0 2px 0;" text="BIENVENIDO, PEREGRINO" textFill="#00528c" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </top>
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnMostrarDatos" prefWidth="150.0" text="_Mostrar Datos" onAction="#onMostrarDatos">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnModificarDatos" prefWidth="150.0" text="Mo_dificar Datos" onAction="#onModificarDatos">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="btnExportarCarnet" prefWidth="150.0" text="E_xportar Carnet" onAction="#onExportarCarnet">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
+                  <BorderPane prefHeight="200.0" prefWidth="300.0" style="-fx-border-width: 0 2px 0 0; -fx-border-color: black; -fx-background-color: #00528c;">
+                     <top>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="DATOS PERSONALES" textFill="WHITE" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </top>
+                     <center>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label text="Nombre:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Usuario:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Correo:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </center>
+                     <bottom>
+                        <FlowPane prefHeight="50.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                  </BorderPane>
+                  <BorderPane prefHeight="200.0" prefWidth="300.0">
+                     <center>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="btnMostrarDatos" onAction="#onMostrarDatos" prefWidth="150.0" style="-fx-background-color: #00528c;" text="_Mostrar Datos" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnModificarDatos" onAction="#onModificarDatos" prefWidth="150.0" style="-fx-background-color: #00528c;" text="Mo_dificar Datos" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnExportarCarnet" onAction="#onExportarCarnet" prefWidth="150.0" style="-fx-background-color: #00528c;" text="E_xportar Carnet" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </center>
+                     <top>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="FUNCIONES" textFill="#00528c" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </top>
+                     <bottom>
+                        <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="btnCerrarSesion" onAction="#onCerrarSesion" style="-fx-background-color: #00528c;" text="_Cerrar Sesión" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font></Button>
+                           </children>
+                        </FlowPane>
+                     </bottom>
+                  </BorderPane>
                </children>
-            </VBox>
+            </HBox>
          </center>
       </BorderPane>
    </center>

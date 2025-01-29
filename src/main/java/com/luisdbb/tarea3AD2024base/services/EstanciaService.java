@@ -1,0 +1,22 @@
+package com.luisdbb.tarea3AD2024base.services;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.luisdbb.tarea3AD2024base.modelo.Estancia;
+import com.luisdbb.tarea3AD2024base.modelo.Parada;
+import com.luisdbb.tarea3AD2024base.repositorios.EstanciaRepository;
+
+@Service
+public class EstanciaService {
+
+	@Autowired
+	private EstanciaRepository estanciaRepository;
+	
+	public List<Estancia> findByFechaBetweenAndParada(LocalDate fechaInicio, LocalDate fechaFin, Parada parada){
+		return estanciaRepository.findByFechaBetweenAndParada(fechaInicio, fechaFin, parada);
+	}
+}

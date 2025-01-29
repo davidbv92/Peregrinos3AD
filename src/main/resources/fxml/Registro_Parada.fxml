@@ -23,17 +23,17 @@
    <bottom>
       <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnLimpiar" text="_Limpiar" onAction="#onLimpiar">
+            <Button fx:id="btnLimpiar" onAction="#onLimpiar" text="_Limpiar">
                <FlowPane.margin>
                   <Insets left="10.0" right="10.0" />
                </FlowPane.margin>
             </Button>
-            <Button fx:id="btnSalir" text="_Salir" onAction="#onSalir">
+            <Button fx:id="btnSalir" onAction="#onSalir" text="_Salir">
                <FlowPane.margin>
                   <Insets left="10.0" right="10.0" />
                </FlowPane.margin>
             </Button>
-            <Button fx:id="btnRegistrar" text="_Registrar" onAction="#onRegistrar">
+            <Button fx:id="btnRegistrar" onAction="#onRegistrar" text="_Registrar">
                <FlowPane.margin>
                   <Insets left="10.0" right="10.0" />
                </FlowPane.margin>
@@ -47,8 +47,10 @@
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="40.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="50.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -57,93 +59,43 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label text="Responsable:">
-                     <FlowPane.margin>
-                        <Insets right="3.0" />
-                     </FlowPane.margin>
-                  </Label>
-                  <TextField fx:id="txtResponsable" promptText="nombre completo">
-                     <FlowPane.margin>
-                        <Insets left="10.0" />
-                     </FlowPane.margin>
-                  </TextField>
-               </children>
-            </FlowPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <Label text="Usuario:">
-                     <FlowPane.margin>
-                        <Insets right="45.0" />
-                     </FlowPane.margin>
-                  </Label>
-                  <TextField fx:id="txtUsuario" promptText="nombre de usuario">
-                     <FlowPane.margin>
-                        <Insets left="10.0" />
-                     </FlowPane.margin>
-                  </TextField>
-               </children>
-            </FlowPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-               <children>
-                  <Label text="Contraseña:">
-                     <FlowPane.margin>
-                        <Insets right="10.0" />
-                     </FlowPane.margin>
-                  </Label>
-                  <PasswordField fx:id="txtPassword" promptText="contraseña">
-                     <FlowPane.margin>
-                        <Insets left="10.0" />
-                     </FlowPane.margin>
-                  </PasswordField>
-               </children>
-            </FlowPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Label text="Conf. contraseña:" />
-                  <PasswordField fx:id="txtPassword2" promptText="confirmar contraseña">
-                     <FlowPane.margin>
-                        <Insets left="10.0" />
-                     </FlowPane.margin>
-                  </PasswordField>
-               </children>
-            </FlowPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-               <children>
-                  <Label text="Correo elec.:">
-                     <padding>
-                        <Insets right="8.0" />
-                     </padding>
-                  </Label>
-                  <TextField fx:id="txtCorreo" promptText="correo electrónico">
-                     <FlowPane.margin>
-                        <Insets left="10.0" />
-                     </FlowPane.margin>
-                  </TextField>
-               </children>
-            </FlowPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <Label text="Nombre Parada:">
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding>
-                  </Label>
-                  <TextField fx:id="txtNombreParada" promptText="nombre de la parada" />
-               </children>
-            </FlowPane>
-            <FlowPane alignment="CENTER" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
-               <children>
-                  <Label text="Región:">
-                     <FlowPane.margin>
-                        <Insets right="45.0" />
-                     </FlowPane.margin>
-                  </Label>
-                  <TextField fx:id="txtRegion" promptText="región de la parada" />
-               </children>
-            </FlowPane>
+            <Label text="Responsable:" />
+            <TextField fx:id="txtResponsable" promptText="nombre completo" GridPane.columnIndex="1" />
+            <Label text="Contraseña:" GridPane.rowIndex="1" />
+            <PasswordField fx:id="txtPassword" prefWidth="150.0" promptText="contraseña" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Correo elec.:" GridPane.rowIndex="2">
+               <padding>
+                  <Insets right="8.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtCorreo" promptText="correo electrónico" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Región:" GridPane.rowIndex="3" />
+            <TextField fx:id="txtRegion" promptText="región de la parada" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Usuario:" GridPane.columnIndex="2">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtUsuario" promptText="nombre de usuario" GridPane.columnIndex="3" />
+            <Label text="Conf. contraseña:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <PasswordField fx:id="txtPassword2" promptText="confirmar contraseña" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="Nombre Parada:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="txtNombreParada" promptText="nombre de la parada" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" />
+         </BorderPane.margin>
       </GridPane>
    </center>
 </BorderPane>

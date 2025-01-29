@@ -76,6 +76,21 @@ public enum FxmlView {
 			return "/fxml/Registro_Parada.fxml";
 		}
 		
+<<<<<<< HEAD
+=======
+	},DATOS_PARADA{
+
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("datosParada.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/DatosParada.fxml";
+		}
+		
+>>>>>>> 2a9e288fa9e52d479f8307f125b075f77c9a2b91
 	};
 
 	public abstract String getTitle();
