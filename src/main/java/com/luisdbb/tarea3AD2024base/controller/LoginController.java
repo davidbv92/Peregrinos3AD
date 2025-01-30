@@ -24,6 +24,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author David Ballesteros
@@ -36,6 +38,8 @@ public class LoginController implements Initializable{
     private TextField txtUsuario;
 	@FXML
     private PasswordField txtPassword;
+	@FXML
+	private TextField txtPasswordVisible;
 	
 	@FXML
 	private Hyperlink linkRegistro;
@@ -44,6 +48,15 @@ public class LoginController implements Initializable{
 	
 	@FXML
 	private Button btnInicioSesion;
+	@FXML
+	private Button btnMostrar;
+	@FXML
+	private Button btnOcultar;
+	
+	@FXML
+	private FlowPane panelEncriptado;
+	@FXML
+	private FlowPane panelDesencriptado;
 	
 	@Lazy
     @Autowired
@@ -104,7 +117,12 @@ public class LoginController implements Initializable{
 	}
 	
 	public String getPassword() {
-		return txtPassword.getText();
+		if(panelEncriptado.isVisible()) {
+			return txtPassword.getText();
+		}else {
+			return txtPasswordVisible.getText();
+		}
+		
 	}
 
 	public String getUsername() {
@@ -117,6 +135,20 @@ public class LoginController implements Initializable{
 	
 	public void onRegistrarse() {
 		stageManager.switchScene(FxmlView.REGISTRO_PEREGRINO);
+	}
+	
+	public void onMostrar() {
+		txtPasswordVisible.setText(txtPassword.getText());
+		panelDesencriptado.setVisible(true);
+		panelEncriptado.setVisible(false);
+		txtPasswordVisible.requestFocus();
+	}
+	
+	public void onOcultar() {
+		txtPassword.setText(txtPasswordVisible.getText());
+		panelEncriptado.setVisible(true);
+		panelDesencriptado.setVisible(false);
+		txtPassword.requestFocus();
 	}
 
 }

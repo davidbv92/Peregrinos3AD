@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.Estancia;
+import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
@@ -108,8 +109,20 @@ public class DatosParadaController implements Initializable{
 
 
 	private boolean validarFechas() {
-		// TODO Auto-generated method stub
-		return true;
+		LocalDate fechaInicioSeleccionada=fechaInicio.getValue();
+		LocalDate fechaFinSeleccionada=fechaFin.getValue();
+		if(fechaInicioSeleccionada.isAfter(LocalDate.now())) {
+			MiAlerta.showErrorAlert("La fecha de inicio introducida es posterior a la fecha actual. No se permiten valores posteriores a la fecha actual." );
+			return false;
+		}else if(fechaFinSeleccionada.isAfter(LocalDate.now())) {
+			MiAlerta.showErrorAlert("La fecha de fin introducida es posterior a la fecha actual. No se permiten valores posteriores a la fecha actual." );
+			return false;
+		}else if(fechaInicioSeleccionada.isAfter(fechaFinSeleccionada)) {
+			MiAlerta.showErrorAlert("La fecha de inicio introducida es posterior a la fecha de fin. No se permiten esos valores." );
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 }

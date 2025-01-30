@@ -28,4 +28,8 @@ public class EstanciaService {
 	public List<Estancia> findByPeregrino(Peregrino peregrino){
 		return estanciaRepository.findByPeregrino(peregrino);
 	}
+	
+	public boolean existsByPeregrinoAndParadaAndFecha(Peregrino peregrino, Parada parada, LocalDate fecha) {
+		return estanciaRepository.existsByPeregrinoAndParadaAndFecha(peregrino,parada,fecha);
+	}
 }

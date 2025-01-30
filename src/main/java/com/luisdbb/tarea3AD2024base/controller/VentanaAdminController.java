@@ -14,7 +14,9 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCombination;
 
 /**
  * @author David Ballesteros
@@ -35,6 +37,15 @@ public class VentanaAdminController implements Initializable{
 	@FXML
 	private Button btnCerrarSesion;
 	
+	@FXML
+	private Label lblNumeroPeregrinos;
+	@FXML
+	private Label lblNumeroParadas;
+	@FXML
+	private Label lblParadaFrecuente;
+	@FXML
+	private Label lblPeregrinoActivo;
+	
 	@Lazy
     @Autowired
     private StageManager stageManager;
@@ -43,7 +54,13 @@ public class VentanaAdminController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		//acelerator
+		itemRegistrarParada.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
+		itemInformacion.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
+        itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+
+		//mostrar campos de la izq de la ventana
+		//lblNumeroPeregrinos.setText("Peregrinos registrados: "+peregrinoService);
 		
 	}
 	

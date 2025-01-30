@@ -198,6 +198,14 @@ public class VentanaSelladoController implements Initializable{
 				Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
 				carnet.setDistancia(carnet.getDistancia()+5.0);
 			}
+		}else if(puedeEstanciar() && quiereEstancia){
+			Estancia estancia=new Estancia();
+			estancia.setFecha(LocalDate.now());
+			estancia.setParada(parada);
+			estancia.setPeregrino(peregrino);
+			estancia.setVip(quiereVip);
+			estanciaService.save(estancia);
+			MiAlerta.showInformationAlert("Estancia registrada correctamente", "Se ha registrado la estancia correctamente, no se ha realizado el sellado puesto que ya ha sellado hoy en esta parada");
 		}else {
 			MiAlerta.showWarningAlert("No puede sellar aquí su carnet, ya ha sido sellado hoy en esta parada.");
 		}
@@ -205,13 +213,21 @@ public class VentanaSelladoController implements Initializable{
 
 
 	private boolean puedeEstanciar() {
-		// TODO Auto-generated method stub
+		boolean existe=estanciaService.existsByPeregrinoAndParadaAndFecha(peregrino, parada, LocalDate.now());
+		if(existe) {
+			//MiAlerta.showWarningAlert("Error en la estanciación del peregrino", "El peregrino ya tiene una estancia hoy en esta parada" );
+			return false;
+		}
 		return true;
 	}
 
 
 	private boolean puedeSellar() {
-		// TODO Auto-generated method stub
+		boolean existe=visitaService.existsByPeregrinoAndParadaAndFecha(peregrino, parada, LocalDate.now());
+		if(existe) {
+			//MiAlerta.showWarningAlert("Error en el sellado del carnet", "El peregrino ya ha sido sellado hoy en esta parada" );
+			return false;
+		}
 		return true;
 	}
 	

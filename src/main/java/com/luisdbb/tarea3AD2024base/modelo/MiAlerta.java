@@ -15,6 +15,14 @@ public class MiAlerta {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
+	
+	public static void showInformationAlert(String titulo,String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Información");
+		alert.setHeaderText(titulo);
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
 
 	public static void showWarningAlert(String message) {
 		Alert alert = new Alert(AlertType.WARNING);
@@ -23,11 +31,27 @@ public class MiAlerta {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
+	
+	public static void showWarningAlert(String titulo,String message) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Advertencia");
+		alert.setHeaderText(titulo);
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
 
 	public static void showErrorAlert(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		alert.setHeaderText(null);
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+	
+	public static void showErrorAlert(String titulo,String message) {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText(titulo);
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
@@ -41,4 +65,14 @@ public class MiAlerta {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
     }
+	
+	public static boolean showConfirmationAlert(String titulo,String message) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmación");
+		alert.setHeaderText(titulo);
+		alert.setContentText(message);
+		
+		Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+	}
 }

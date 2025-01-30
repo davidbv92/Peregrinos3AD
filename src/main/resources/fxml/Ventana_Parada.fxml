@@ -122,7 +122,7 @@
                      <bottom>
                         <FlowPane alignment="CENTER" prefHeight="50.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="btnCerrarSesion" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Cerrar Sesión" textFill="WHITE">
+                              <Button fx:id="btnCerrarSesion" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Cerrar Sesión" textFill="WHITE" onAction="#onCerrarSesion">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

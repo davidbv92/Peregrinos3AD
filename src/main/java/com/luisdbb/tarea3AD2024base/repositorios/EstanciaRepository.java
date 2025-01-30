@@ -25,6 +25,7 @@ public interface EstanciaRepository extends JpaRepository<Estancia, Long>{
     
     List<Estancia> findByParada(Parada parada);
 
+    boolean existsByPeregrinoAndParadaAndFecha(Peregrino peregrino, Parada parada, LocalDate fecha);
     
     List<Estancia> findByFechaBetweenAndParada(LocalDate fechaInicio, LocalDate fechaFin, Parada parada);
 

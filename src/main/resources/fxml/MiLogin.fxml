@@ -10,6 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -39,11 +40,33 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField fx:id="txtPassword" promptText="contraseña">
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </PasswordField>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <FlowPane fx:id="panelEncriptado" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <PasswordField fx:id="txtPassword" prefHeight="25.0" prefWidth="180.0" promptText="contraseña" />
+                              <Button fx:id="btnMostrar" text="_Mostrar" onAction="#onMostrar">
+                                 <FlowPane.margin>
+                                    <Insets left="22.0" />
+                                 </FlowPane.margin>
+                              </Button>
+                           </children>
+                        </FlowPane>
+                        <FlowPane fx:id="panelDesencriptado" prefHeight="200.0" prefWidth="200.0" visible="false">
+                           <children>
+                              <TextField fx:id="txtPasswordVisible" prefHeight="25.0" prefWidth="180.0" promptText="contraseña" />
+                              <Button fx:id="btnOcultar" text="_Ocultar" onAction="#onOcultar">
+                                 <FlowPane.margin>
+                                    <Insets left="25.0" />
+                                 </FlowPane.margin>
+                              </Button>
+                           </children>
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                        </FlowPane>
+                     </children>
+                  </StackPane>
                   <FlowPane prefHeight="200.0" prefWidth="71.0">
                      <children>
                         <HBox prefHeight="33.0" prefWidth="260.0">
