@@ -98,7 +98,7 @@
                               <Insets right="20.0" />
                            </FlowPane.margin>
                         </Button>
-                        <Button fx:id="btnSellar" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Sellar" textFill="WHITE" >
+                        <Button fx:id="btnSellar" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Sellar" textFill="WHITE" onAction="#onSellar">
                            <FlowPane.margin>
                               <Insets left="20.0" />
                            </FlowPane.margin>

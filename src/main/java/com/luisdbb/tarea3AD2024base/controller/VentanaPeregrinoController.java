@@ -18,6 +18,7 @@ import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.Visita;
 import com.luisdbb.tarea3AD2024base.services.CarnetService;
+import com.luisdbb.tarea3AD2024base.services.EstanciaService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.services.VisitaService;
@@ -73,6 +74,8 @@ public class VentanaPeregrinoController implements Initializable{
 	private ParadaService paradaService;
 	@Autowired
 	private VisitaService visitaService;
+	@Autowired
+	private EstanciaService estanciaService;
 	
 	
 	@Override
@@ -98,6 +101,7 @@ public class VentanaPeregrinoController implements Initializable{
 			Parada p=paradaService.find(v.getParada().getId());
 			paradas.add(p);
 		}
+		estancias=estanciaService.findByPeregrino(peregrino);
 		peregrino.setParadas(paradas);
 		peregrino.setEstancias(estancias);
 		Carnet c=carnetService.findByPeregrino_Id(peregrino.getId());

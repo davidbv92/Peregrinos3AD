@@ -19,4 +19,8 @@ public class CarnetService {
 	public Carnet findByPeregrino_Id(Long id) {
 		return carnetRepository.findByPeregrino_Id(id);
 	}
+	
+	public Carnet save(Carnet entity) {
+		return carnetRepository.save(entity);
+	}
 }

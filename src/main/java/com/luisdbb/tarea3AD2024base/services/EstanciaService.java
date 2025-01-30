@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.luisdbb.tarea3AD2024base.modelo.Estancia;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
+import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.repositorios.EstanciaRepository;
 
 @Service
@@ -18,5 +19,13 @@ public class EstanciaService {
 	
 	public List<Estancia> findByFechaBetweenAndParada(LocalDate fechaInicio, LocalDate fechaFin, Parada parada){
 		return estanciaRepository.findByFechaBetweenAndParada(fechaInicio, fechaFin, parada);
+	}
+	
+	public Estancia save(Estancia entity) {
+		return estanciaRepository.save(entity);
+	}
+	
+	public List<Estancia> findByPeregrino(Peregrino peregrino){
+		return estanciaRepository.findByPeregrino(peregrino);
 	}
 }

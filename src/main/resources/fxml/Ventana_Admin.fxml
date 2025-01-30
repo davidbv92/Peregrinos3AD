@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -33,32 +34,89 @@
         </menus>
       </MenuBar>
    </top>
-   <bottom>
-      <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnCerrarSesion" onAction="#onCerrarSesion" prefWidth="100.0" text="_Cerrar Sesión" />
-         </children>
-      </FlowPane>
-   </bottom>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="BIENVENIDO, admin" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 0 0 2px 0;" text="BIENVENIDO, admin" textFill="#00528c" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
          </top>
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnRegistrarParada" onAction="#onRegistrarParada" prefWidth="150.0" text="_Registrar Nueva Parada">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Button>
+                  <BorderPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #00528c; -fx-border-width: 0 2px 0 0; -fx-border-color: black;">
+                     <top>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="DATOS DE LA APLICACIÓN" textFill="WHITE" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </top>
+                     <center>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label text="Peregrinos registrados:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Paradas disponibles:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Parada más frecuentada:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="Peregrino más activo:" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </center>
+                  </BorderPane>
+                  <BorderPane prefHeight="200.0" prefWidth="300.0">
+                     <center>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="btnRegistrarParada" onAction="#onRegistrarParada" prefWidth="150.0" style="-fx-background-color: #00528c;" text="_Registrar Nueva Parada" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </center>
+                     <top>
+                        <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" text="FUNCIONES" textFill="#00528c" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </top>
+                     <bottom>
+                        <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button fx:id="btnCerrarSesion" onAction="#onCerrarSesion" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Cerrar Sesión" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </FlowPane>
+                     </bottom>
+                  </BorderPane>
                </children>
-            </VBox>
+            </HBox>
          </center>
       </BorderPane>
    </center>

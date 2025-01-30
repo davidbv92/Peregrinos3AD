@@ -1,6 +1,7 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -10,10 +11,15 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Carnet;
+import com.luisdbb.tarea3AD2024base.modelo.Estancia;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
+import com.luisdbb.tarea3AD2024base.modelo.Sesion;
+import com.luisdbb.tarea3AD2024base.modelo.Visita;
 import com.luisdbb.tarea3AD2024base.services.CarnetService;
+import com.luisdbb.tarea3AD2024base.services.EstanciaService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.services.VisitaService;
@@ -76,10 +82,17 @@ public class VentanaSelladoController implements Initializable{
 	private CarnetService carnetService;
 	@Autowired
 	private VisitaService visitaService;
+	@Autowired
+	private EstanciaService estanciaService;
+	
+	private Parada parada=new Parada();
+	
+	private Peregrino peregrino=new Peregrino();
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		parada=paradaService.find(Sesion.getInstancia().getId());
 		//cargar combobox de peregrinos
 		cargarPeregrinos();
 		//poner vips desactivados de inicio
@@ -100,6 +113,7 @@ public class VentanaSelladoController implements Initializable{
 			} 
 		}); 
 		
+		//listener para activar/desactivar grupoVip
 		cbPeregrinos.valueProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -108,7 +122,7 @@ public class VentanaSelladoController implements Initializable{
 					String[] partes=newValue.split(":");
 					String idS=partes[0];
 					Long id=Long.parseLong(idS);
-					Peregrino peregrino=peregrinoService.find(id);
+					peregrino=peregrinoService.find(id);
 					lblId.setText("Id: "+peregrino.getId());
 					lblNombre.setText("Nombre: "+peregrino.getNombre());
 					lblNacionalidad.setText("Nacionalidad: "+peregrino.getNacionalidad());
@@ -120,11 +134,7 @@ public class VentanaSelladoController implements Initializable{
 			
 		});
 		
-		
-		
-		
-		
-		//listener para activar/desactivar grupoVip
+
 		
 	}
 
@@ -155,6 +165,54 @@ public class VentanaSelladoController implements Initializable{
 			stageManager.switchScene(FxmlView.VENTANA_PARADA);
 			
 		}
+	}
+	
+	public void onSellar() {
+		boolean quiereEstancia=rdbtnEstanciaSi.isSelected();
+		boolean quiereVip=rdbtnVipSi.isSelected();
+		if(puedeSellar()) {
+			if(puedeEstanciar() && quiereEstancia) {
+				//añadir estancia y actualizar carnet y añadir visita
+				Estancia estancia=new Estancia();
+				estancia.setFecha(LocalDate.now());
+				estancia.setParada(parada);
+				estancia.setPeregrino(peregrino);
+				estancia.setVip(quiereVip);
+				Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
+				carnet.setDistancia(carnet.getDistancia()+5.0);
+				if(quiereVip) {
+					carnet.setNvips(carnet.getNvips()+1);
+				}
+				Visita visita=new Visita();
+				visita.setFecha(LocalDate.now());
+				visita.setParada(parada);
+				visita.setPeregrino(peregrino);
+				
+				carnetService.save(carnet);
+				estanciaService.save(estancia);
+				visitaService.save(visita);
+			}else if(quiereEstancia && !puedeEstanciar()) {
+				MiAlerta.showWarningAlert("No puede estanciarse, ya tiene una estancia en esta parada hoy.");
+			}else if(!quiereEstancia) {
+				//sellar carnet y añadir visita
+				Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
+				carnet.setDistancia(carnet.getDistancia()+5.0);
+			}
+		}else {
+			MiAlerta.showWarningAlert("No puede sellar aquí su carnet, ya ha sido sellado hoy en esta parada.");
+		}
+	}
+
+
+	private boolean puedeEstanciar() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	private boolean puedeSellar() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }
