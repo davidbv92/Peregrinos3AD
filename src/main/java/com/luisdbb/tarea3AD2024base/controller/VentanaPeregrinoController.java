@@ -29,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCombination;
 
 /**
  * @author David Ballesteros
@@ -51,6 +52,12 @@ public class VentanaPeregrinoController implements Initializable{
 	
 	@FXML
 	private Label lblTitulo;
+	@FXML
+	private Label lblNombre;
+	@FXML
+	private Label lblUsuario;
+	@FXML
+	private Label lblCorreo;
 	
 	@FXML
 	private Button btnMostrarDatos;
@@ -80,17 +87,30 @@ public class VentanaPeregrinoController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//poner shortcuts
+		itemMostrarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+M"));
+		itemModificarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+D"));
+		itemExportarCarnet.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
+		itemInformacion.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
+        itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 		//objeto peregrino actual
 		peregrino=peregrinoService.find(Sesion.getInstancia().getId());
 		//personalizar según sesión
-		lblTitulo.setText("BIENVENIDO, "+Sesion.getInstancia().getNombre());
+		lblTitulo.setText("BIENVENIDO, "+peregrino.getUsuario().getUsuario().toUpperCase());
+		lblNombre.setText("Nombre: "+peregrino.getNombre());
+		lblUsuario.setText("Usuario: "+peregrino.getUsuario().getUsuario());
+		lblCorreo.setText("Correo: "+peregrino.getUsuario().getEmail());
 	}
 	
 	public void onCerrarSesion() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas cerrar tu sesión para volver a la ventana de inicio de sesión?");
 		if(res) {
+			Sesion.getInstancia().setId(0L);
+			Sesion.getInstancia().setNombre("Invitado");
+			Sesion.getInstancia().setTipo("Invitado");
 			stageManager.switchScene(FxmlView.LOGIN);
 		}
+		
 	}
 	
 	public void onExportarCarnet() {
@@ -106,7 +126,7 @@ public class VentanaPeregrinoController implements Initializable{
 		peregrino.setEstancias(estancias);
 		Carnet c=carnetService.findByPeregrino_Id(peregrino.getId());
 		peregrino.exportarCarnetXML();
-		MiAlerta.showInformationAlert(peregrino.toString()+"\n"+c.toString());
+		MiAlerta.showInformationAlert("Exportación exitosa","Puede ver su carnet en: src/main/resources/files/"+peregrino.getNombre()+"_peregrino.xml");
 	}
 	
 	public void onMostrarDatos() {

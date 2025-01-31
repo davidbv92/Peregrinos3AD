@@ -3,7 +3,6 @@ package com.luisdbb.tarea3AD2024base.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

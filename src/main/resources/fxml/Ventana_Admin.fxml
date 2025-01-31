@@ -37,7 +37,7 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <top>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 0 0 2px 0;" text="BIENVENIDO, admin" textFill="#00528c" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" style="-fx-border-color: black; -fx-border-width: 0 0 2px 0;" text="BIENVENIDO, ADMIN" textFill="#00528c" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -57,22 +57,22 @@
                      <center>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label text="Peregrinos registrados:" textFill="WHITE">
+                              <Label fx:id="lblNumeroPeregrinos" text="Peregrinos registrados:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Paradas disponibles:" textFill="WHITE">
+                              <Label fx:id="lblNumeroParadas" text="Paradas disponibles:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Parada más frecuentada:" textFill="WHITE">
+                              <Label fx:id="lblPeregrinoActivo" text="Peregrino más activo:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Peregrino más activo:" textFill="WHITE">
+                              <Label fx:id="lblParadaFrecuente" text="Parada más frecuentada:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>

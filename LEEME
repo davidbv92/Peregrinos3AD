@@ -11,3 +11,8 @@ INSERT INTO `user` (`id`, `dob`, `email`, `first_name`, `gender`, `last_name`, `
 
 Así se crean unas credenciales admin/admin que dan acceso a la aplicación.
 Desde ahí, ya se pueden insertar nuevos usuarios.
+
+
+(ACTUALIZACIÓN)
+La aplicación viene con unas credenciales de administrador (admin,admin) en el fichero application.properties.
+Una vez se tiene la aplicación de cero, para poder funcionar correctamente, el primer paso debe ser crear las paradas ya que son necesarias para crear los peregrinos.

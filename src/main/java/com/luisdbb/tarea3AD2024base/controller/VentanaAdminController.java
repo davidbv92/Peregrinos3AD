@@ -9,6 +9,10 @@ import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+import com.luisdbb.tarea3AD2024base.modelo.Sesion;
+import com.luisdbb.tarea3AD2024base.services.CarnetService;
+import com.luisdbb.tarea3AD2024base.services.ParadaService;
+import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
@@ -50,6 +54,13 @@ public class VentanaAdminController implements Initializable{
     @Autowired
     private StageManager stageManager;
 	
+	@Autowired
+	private ParadaService paradaService;
+	@Autowired
+	private CarnetService carnetService;
+	@Autowired
+	private PeregrinoService peregrinoService;
+	
 	
 	
 	@Override
@@ -60,7 +71,10 @@ public class VentanaAdminController implements Initializable{
         itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
 		//mostrar campos de la izq de la ventana
-		//lblNumeroPeregrinos.setText("Peregrinos registrados: "+peregrinoService);
+		lblNumeroPeregrinos.setText("Peregrinos registrados: "+peregrinoService.getTotalPeregrino());
+		lblNumeroParadas.setText("Paradas disponibles: "+paradaService.getTotalParada());
+		lblPeregrinoActivo.setText("Peregrino más activo: "+carnetService.getUserWithCarnetMaxDistance().getUsuario());
+		lblParadaFrecuente.setText("");
 		
 	}
 	
@@ -71,6 +85,9 @@ public class VentanaAdminController implements Initializable{
 	public void onCerrarSesion() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas cerrar tu sesión para volver a la ventana de inicio de sesión?");
 		if(res) {
+			Sesion.getInstancia().setId(0L);
+			Sesion.getInstancia().setNombre("Invitado");
+			Sesion.getInstancia().setTipo("Invitado");
 			stageManager.switchScene(FxmlView.LOGIN);
 		}
 	}

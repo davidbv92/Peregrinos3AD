@@ -195,6 +195,7 @@ public class VentanaSelladoController implements Initializable{
 					estanciaService.save(estancia);
 					visitaService.save(visita);
 					MiAlerta.showInformationAlert("Sellado exitoso", "Ha realizado su sellado con éxito en esta parada y se ha registrado su visita. Además, puede disfrutar durante el día de hoy de la estancia en esta parada.");
+					limpiarRadioButtons();
 				}else if(quiereEstancia && !puedeEstanciar()) {
 					MiAlerta.showWarningAlert("No puede estanciarse, ya tiene una estancia en esta parada hoy.");
 				}else if(!quiereEstancia) {
@@ -223,6 +224,12 @@ public class VentanaSelladoController implements Initializable{
 		}else {
 			MiAlerta.showWarningAlert("Error en la selección del peregrino", "No ha seleccionado ningún peregrino al que sellar el carnet.");
 		}
+		
+	}
+
+
+	private void limpiarRadioButtons() {
+		rdbtnEstanciaNo.setSelected(true);
 		
 	}
 

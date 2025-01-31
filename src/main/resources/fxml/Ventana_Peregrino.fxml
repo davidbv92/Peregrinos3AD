@@ -59,17 +59,17 @@
                      <center>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label text="Nombre:" textFill="WHITE">
+                              <Label fx:id="lblNombre" text="Nombre:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="25.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Usuario:" textFill="WHITE">
+                              <Label fx:id="lblUsuario" text="Usuario:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="25.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Correo:" textFill="WHITE">
+                              <Label fx:id="lblCorreo" text="Correo:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="25.0" />
                                  </VBox.margin>

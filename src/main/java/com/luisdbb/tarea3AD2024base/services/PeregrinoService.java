@@ -34,4 +34,8 @@ public class PeregrinoService {
 	public boolean peregrinoExiste(Peregrino peregrino) {
         return peregrinoRepository.existsByUsuario_Usuario(peregrino.getUsuario().getUsuario());
     }
+	
+	public long getTotalPeregrino() {
+        return peregrinoRepository.count();
+    }
 }

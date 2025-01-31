@@ -1,7 +1,6 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -12,25 +11,22 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.modelo.Carnet;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
-import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.User;
-import com.luisdbb.tarea3AD2024base.modelo.Visita;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * @author David Ballesteros
@@ -72,10 +68,22 @@ public class RegistroParadaController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		//ICONOS
+		btnLimpiar.setGraphic(crearIcono("/images/003-escoba.png"));        
+		btnSalir.setGraphic(crearIcono("/images/002-error.png"));
+		btnRegistrar.setGraphic(crearIcono("/images/004-marca-de-verificacin.png"));
 		
 	}
 	
+	private Node crearIcono(String string) {
+		Image imagen=new Image(getClass().getResourceAsStream(string));
+        ImageView viewImagen=new ImageView(imagen);
+        viewImagen.setFitHeight(16);
+        viewImagen.setFitWidth(16);
+        return viewImagen;
+
+	}
+
 	public void onLimpiar() {
 		txtResponsable.clear();
 		txtUsuario.clear();
@@ -150,9 +158,6 @@ public class RegistroParadaController implements Initializable{
 		onLimpiar();
 		//saveAlert(newParada);
 		MiAlerta.showInformationAlert("Parada registrada con éxito", "Se ha registrado la parada "+newParada.getNombre()+" ("+newParada.getRegion()+") en la aplicación.");
-		Sesion.getInstancia().setId(newParada.getId());
-		Sesion.getInstancia().setNombre(newParada.getResponsable());
-		Sesion.getInstancia().setTipo("parada");
 		stageManager.switchScene(FxmlView.VENTANA_ADMIN);
 	}
 
@@ -164,7 +169,6 @@ public class RegistroParadaController implements Initializable{
 		String region=txtRegion.getText();
 		String correo=txtCorreo.getText();
 		String responsable=txtResponsable.getText();
-		char regionC=region.charAt(0);
 		
 		if(!usuarioValido(username)) {
 			return false;
@@ -208,7 +212,7 @@ public class RegistroParadaController implements Initializable{
 			MiAlerta.showErrorAlert("Error en el correo electrónico", "El nombre de usuario no puede tener una longitud superior a 50 caracteres.");
 			return false;
 		}else {
-			String regex = "^[A-Za-z0-9.]+@[A-Za-z0-9.]+$";
+			String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(correo);
 	        if(!matcher.matches()) {
@@ -246,7 +250,7 @@ public class RegistroParadaController implements Initializable{
 		if(region==null || region.isBlank() ||region.isEmpty()) {
 			MiAlerta.showErrorAlert("Error en la región de la parada.", "La regiónde la parada no puede estar vacía ni ser solo espacios en blanco.");
 			return false;
-		}else if(nombreParada.length()>1) {
+		}else if(region.length()>1) {
 			MiAlerta.showErrorAlert("Error en la región de la parada.", "La región de la parada no puede tener una longitud superior a 1 caracter.");
 			return false;
 		}else {
@@ -302,6 +306,10 @@ public class RegistroParadaController implements Initializable{
 			return false;
 		}else if(username.length()>50) {
 			MiAlerta.showErrorAlert("Error en el nombre de usuario", "El nombre de usuario no puede tener una longitud superior a 50 caracteres.");
+			return false;
+		
+		}else if(username.toLowerCase().equals("admin")){
+			MiAlerta.showWarningAlert("Error en el nombre de usuario.", "El nombre de usuario ya está registrado en la base de datos.");
 			return false;
 		}else {
 			for(int i=0;i<username.length();i++) {

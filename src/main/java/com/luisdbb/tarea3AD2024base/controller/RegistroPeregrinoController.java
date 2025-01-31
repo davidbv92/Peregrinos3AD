@@ -36,8 +36,6 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
@@ -63,9 +61,9 @@ public class RegistroPeregrinoController implements Initializable{
 	@FXML
 	private TextField txtCorreo;
 	@FXML
-	private ComboBox cbNacionalidad;
+	private ComboBox<String> cbNacionalidad;
 	@FXML
-	private ComboBox cbParadaInicial;
+	private ComboBox<String> cbParadaInicial;
 	@FXML
 	private Button btnLimpiar;
 	@FXML
@@ -250,7 +248,8 @@ public class RegistroPeregrinoController implements Initializable{
 		
 		onLimpiar();
 		//saveAlert(newPeregrino);
-		MiAlerta.showInformationAlert("Peregrino registrado con éxito", "Se ha registrado el peregrino "+newPeregrino.getNombre()+" ("+newPeregrino.getUsuario().getUsuario()+", "+newPeregrino.getUsuario().getEmail()+") en la aplicación.");
+		MiAlerta.showInformationAlert("Peregrino registrado con éxito", "Se ha registrado el peregrino "+newPeregrino.getNombre()+" ("+newPeregrino.getUsuario().getUsuario()+", "+newPeregrino.getUsuario().getEmail()+") en la aplicación."
+										+"\nSe ha sellado automáticamente el carnet en la parada inicial, pero si desea una estancia puede solicitarla en la parada.");
 		Sesion.getInstancia().setId(newPeregrino.getId());
 		Sesion.getInstancia().setNombre(newPeregrino.getNombre());
 		Sesion.getInstancia().setTipo("peregrino");
@@ -286,7 +285,7 @@ public class RegistroPeregrinoController implements Initializable{
 
 	private boolean paradaValida(String paradaInicial) {
 		if(paradaInicial==null || paradaInicial.isBlank() ||paradaInicial.isEmpty()) {
-			MiAlerta.showWarningAlert("Error en la selección de nacionalidad.", "La parada inicial del peregrino no puede estar vacío ni ser solo espacios en blanco.");
+			MiAlerta.showWarningAlert("Error en la selección de parada inicial.", "La parada inicial del peregrino no puede estar vacío ni ser solo espacios en blanco.");
 			return false;
 		}
 		
@@ -336,7 +335,7 @@ public class RegistroPeregrinoController implements Initializable{
 			MiAlerta.showWarningAlert("Error en el correo electrónico", "El nombre de usuario no puede tener una longitud superior a 50 caracteres.");
 			return false;
 		}else {
-			String regex = "^[A-Za-z0-9.]+@[A-Za-z0-9.]+$";
+			String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(correo);
 	        if(!matcher.matches()) {
@@ -383,6 +382,9 @@ public class RegistroPeregrinoController implements Initializable{
 			return false;
 		}else if(username.length()>50) {
 			MiAlerta.showWarningAlert("Error en el nombre de usuario", "El nombre de usuario no puede tener una longitud superior a 50 caracteres.");
+			return false;
+		}else if(username.toLowerCase().equals("admin")){
+			MiAlerta.showWarningAlert("Error en el nombre de usuario.", "El nombre de usuario ya está registrado en la base de datos.");
 			return false;
 		}else {
 			for(int i=0;i<username.length();i++) {

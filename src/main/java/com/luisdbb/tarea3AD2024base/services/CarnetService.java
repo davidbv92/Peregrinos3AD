@@ -4,11 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luisdbb.tarea3AD2024base.modelo.Carnet;
-import com.luisdbb.tarea3AD2024base.modelo.Parada;
-import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.repositorios.CarnetRepository;
-import com.luisdbb.tarea3AD2024base.repositorios.PeregrinoRepository;
 
 @Service
 public class CarnetService {
@@ -23,4 +20,13 @@ public class CarnetService {
 	public Carnet save(Carnet entity) {
 		return carnetRepository.save(entity);
 	}
+	
+	public User getUserWithCarnetMaxDistance() {
+        Carnet carnet = carnetRepository.findFirstByOrderByDistanciaDesc();
+        if(carnet!=null) {
+        	return carnet.getPeregrino().getUsuario();
+        }else {
+        	return null;
+        }
+    }
 }

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
+import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCombination;
 
 /**
  * @author David Ballesteros
@@ -38,6 +41,13 @@ public class VentanaParadaController implements Initializable {
 	
 	@FXML
 	private Label lblTitulo;
+	@FXML
+	private Label lblNombre;
+	@FXML
+	private Label lblRegion;
+	@FXML
+	private Label lblResponsable;
+	
 	
 	@FXML
 	private Button btnMostrarDatos;
@@ -53,12 +63,25 @@ public class VentanaParadaController implements Initializable {
     @Autowired
     private StageManager stageManager;
 	
+	@Autowired
+    private ParadaService paradaService;
+	
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//poner shortcuts
+		itemMostrarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+M"));
+		itemExportarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
+		itemSellarCarnet.setAccelerator(KeyCombination.keyCombination("Ctrl+L"));
+		itemInformacion.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
+        itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
+		Parada parada=paradaService.find(Sesion.getInstancia().getId());
 		//personalizar según sesión
-		lblTitulo.setText("BIENVENIDO, "+Sesion.getInstancia().getNombre());
+		lblTitulo.setText("BIENVENIDO, "+Sesion.getInstancia().getNombre().toUpperCase());
+		lblNombre.setText("Nombre: "+parada.getNombre());
+		lblRegion.setText("Región: "+parada.getRegion());
+		lblResponsable.setText("Responsable: "+parada.getResponsable());
 		
 	}
 
@@ -66,6 +89,9 @@ public class VentanaParadaController implements Initializable {
 	public void onCerrarSesion() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas cerrar tu sesión para volver a la ventana de inicio de sesión?");
 		if(res) {
+			Sesion.getInstancia().setId(0L);
+			Sesion.getInstancia().setNombre("Invitado");
+			Sesion.getInstancia().setTipo("Invitado");
 			stageManager.switchScene(FxmlView.LOGIN);
 		}
 	}

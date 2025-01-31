@@ -59,17 +59,17 @@
                      <center>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label text="Nombre:" textFill="WHITE">
+                              <Label fx:id="lblNombre" text="Nombre:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="25.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Región" textFill="WHITE">
+                              <Label fx:id="lblRegion" text="Región" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="25.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Responsable:" textFill="WHITE">
+                              <Label fx:id="lblResponsable" text="Responsable:" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="25.0" />
                                  </VBox.margin>

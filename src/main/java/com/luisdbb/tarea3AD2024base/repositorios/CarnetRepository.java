@@ -11,4 +11,6 @@ public interface CarnetRepository extends JpaRepository<Carnet, Long>{
     List<Carnet> findByParadaInicial_Id(Long paradaInicialId);
     
     Carnet findByPeregrino_Id(Long peregrinoId);
+    
+    Carnet findFirstByOrderByDistanciaDesc();
 }
