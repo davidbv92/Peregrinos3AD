@@ -90,7 +90,7 @@ public class RegistroParadaController implements Initializable{
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas salir?, se perderán todos los datos introducidos.");
 		if(res) {
 			onLimpiar();
-			stageManager.switchScene(FxmlView.LOGIN);
+			stageManager.switchScene(FxmlView.VENTANA_ADMIN);
 			
 		}
 	}
@@ -251,7 +251,7 @@ public class RegistroParadaController implements Initializable{
 			return false;
 		}else {
 	        char c=region.charAt(0);
-	        if(Character.isAlphabetic(c)) {
+	        if(!Character.isAlphabetic(c)) {
 	        	MiAlerta.showErrorAlert("Error en la región de la parada.", "La región de la parada debe ser una letra.");
 				return false;
 	        }

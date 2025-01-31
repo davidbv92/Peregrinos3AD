@@ -31,4 +31,7 @@ public class PeregrinoService {
 		return peregrinoRepository.findAll();
 	}
 
+	public boolean peregrinoExiste(Peregrino peregrino) {
+        return peregrinoRepository.existsByUsuario_Usuario(peregrino.getUsuario().getUsuario());
+    }
 }

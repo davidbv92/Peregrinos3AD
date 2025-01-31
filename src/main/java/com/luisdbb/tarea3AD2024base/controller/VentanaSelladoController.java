@@ -108,12 +108,13 @@ public class VentanaSelladoController implements Initializable{
 				} else { 
 					rdbtnVipSi.setDisable(true); 
 					rdbtnVipNo.setDisable(true); 
-					groupVip.selectToggle(null);  
+					groupVip.selectToggle(null); 
+					rdbtnVipNo.setSelected(true);
 				} 
 			} 
 		}); 
 		
-		//listener para activar/desactivar grupoVip
+		//listener para actualizar valores laterales
 		cbPeregrinos.valueProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -134,8 +135,9 @@ public class VentanaSelladoController implements Initializable{
 			
 		});
 		
-
-		
+		//poner valores predefinidos a estancia y vip
+		rdbtnEstanciaNo.setSelected(true);
+		rdbtnVipNo.setSelected(true);
 	}
 
 
@@ -168,47 +170,105 @@ public class VentanaSelladoController implements Initializable{
 	}
 	
 	public void onSellar() {
-		boolean quiereEstancia=rdbtnEstanciaSi.isSelected();
-		boolean quiereVip=rdbtnVipSi.isSelected();
-		if(puedeSellar()) {
-			if(puedeEstanciar() && quiereEstancia) {
-				//añadir estancia y actualizar carnet y añadir visita
+		if(datosValidos()) {
+			boolean quiereEstancia=rdbtnEstanciaSi.isSelected();
+			boolean quiereVip=rdbtnVipSi.isSelected();
+			if(puedeSellar()) {
+				if(puedeEstanciar() && quiereEstancia) {
+					//añadir estancia y actualizar carnet y añadir visita
+					Estancia estancia=new Estancia();
+					estancia.setFecha(LocalDate.now());
+					estancia.setParada(parada);
+					estancia.setPeregrino(peregrino);
+					estancia.setVip(quiereVip);
+					Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
+					carnet.setDistancia(carnet.getDistancia()+5.0);
+					if(quiereVip) {
+						carnet.setNvips(carnet.getNvips()+1);
+					}
+					Visita visita=new Visita();
+					visita.setFecha(LocalDate.now());
+					visita.setParada(parada);
+					visita.setPeregrino(peregrino);
+					
+					carnetService.save(carnet);
+					estanciaService.save(estancia);
+					visitaService.save(visita);
+					MiAlerta.showInformationAlert("Sellado exitoso", "Ha realizado su sellado con éxito en esta parada y se ha registrado su visita. Además, puede disfrutar durante el día de hoy de la estancia en esta parada.");
+				}else if(quiereEstancia && !puedeEstanciar()) {
+					MiAlerta.showWarningAlert("No puede estanciarse, ya tiene una estancia en esta parada hoy.");
+				}else if(!quiereEstancia) {
+					//sellar carnet y añadir visita
+					Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
+					carnet.setDistancia(carnet.getDistancia()+5.0);
+					Visita visita=new Visita();
+					visita.setFecha(LocalDate.now());
+					visita.setParada(parada);
+					visita.setPeregrino(peregrino);
+					carnetService.save(carnet);
+					visitaService.save(visita);
+					MiAlerta.showInformationAlert("Sellado exitoso", "Ha sellado su carnet con éxito, la visita a esta parada se registró correctamente");
+				}
+			}else if(puedeEstanciar() && quiereEstancia){
 				Estancia estancia=new Estancia();
 				estancia.setFecha(LocalDate.now());
 				estancia.setParada(parada);
 				estancia.setPeregrino(peregrino);
 				estancia.setVip(quiereVip);
-				Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
-				carnet.setDistancia(carnet.getDistancia()+5.0);
-				if(quiereVip) {
-					carnet.setNvips(carnet.getNvips()+1);
-				}
-				Visita visita=new Visita();
-				visita.setFecha(LocalDate.now());
-				visita.setParada(parada);
-				visita.setPeregrino(peregrino);
-				
-				carnetService.save(carnet);
 				estanciaService.save(estancia);
-				visitaService.save(visita);
-			}else if(quiereEstancia && !puedeEstanciar()) {
-				MiAlerta.showWarningAlert("No puede estanciarse, ya tiene una estancia en esta parada hoy.");
-			}else if(!quiereEstancia) {
-				//sellar carnet y añadir visita
-				Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
-				carnet.setDistancia(carnet.getDistancia()+5.0);
+				MiAlerta.showInformationAlert("Estancia registrada correctamente", "Se ha registrado la estancia correctamente, no se ha realizado el sellado puesto que ya ha sellado hoy en esta parada");
+			}else {
+				MiAlerta.showWarningAlert("No puede sellar aquí su carnet, ya ha sido sellado hoy en esta parada.");
 			}
-		}else if(puedeEstanciar() && quiereEstancia){
-			Estancia estancia=new Estancia();
-			estancia.setFecha(LocalDate.now());
-			estancia.setParada(parada);
-			estancia.setPeregrino(peregrino);
-			estancia.setVip(quiereVip);
-			estanciaService.save(estancia);
-			MiAlerta.showInformationAlert("Estancia registrada correctamente", "Se ha registrado la estancia correctamente, no se ha realizado el sellado puesto que ya ha sellado hoy en esta parada");
 		}else {
-			MiAlerta.showWarningAlert("No puede sellar aquí su carnet, ya ha sido sellado hoy en esta parada.");
+			MiAlerta.showWarningAlert("Error en la selección del peregrino", "No ha seleccionado ningún peregrino al que sellar el carnet.");
 		}
+		
+	}
+
+
+	private boolean datosValidos() {
+		if(!peregrinoValido()) {
+			return false;
+		}else if(!seleccionesValidas()) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+
+	private boolean seleccionesValidas() {
+		if((!rdbtnEstanciaSi.isSelected()) && (!rdbtnEstanciaNo.isSelected())) {
+			MiAlerta.showWarningAlert("Error en la estancia", "No ha especificado si quiere estancia o no.");
+			return false;
+		}else if((!rdbtnVipSi.isSelected()) && (!rdbtnVipNo.isSelected())) {
+			MiAlerta.showWarningAlert("Error en la estancia", "No ha especificado si será vip o no.");
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+
+	private boolean peregrinoValido() {
+		if(!existePeregrinoBBDD(peregrino)) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+
+	private boolean existePeregrinoBBDD(Peregrino p) {
+		if(p.getUsuario()!=null) {
+			if(p.getUsuario().getUsuario()!=null) {
+				return peregrinoService.peregrinoExiste(p);
+			}
+		}
+		
+		return false;
+
 	}
 
 

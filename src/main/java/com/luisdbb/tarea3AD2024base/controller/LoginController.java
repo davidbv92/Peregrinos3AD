@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
@@ -71,6 +72,13 @@ public class LoginController implements Initializable{
 	@Autowired
     private ParadaService paradaService;
 
+	@Value("${admin.username}")
+	private String adminUsername;
+
+	@Value("${admin.password}")
+	private String adminPassword;
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Sesion.getInstancia().setId(null);
@@ -80,6 +88,13 @@ public class LoginController implements Initializable{
 	}
 	
 	public void onIniciarSesion() {
+		if (getUsername().equals(adminUsername) && getPassword().equals(adminPassword)) {
+	        Sesion.getInstancia().setId(0L);
+	        Sesion.getInstancia().setNombre("Administrador");
+	        Sesion.getInstancia().setTipo("administrador");
+	        stageManager.switchScene(FxmlView.VENTANA_ADMIN);
+	        return;
+	    }
 		//MiAlerta.showInformationAlert("Botón Iniciar Sesión ");
 		if(userService.authenticate(getUsername(), getPassword())){
     		User usuario= userService.findByUsuario(getUsername());
@@ -88,6 +103,9 @@ public class LoginController implements Initializable{
     		}
     		switch(usuario.getRol()) {
     			case "administrador":{
+    				Sesion.getInstancia().setId(0L);
+    		        Sesion.getInstancia().setNombre("Administrador");
+    		        Sesion.getInstancia().setTipo("administrador");
     				stageManager.switchScene(FxmlView.VENTANA_ADMIN);
     				break;
     			}case "peregrino":{

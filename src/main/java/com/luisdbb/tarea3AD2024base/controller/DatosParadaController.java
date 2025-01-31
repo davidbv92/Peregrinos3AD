@@ -78,6 +78,7 @@ public class DatosParadaController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//preparar tabla
 		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		colPeregrino.setCellValueFactory(cellData -> 
         new SimpleStringProperty(cellData.getValue().getPeregrino().getNombre())

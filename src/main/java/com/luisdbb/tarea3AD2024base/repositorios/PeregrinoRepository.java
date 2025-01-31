@@ -19,6 +19,8 @@ public interface PeregrinoRepository extends JpaRepository<Peregrino, Long> {
     Peregrino findByCarnet_Id(Long carnetId);
     
     Peregrino findByUsuario(User usuario);
+    
+    boolean existsByUsuario_Usuario(String usuario);
 
     // Búsqueda personalizada por parada ID en visitas
     //List<Peregrino> findByParadas_ParadaId(Long paradaId);
