@@ -73,8 +73,8 @@ public class VentanaAdminController implements Initializable{
 		//mostrar campos de la izq de la ventana
 		lblNumeroPeregrinos.setText("Peregrinos registrados: "+peregrinoService.getTotalPeregrino());
 		lblNumeroParadas.setText("Paradas disponibles: "+paradaService.getTotalParada());
-		lblPeregrinoActivo.setText("Peregrino más activo: "+carnetService.getUserWithCarnetMaxDistance().getUsuario());
-		lblParadaFrecuente.setText("");
+		//lblPeregrinoActivo.setText("Peregrino más activo: "+carnetService.getUserWithCarnetMaxDistance().getUsuario());
+		//lblParadaFrecuente.setText("");
 		
 	}
 	
