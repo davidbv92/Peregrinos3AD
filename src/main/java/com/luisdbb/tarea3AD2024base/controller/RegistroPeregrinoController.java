@@ -26,7 +26,6 @@ import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.modelo.Visita;
-import com.luisdbb.tarea3AD2024base.services.CarnetService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.services.UserService;
@@ -80,8 +79,6 @@ public class RegistroPeregrinoController implements Initializable{
 	private ParadaService paradaService;
 	@Autowired
 	private PeregrinoService peregrinoService;
-	@Autowired
-	private CarnetService carnetService;
 	@Autowired
 	private VisitaService visitaService;
 	@Autowired
@@ -244,7 +241,7 @@ public class RegistroPeregrinoController implements Initializable{
 		visita.setFecha(LocalDate.now());
 		
 		Peregrino newPeregrino=peregrinoService.save(peregrino);
-		Visita newVisita=visitaService.save(visita);
+		visitaService.save(visita);
 		
 		onLimpiar();
 		//saveAlert(newPeregrino);

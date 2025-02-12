@@ -35,7 +35,7 @@ public class VentanaParadaController implements Initializable {
 	@FXML
 	private MenuItem itemSellarCarnet;
 	@FXML
-	private MenuItem itemInformacion;
+	private MenuItem itemAyuda;
 	@FXML
 	private MenuItem itemSalir;
 	
@@ -74,7 +74,7 @@ public class VentanaParadaController implements Initializable {
 		itemMostrarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+M"));
 		itemExportarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
 		itemSellarCarnet.setAccelerator(KeyCombination.keyCombination("Ctrl+L"));
-		itemInformacion.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
+		itemAyuda.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
         itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 		Parada parada=paradaService.find(Sesion.getInstancia().getId());
 		//personalizar según sesión
@@ -110,7 +110,7 @@ public class VentanaParadaController implements Initializable {
 		MiAlerta.showInformationAlert("Exportar datos accionado");
 	}
 	
-	public void onInformacion() {
+	public void onAyuda() {
 		MiAlerta.showInformationAlert("Información accionado");
 	}
 	

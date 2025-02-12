@@ -213,7 +213,7 @@ public class Peregrino implements Serializable{
 //           documento.insertBefore(ip, coches);
 
            Element id,fechaexp,expedidoen,peregrino,nombre,nacionalidad,hoy,distanciaTotal,paradas,parada,orden,nombreParada,region,estancias,estancia,idEstancia,fecha,paradaEs,vip,vips;
-           Text idV,fechaexpV,expedidoenV,peregrinoV,nombreV,nacionalidadV,hoyV,distanciaTotalV,paradasV,paradaV,ordenV,nombreParadaV,regionV,estanciasV,estanciaV,idEstanciaV,fechaV,paradaEsV,vipV,vipsV;
+           Text idV,fechaexpV,expedidoenV,nombreV,nacionalidadV,hoyV,distanciaTotalV,ordenV,nombreParadaV,regionV,idEstanciaV,fechaV,paradaEsV,vipsV;
 
            id = documento.createElement("id");
            carnet.appendChild(id);

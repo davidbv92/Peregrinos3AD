@@ -10,17 +10,20 @@ import org.springframework.stereotype.Controller;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
-import com.luisdbb.tarea3AD2024base.services.CarnetService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * @author David Ballesteros
@@ -32,7 +35,7 @@ public class VentanaAdminController implements Initializable{
 	@FXML
 	private MenuItem itemRegistrarParada;
 	@FXML
-	private MenuItem itemInformacion;
+	private MenuItem itemAyuda;
 	@FXML
 	private MenuItem itemSalir;
 	
@@ -49,6 +52,8 @@ public class VentanaAdminController implements Initializable{
 	private Label lblParadaFrecuente;
 	@FXML
 	private Label lblPeregrinoActivo;
+	@FXML
+    private WebView webView;
 	
 	@Lazy
     @Autowired
@@ -56,8 +61,6 @@ public class VentanaAdminController implements Initializable{
 	
 	@Autowired
 	private ParadaService paradaService;
-	@Autowired
-	private CarnetService carnetService;
 	@Autowired
 	private PeregrinoService peregrinoService;
 	
@@ -67,7 +70,7 @@ public class VentanaAdminController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		//acelerator
 		itemRegistrarParada.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
-		itemInformacion.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
+		itemAyuda.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
         itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 
 		//mostrar campos de la izq de la ventana
@@ -78,10 +81,33 @@ public class VentanaAdminController implements Initializable{
 		
 	}
 	
-	public void onInformacion() {
-		MiAlerta.showInformationAlert("Información accionado");
+	public void onAyuda() {
+		//MiAlerta.showInformationAlert("Información accionado");
+		mostrarAyuda();
 	}
 	
+	private void mostrarAyuda() {
+		WebView webView=new WebView();
+		String url=getClass().getResource("/help/help.html").toExternalForm();
+		webView.getEngine().load(url);
+		
+		Stage helpStage=new Stage();
+		helpStage.setTitle("Ayuda PEREGRINAPP");
+		
+		Scene helpScene=new Scene(webView,600,400);
+		
+		helpStage.setScene(helpScene);
+		
+		helpStage.initModality(Modality.APPLICATION_MODAL);
+		helpStage.setResizable(true);
+		helpStage.show();
+		
+//		WebEngine webEngine = webView.getEngine();
+//        webEngine.load(getClass().getResource("/help/help.html").toExternalForm());
+		
+		
+	}
+
 	public void onCerrarSesion() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas cerrar tu sesión para volver a la ventana de inicio de sesión?");
 		if(res) {

@@ -47,14 +47,13 @@ public class StageManager {
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/concha.png")));
         
         try {
-        	primaryStage.setResizable(false);
-            primaryStage.show();
-        } catch (Exception exception) {
-            logAndExit ("Unable to show scene for title" + title,  exception);
+        	primaryStage.show();
+        }catch(Exception exception) {
+        	logAndExit ("Unable to show scene for title" + title, exception);
         }
     }
     
-    private Scene prepareScene(Parent rootnode){
+	private Scene prepareScene(Parent rootnode){
         Scene scene = primaryStage.getScene();
 
         if (scene == null) {

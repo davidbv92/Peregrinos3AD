@@ -98,6 +98,16 @@ public enum FxmlView {
 		public String getFxmlFile() {
 			return "/fxml/Ventana_Sellado.fxml";
 		}
+	}, EDITAR_DATOS{
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("editarDatos.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Editar_Datos.fxml";
+		}
 	};
 
 	public abstract String getTitle();

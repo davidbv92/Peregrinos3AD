@@ -10,14 +10,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.modelo.Carnet;
 import com.luisdbb.tarea3AD2024base.modelo.Estancia;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.Visita;
-import com.luisdbb.tarea3AD2024base.services.CarnetService;
 import com.luisdbb.tarea3AD2024base.services.EstanciaService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
@@ -46,7 +44,7 @@ public class VentanaPeregrinoController implements Initializable{
 	@FXML
 	private MenuItem itemExportarCarnet;
 	@FXML
-	private MenuItem itemInformacion;
+	private MenuItem itemAyuda;
 	@FXML
 	private MenuItem itemSalir;
 	
@@ -76,8 +74,6 @@ public class VentanaPeregrinoController implements Initializable{
 	@Autowired
 	private PeregrinoService peregrinoService;
 	@Autowired
-	private CarnetService carnetService;
-	@Autowired
 	private ParadaService paradaService;
 	@Autowired
 	private VisitaService visitaService;
@@ -91,7 +87,7 @@ public class VentanaPeregrinoController implements Initializable{
 		itemMostrarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+M"));
 		itemModificarDatos.setAccelerator(KeyCombination.keyCombination("Ctrl+D"));
 		itemExportarCarnet.setAccelerator(KeyCombination.keyCombination("Ctrl+X"));
-		itemInformacion.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
+		itemAyuda.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
         itemSalir.setAccelerator(KeyCombination.keyCombination("Ctrl+S"));
 		//objeto peregrino actual
 		peregrino=peregrinoService.find(Sesion.getInstancia().getId());
@@ -124,7 +120,7 @@ public class VentanaPeregrinoController implements Initializable{
 		estancias=estanciaService.findByPeregrino(peregrino);
 		peregrino.setParadas(paradas);
 		peregrino.setEstancias(estancias);
-		Carnet c=carnetService.findByPeregrino_Id(peregrino.getId());
+		//Carnet c=carnetService.findByPeregrino_Id(peregrino.getId());
 		peregrino.exportarCarnetXML();
 		MiAlerta.showInformationAlert("Exportación exitosa","Puede ver su carnet en: src/main/resources/files/"+peregrino.getNombre()+"_peregrino.xml");
 	}
@@ -134,10 +130,10 @@ public class VentanaPeregrinoController implements Initializable{
 	}
 	
 	public void onModificarDatos() {
-		MiAlerta.showInformationAlert("Modificar datos accionado");
+		stageManager.switchScene(FxmlView.EDITAR_DATOS);
 	}
 	
-	public void onInformacion() {
+	public void onAyuda() {
 		MiAlerta.showInformationAlert("Información accionado");
 	}
 

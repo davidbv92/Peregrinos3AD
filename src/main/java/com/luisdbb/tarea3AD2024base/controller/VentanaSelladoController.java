@@ -117,6 +117,7 @@ public class VentanaSelladoController implements Initializable{
 		//listener para actualizar valores laterales
 		cbPeregrinos.valueProperty().addListener(new ChangeListener<String>() {
 
+			@SuppressWarnings("rawtypes")
 			@Override
 			public void changed(ObservableValue observable, String oldValue, String newValue) {
 				if(newValue!=null) {
