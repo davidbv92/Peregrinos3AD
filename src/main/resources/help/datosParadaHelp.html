@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - Datos de Parada</title>
+    <link rel="stylesheet" href="../styles/estiloHelp.css">
+</head>
+<body>
+    <h1>Ayuda - Datos de Parada</h1>
+    <p>En esta ventana podrás visualizar y gestionar las estancias de los peregrinos en la parada actual, dentro de un rango de fechas específico.</p>
+    
+    <h2>Campos de Filtro</h2>
+    <ul>
+        <li><span class="highlight">Fecha Inicio:</span> Permite seleccionar la fecha de inicio del rango para consultar las estancias.</li>
+        <li><span class="highlight">Fecha Fin:</span> Permite seleccionar la fecha de fin del rango para consultar las estancias.</li>
+        <li><span class="highlight">ID de Parada:</span> Muestra el identificador único de la parada. Este campo se llena automáticamente al buscar los datos.</li>
+        <li><span class="highlight">Nombre de Parada:</span> Muestra el nombre de la parada. Este campo se llena automáticamente al buscar los datos.</li>
+        <li><span class="highlight">Región:</span> Muestra la región de la parada. Este campo se llena automáticamente al buscar los datos.</li>
+    </ul>
+    
+    <h2>Tabla de Estancias</h2>
+    <p>La tabla muestra la información relacionada con las estancias de los peregrinos en el rango de fechas seleccionado.</p>
+    <ul>
+        <li><span class="highlight">ID:</span> Identificador único de la estancia.</li>
+        <li><span class="highlight">Peregrino:</span> Nombre del peregrino asociado a la estancia.</li>
+        <li><span class="highlight">Fecha:</span> Fecha en que se registró la estancia.</li>
+        <li><span class="highlight">VIP:</span> Indica si la estancia es de tipo VIP (sí/no).</li>
+    </ul>
+    
+    <h2>Acciones</h2>
+    <ul>
+        <li><span class="highlight">Buscar:</span> Al hacer clic en este botón, se realizaría la consulta según el rango de fechas introducido y se mostrarán los resultados en la tabla de estancias.</li>
+    </ul>
+
+    <h2>Validación de Fechas</h2>
+    <p>Las fechas seleccionadas deben ser correctas. Si alguna de las siguientes condiciones no se cumple, se mostrará un mensaje de error:</p>
+    <ul>
+        <li>La <span class="highlight">fecha de inicio</span> no puede ser posterior a la fecha actual.</li>
+        <li>La <span class="highlight">fecha de fin</span> no puede ser posterior a la fecha actual.</li>
+        <li>La <span class="highlight">fecha de inicio</span> no puede ser posterior a la <span class="highlight">fecha de fin</span>.</li>
+    </ul>
+    
+    <h2>Errores Comunes</h2>
+    <ul>
+        <li><span class="highlight">Fechas Incorrectas:</span> Si las fechas seleccionadas no son válidas, aparecerá una alerta con el mensaje correspondiente.</li>
+        <li><span class="highlight">Parada no encontrada:</span> Si no se pueden obtener las estancias, verifica que la parada esté correctamente configurada y que se haya asignado un ID válido.</li>
+    </ul>
+
+    <h2>Consejos</h2>
+    <ul>
+        <li>Asegúrate de que el rango de fechas esté dentro de los límites permitidos y que las fechas sean coherentes.</li>
+        <li>Verifica que la parada a la que estás consultando las estancias es la correcta.</li>
+        <li>Si los datos no se cargan correctamente, intenta refrescar la página o comprobar la conectividad con la base de datos.</li>
+    </ul>
+    
+    <footer>
+        <a href="help.html">Volver a la Ayuda Principal</a>
+    </footer>
+</body>
+</html>

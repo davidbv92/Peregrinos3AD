@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - Registro de Parada</title>
+    <link rel="stylesheet" href="../styles/estiloHelp.css">
 </head>
 <body>
+    <header>
+        <h1>Ayuda - Registro de Parada</h1>
+        <p>Esta ventana permite registrar una nueva parada en la aplicación.</p>
+    </header>
+    
+    <section>
+        <h2>Campos del formulario</h2>
+        <ul>
+            <li><span class="highlight">Responsable:</span> Nombre completo del responsable de la parada. Solo puede contener letras y espacios.</li>
+            <li><span class="highlight">Usuario:</span> Nombre de usuario único para acceder al sistema. Debe contener solo letras y números.</li>
+            <li><span class="highlight">Contraseña:</span> Debe tener hasta 50 caracteres y no contener espacios.</li>
+            <li><span class="highlight">Confirmar Contraseña:</span> Debe coincidir exactamente con la contraseña ingresada.</li>
+            <li><span class="highlight">Correo Electrónico:</span> Debe ser un correo válido (ejemplo@dominio.com) y único en el sistema.</li>
+            <li><span class="highlight">Nombre de la Parada:</span> Nombre de la parada, solo letras y espacios, hasta 50 caracteres.</li>
+            <li><span class="highlight">Región:</span> Debe ser una sola letra representando la región.</li>
+        </ul>
+    </section>
+    
+    <section>
+        <h2>Acciones Disponibles</h2>
+        <ul>
+            <li><span class="highlight">Registrar:</span> Guarda la nueva parada si todos los datos son correctos.</li>
+            <li><span class="highlight">Limpiar:</span> Borra todos los campos del formulario.</li>
+            <li><span class="highlight">Salir:</span> Cierra la ventana sin guardar los datos.</li>
+        </ul>
+    </section>
+    
+    <section>
+        <h2>Validaciones</h2>
+        <p>El sistema verificará que todos los datos ingresados sean correctos antes de permitir el registro. Algunos errores posibles incluyen:</p>
+        <ul>
+            <li><span class="highlight">El nombre del usuario ya existe.</span></li>
+            <li><span class="highlight">El correo electrónico ya está registrado.</span></li>
+            <li><span class="highlight">Las contraseñas no coinciden.</span></li>
+            <li><span class="highlight">El formato del nombre, correo o usuario es incorrecto.</span></li>
+        </ul>
+    </section>
+    
+    <p>Si tienes problemas, contacta al administrador.</p>
 
+    <footer>
+        <a href="help.html">Volver a la Ayuda Principal</a>
+    </footer>
 </body>
 </html>
