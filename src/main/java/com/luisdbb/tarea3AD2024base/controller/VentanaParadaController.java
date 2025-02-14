@@ -16,10 +16,14 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * @author David Ballesteros
@@ -111,7 +115,25 @@ public class VentanaParadaController implements Initializable {
 	}
 	
 	public void onAyuda() {
-		MiAlerta.showInformationAlert("Información accionado");
+		//MiAlerta.showInformationAlert("Información accionado");
+		mostrarAyuda();
+	}
+	
+	private void mostrarAyuda() {
+		WebView webView=new WebView();
+		String url=getClass().getResource("/help/ventanaParadaHelp.html").toExternalForm();
+		webView.getEngine().load(url);
+		
+		Stage helpStage=new Stage();
+		helpStage.setTitle("Ayuda PEREGRINAPP");
+		
+		Scene helpScene=new Scene(webView,600,400);
+		
+		helpStage.setScene(helpScene);
+		
+		helpStage.initModality(Modality.APPLICATION_MODAL);
+		helpStage.setResizable(true);
+		helpStage.show();
 	}
 	
 }

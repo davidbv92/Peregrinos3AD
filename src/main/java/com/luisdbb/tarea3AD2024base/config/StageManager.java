@@ -2,18 +2,29 @@ package com.luisdbb.tarea3AD2024base.config;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 /**
  * Manages switching Scenes on the Primary Stage
@@ -45,6 +56,17 @@ public class StageManager {
         primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/concha.png")));
+        
+      scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent event) {
+          if (event.getCode() == KeyCode.F1) {
+              mostrarAyuda();
+          }
+      }
+
+		
+  });
         
         try {
         	primaryStage.show();
@@ -103,6 +125,59 @@ public class StageManager {
         modalStage.showAndWait();
     }
     
+    private void mostrarAyuda() {
+    	WebView webView=new WebView();
+		String url=getClass().getResource("/help/help.html").toExternalForm();
+		webView.getEngine().load(url);
+		
+		Stage helpStage=new Stage();
+		helpStage.setTitle("Ayuda PEREGRINAPP");
+		
+		Scene helpScene=new Scene(webView,600,400);
+		
+		helpStage.setScene(helpScene);
+		
+		helpStage.initModality(Modality.APPLICATION_MODAL);
+		helpStage.setResizable(true);
+		helpStage.show();
+	}
     
+    /**
+     * Método para abrir un PDF en una ventana modal utilizando WebView y PDF.js.
+     * @param pdfUrl URL o ruta al archivo PDF que se desea mostrar.
+     */
+    public void openPdfInModal(String relativePdfPath) {
+    	try {
+            // Obtener el directorio de trabajo actual
+            String workingDirectory = System.getProperty("user.dir");
+
+            // Construir la ruta relativa al archivo PDF
+            Path pdfPath = Paths.get(workingDirectory, relativePdfPath);
+
+            // Convertir la ruta a una cadena
+            String pdfUrl = pdfPath.toString();
+
+            // Detectar el sistema operativo
+            String os = System.getProperty("os.name").toLowerCase();
+            String comando = "";
+
+            if (os.contains("win")) {
+                comando = "rundll32 url.dll,FileProtocolHandler " + pdfUrl;
+            } else if (os.contains("mac")) {
+                comando = "open " + pdfUrl;
+            } else if (os.contains("nix") || os.contains("nux")) {
+                comando = "xdg-open " + pdfUrl;
+            } else {
+                System.out.println("Sistema operativo no soportado para abrir el archivo PDF.");
+                return;
+            }
+
+            // Ejecutar el comando
+            Runtime.getRuntime().exec(comando);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

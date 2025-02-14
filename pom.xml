@@ -54,6 +54,23 @@
 <artifactId>javafx-web</artifactId>
 <version>23</version> 
 </dependency>
+    <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports</artifactId>
+        <version>6.17.0</version> <!-- Puedes usar la versión más reciente -->
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>pdfbox</artifactId>
+        <version>2.0.27</version> <!-- Usa la última versión disponible -->
+    </dependency>
+
+<dependency>
+    <groupId>net.sf.jasperreports</groupId>
+    <artifactId>jasperreports</artifactId>
+    <version>6.19.1</version> <!-- Asegúrate de usar la versión adecuada -->
+</dependency>
 	</dependencies>
 
 	<build>

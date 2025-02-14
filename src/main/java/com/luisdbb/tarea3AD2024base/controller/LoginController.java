@@ -19,13 +19,20 @@ import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.web.WebView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * @author David Ballesteros
@@ -84,8 +91,38 @@ public class LoginController implements Initializable{
 		Sesion.getInstancia().setNombre("Invitado");
 		Sesion.getInstancia().setTipo("Invitado");
 		
+		//ayuda
+//        Scene scene = stageManager.getPrimaryStage().getScene();
+//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                if (event.getCode() == KeyCode.F1) {
+//                    mostrarAyuda();
+//                }
+//            }
+//
+//			
+//        });
+		
 	}
 	
+//	private void mostrarAyuda() {
+//		WebView webView=new WebView();
+//		String url=getClass().getResource("/help/loginHelp.html").toExternalForm();
+//		webView.getEngine().load(url);
+//		
+//		Stage helpStage=new Stage();
+//		helpStage.setTitle("Ayuda PEREGRINAPP");
+//		
+//		Scene helpScene=new Scene(webView,600,400);
+//		
+//		helpStage.setScene(helpScene);
+//		
+//		helpStage.initModality(Modality.APPLICATION_MODAL);
+//		helpStage.setResizable(true);
+//		helpStage.show();
+//		
+//	}
 	public void onIniciarSesion() {
 		if (getUsername().equals(adminUsername) && getPassword().equals(adminPassword)) {
 	        Sesion.getInstancia().setId(0L);

@@ -88,7 +88,7 @@ public class VentanaAdminController implements Initializable{
 	
 	private void mostrarAyuda() {
 		WebView webView=new WebView();
-		String url=getClass().getResource("/help/help.html").toExternalForm();
+		String url=getClass().getResource("/help/ventanaAdminHelp.html").toExternalForm();
 		webView.getEngine().load(url);
 		
 		Stage helpStage=new Stage();
@@ -101,11 +101,6 @@ public class VentanaAdminController implements Initializable{
 		helpStage.initModality(Modality.APPLICATION_MODAL);
 		helpStage.setResizable(true);
 		helpStage.show();
-		
-//		WebEngine webEngine = webView.getEngine();
-//        webEngine.load(getClass().getResource("/help/help.html").toExternalForm());
-		
-		
 	}
 
 	public void onCerrarSesion() {
