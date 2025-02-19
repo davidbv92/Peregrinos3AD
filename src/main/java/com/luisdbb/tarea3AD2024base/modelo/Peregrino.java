@@ -314,7 +314,7 @@ public class Peregrino implements Serializable{
            
            
            Source fuente = new DOMSource(documento);
-           String ruta="src/main/resources/files/"+getNombre()+"_peregrino.xml";
+           String ruta="src/main/resources/files/"+getUsuario().getUsuario()+"_peregrino.xml";
            String nombreFichero=(ruta);
            File fichero = new File(nombreFichero);
            Result resultado = new StreamResult(fichero);
@@ -322,7 +322,7 @@ public class Peregrino implements Serializable{
            Transformer transformador = fabricaTransformador.newTransformer();
            transformador.transform(fuente, resultado);
            System.out.println("Exportación finalizada");
-           System.out.println("puede ver su carnet en la carpeta files.");
+           System.out.println("Puede ver su carnet en la carpeta files.");
            System.out.println("");
        } catch (ParserConfigurationException ex) {
            System.out.println("Error: " + ex.getMessage());

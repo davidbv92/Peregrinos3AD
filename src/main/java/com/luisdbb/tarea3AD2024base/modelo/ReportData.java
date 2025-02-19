@@ -10,13 +10,13 @@ public class ReportData {
 	private String parada_inicial;
 	private Double distancia;
 	private Long nvips;
-	
+	private String imagen;
 	public ReportData() {
 		
 	}
 	
 	public ReportData(Long id, String usuario, String nombre_completo, String nacionalidad, String correo,
-			String parada_inicial, Double distancia, Long nvips) {
+			String parada_inicial, Double distancia, Long nvips, String imagen) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -26,6 +26,7 @@ public class ReportData {
 		this.parada_inicial = parada_inicial;
 		this.distancia = distancia;
 		this.nvips = nvips;
+		this.imagen=imagen;
 	}
 
 	public Long getId() {
@@ -92,6 +93,13 @@ public class ReportData {
 		this.nvips = nvips;
 	}
 	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 	
 	
 	

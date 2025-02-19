@@ -143,16 +143,16 @@ public class StageManager {
 	}
     
     /**
-     * Método para abrir un PDF en una ventana modal utilizando WebView y PDF.js.
-     * @param pdfUrl URL o ruta al archivo PDF que se desea mostrar.
+     * Método para abrir un PDF en el navegador por defecto.
+     * @param ruta ruta al archivo PDF que se desea mostrar.
      */
-    public void openPdfInModal(String relativePdfPath) {
+    public void openPdfInModal(String ruta) {
     	try {
             // Obtener el directorio de trabajo actual
             String workingDirectory = System.getProperty("user.dir");
 
             // Construir la ruta relativa al archivo PDF
-            Path pdfPath = Paths.get(workingDirectory, relativePdfPath);
+            Path pdfPath = Paths.get(workingDirectory, ruta);
 
             // Convertir la ruta a una cadena
             String pdfUrl = pdfPath.toString();

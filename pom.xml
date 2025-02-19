@@ -15,13 +15,22 @@
 	<name>tarea3AD2024base</name>
 	<description>Proyecto base para TAREA3 AD</description>
 	<url/>
-
+	
+	<repositories>
+		<repository>
+			<id>objectdb</id>
+			<name>ObjectDB Repository</name>
+			<url>https://m2.objectdb.com</url>
+		</repository>
+	</repositories>
+	
 	<properties>
 	<!-- <mainClass>com.codetreatise.MainApp</mainClass> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>23</java.version>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -33,6 +42,7 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -40,37 +50,52 @@
 		</dependency>
 		
 		<dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-controls</artifactId>
-    <version>23</version>
-</dependency>
-<dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-fxml</artifactId>
-    <version>23</version>
-</dependency>
-<dependency>
-<groupId>org.openjfx</groupId>
-<artifactId>javafx-web</artifactId>
-<version>23</version> 
-</dependency>
-    <dependency>
-        <groupId>net.sf.jasperreports</groupId>
-        <artifactId>jasperreports</artifactId>
-        <version>6.17.0</version> <!-- Puedes usar la versión más reciente -->
-    </dependency>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-controls</artifactId>
+		    <version>23</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.openjfx</groupId>
+		    <artifactId>javafx-fxml</artifactId>
+		    <version>23</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-web</artifactId>
+			<version>23</version> 
+		</dependency>
+		
+	    <dependency>
+	        <groupId>net.sf.jasperreports</groupId>
+	        <artifactId>jasperreports</artifactId>
+	        <version>6.17.0</version> <!-- Puedes usar la versión más reciente -->
+	    </dependency>
 
-    <dependency>
-        <groupId>org.apache.pdfbox</groupId>
-        <artifactId>pdfbox</artifactId>
-        <version>2.0.27</version> <!-- Usa la última versión disponible -->
-    </dependency>
+	    <dependency>
+	        <groupId>org.apache.pdfbox</groupId>
+	        <artifactId>pdfbox</artifactId>
+	        <version>2.0.27</version> <!-- Usa la última versión disponible -->
+	    </dependency>
 
-<dependency>
-    <groupId>net.sf.jasperreports</groupId>
-    <artifactId>jasperreports</artifactId>
-    <version>6.19.1</version> <!-- Asegúrate de usar la versión adecuada -->
-</dependency>
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>6.19.1</version> <!-- Asegúrate de usar la versión adecuada -->
+		</dependency>
+		<dependency>
+			<groupId>com.objectdb</groupId>
+			<artifactId>objectdb-jk</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/io.github.nilshoffmann/db4o-nbm -->
+		<dependency>
+    		<groupId>io.github.nilshoffmann</groupId>
+    		<artifactId>db4o-nbm</artifactId>
+    		<version>2.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

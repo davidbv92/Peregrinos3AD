@@ -145,20 +145,10 @@ public class VentanaPeregrinoController implements Initializable{
 		peregrino.setEstancias(estancias);
 		//Carnet c=carnetService.findByPeregrino_Id(peregrino.getId());
 		peregrino.exportarCarnetXML();
-		MiAlerta.showInformationAlert("Exportación exitosa","Puede ver su carnet en: src/main/resources/files/"+peregrino.getNombre()+"_peregrino.xml");
+		MiAlerta.showInformationAlert("Exportación exitosa","Puede ver su carnet en: src/main/resources/files/"+peregrino.getUsuario().getUsuario()+"_peregrino.xml");
 	}
 	
 	public void onMostrarDatos() {
-		MiAlerta.showInformationAlert("Mostrar datos accionado");
-	}
-	
-	public void onModificarDatos() {
-		stageManager.switchScene(FxmlView.EDITAR_DATOS);
-	}
-	
-	public void onAyuda() {
-		//MiAlerta.showInformationAlert("Información accionado");
-		//mostrarAyuda();
 		Long idPer=Sesion.getInstancia().getId();
 		Peregrino peregrino=peregrinoService.find(idPer);
 		Carnet carnet=carnetService.findByPeregrino_Id(idPer);
@@ -173,6 +163,7 @@ public class VentanaPeregrinoController implements Initializable{
 		String nacionalidad=peregrino.getNacionalidad();
 		String nombre_completo=peregrino.getNombre();
 		String correo=peregrino.getUsuario().getEmail();
+		String imagen="src/main/resources/images/conchaBlanco.png";
 		
 		rd.setCorreo(correo);
 		rd.setDistancia(distancia);
@@ -182,36 +173,44 @@ public class VentanaPeregrinoController implements Initializable{
 		rd.setNvips(nvips);
 		rd.setParada_inicial(parada_inicial);
 		rd.setUsuario(usuario);
+		rd.setImagen(imagen);
 		
 		List<ReportData> lista=new ArrayList<>();
 		lista.add(rd);
-		String ruta="src/main/resources/informes/resultadoPrueba.pdf";
+		String ruta="src/main/resources/informes/"+usuario+"_carnet.pdf";
 		//String ruta = "C:\\Users\\alumnoDAM\\Downloads\\Peregrinos3AD-main\\Peregrinos3AD-main\\src\\main\\resources\\informes\\resultadoPrueba.pdf";
 		//reportController.generateCarnetReport(lista, ruta);
 		generarCarnetReport(lista,ruta);
 	}
 	
-	private void generarCarnetReport(List<ReportData> reportDataList, String outputPath) {
+	public void onModificarDatos() {
+		stageManager.switchScene(FxmlView.EDITAR_DATOS);
+	}
+	
+	public void onAyuda() {
+		//MiAlerta.showInformationAlert("Información accionado");
+		mostrarAyuda();
+		
+	}
+	
+	private void generarCarnetReport(List<ReportData> listaReportData, String rutaSalida) {
 		try {
-            // Cargar el archivo Jasper compilado
-        	//String jasperFile = "C:\\Users\\alumnoDAM\\Downloads\\Peregrinos3AD-main\\Peregrinos3AD-main\\src\\main\\resources\\informes\\carnetPeregrinoPrueba.jasper";
-			String jasperFile = "src/main/resources/informes/carnetPeregrinoPrueba.jasper";
-			//String jasperFile = "/informes/carnetPeregrinoPersonalizado.jasper";  // Ruta a tu archivo .jasper
+            //cargar el Jasper
+			String jasperFile = "src/main/resources/informes/carnetPeregrino.jasper";
             JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(jasperFile);
-
-            // Preparar el datasource con los datos
-            JRDataSource dataSource = new JRBeanCollectionDataSource(reportDataList);
-
-            // Llenar el reporte con los datos
+            //preparar el datasource con los datos
+            JRDataSource dataSource = new JRBeanCollectionDataSource(listaReportData);
+            //rellenar el reporte
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
-
-            // Exportar el reporte a PDF
-            JasperExportManager.exportReportToPdfFile(jasperPrint, outputPath);
+            //exportar el reporte a PDF
+            JasperExportManager.exportReportToPdfFile(jasperPrint, rutaSalida);
+            //solicitar confirmación para mostrar o no el carnet
+            boolean res=MiAlerta.showConfirmationAlert("Carnet generado con éxito", "Se ha generado su carnet exitosamente, lo podrá encontrar en la ruta "+rutaSalida+"."
+            		+ "\n¿Desea visializar su carnet en este momento?");
             
-            //JasperViewer.viewReport(jasperPrint, false);
-            stageManager.openPdfInModal("src/main/resources/informes/resultadoPrueba.pdf");
-
-            System.out.println("Carnet generado exitosamente: " + outputPath);
+            if(res) {
+            	stageManager.openPdfInModal(rutaSalida);
+            }
 
         } catch (JRException e) {
             e.printStackTrace();
