@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistroPeregrinoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistroServicioController">
    <top>
       <Label alignment="CENTER" prefHeight="50.0" prefWidth="600.0" text="CREACIÓN DE SERVICIO" textFill="#00528c" BorderPane.alignment="CENTER">
          <font>
@@ -40,7 +40,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnRegistrar" onAction="#onRegistrar" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Crear" textFill="WHITE">
+            <Button fx:id="btnCrear" onAction="#onCrear" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Crear" textFill="WHITE">
                <FlowPane.margin>
                   <Insets left="10.0" right="10.0" />
                </FlowPane.margin>
@@ -63,12 +63,12 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Nombre:" textFill="#00528c">
+            <Label text="Nombre:" textFill="#00528c" GridPane.rowIndex="1">
                <padding>
                   <Insets right="25.0" />
                </padding>
@@ -76,11 +76,11 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="txtNombre" promptText="nombre completo" GridPane.columnIndex="1">
+            <TextField fx:id="txtNombre" promptText="nombre completo" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin></TextField>
-            <Label text="Precio:" textFill="#00528c" GridPane.rowIndex="1">
+            <Label text="Precio:" textFill="#00528c" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
@@ -88,7 +88,7 @@
                   <Insets right="25.0" />
                </padding>
             </Label>
-            <TextField fx:id="txtUsuario" promptText="precio" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="txtPrecio" promptText="precio" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin></TextField>
@@ -97,11 +97,11 @@
                   <Insets right="25.0" />
                </padding>
             </Label>
-            <TableView prefHeight="141.0" prefWidth="280.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            <TableView fx:id="tableView" prefHeight="141.0" prefWidth="280.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
               <columns>
-                <TableColumn prefWidth="70.0" text="ID" />
-                <TableColumn prefWidth="140.0" text="Nombre" />
-                  <TableColumn prefWidth="70.0" text="Región" />
+                <TableColumn fx:id="colId" prefWidth="70.0" text="ID" />
+                <TableColumn fx:id="colNombre" prefWidth="140.0" text="Nombre" />
+                  <TableColumn fx:id="colRegion" prefWidth="70.0" text="Región" />
               </columns>
             </TableView>
          </children>

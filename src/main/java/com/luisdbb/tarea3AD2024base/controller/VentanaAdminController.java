@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
+import com.db4o.ObjectContainer;
+import com.db4o.ObjectSet;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.db4o.DataConnection;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+import com.luisdbb.tarea3AD2024base.modelo.Servicio;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
@@ -42,6 +46,8 @@ public class VentanaAdminController implements Initializable{
 	@FXML
 	private Button btnRegistrarParada;
 	@FXML
+	private Button btnCrearServicio;
+	@FXML
 	private Button btnCerrarSesion;
 	
 	@FXML
@@ -63,6 +69,9 @@ public class VentanaAdminController implements Initializable{
 	private ParadaService paradaService;
 	@Autowired
 	private PeregrinoService peregrinoService;
+	
+	@Autowired
+    private DataConnection db4o;
 	
 	
 	
@@ -117,7 +126,14 @@ public class VentanaAdminController implements Initializable{
 		stageManager.switchScene(FxmlView.REGISTRO_PARADA);
 	}
 	
-	
+	public void onCrearServicio() {
+		stageManager.switchScene(FxmlView.REGISTRO_SERVICIO);
+//		 Servicio s1 = new Servicio(100L, "Prueba",0.0);
+//		 db4o.getInstance().store(s1);
+//		 db4o.getInstance().commit();
+//		 ObjectSet<Servicio> result =  db4o.getInstance().query(Servicio.class);
+//		 MiAlerta.showInformationAlert("Servicios (número)", result.size()+"");
+	}
 	
 
 	

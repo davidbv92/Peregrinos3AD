@@ -93,6 +93,11 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Button>
+                              <Button fx:id="btnCrearServicio" onAction="#onCrearServicio" prefWidth="150.0" style="-fx-background-color: #00528c;" text="Crear Nuevo _Servicio" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </VBox>
                      </center>

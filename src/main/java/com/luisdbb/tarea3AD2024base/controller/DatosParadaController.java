@@ -107,6 +107,14 @@ public class DatosParadaController implements Initializable{
 	private boolean validarFechas() {
 		LocalDate fechaInicioSeleccionada=fechaInicio.getValue();
 		LocalDate fechaFinSeleccionada=fechaFin.getValue();
+		if(fechaInicioSeleccionada==null) {
+			MiAlerta.showErrorAlert("La fecha de inicio introducida no puede ser nula." );
+			return false;
+		}
+		if(fechaFinSeleccionada==null) {
+			MiAlerta.showErrorAlert("La fecha de fin introducida no puede ser nula." );
+			return false;
+		}
 		if(fechaInicioSeleccionada.isAfter(LocalDate.now())) {
 			MiAlerta.showErrorAlert("La fecha de inicio introducida es posterior a la fecha actual. No se permiten valores posteriores a la fecha actual." );
 			return false;

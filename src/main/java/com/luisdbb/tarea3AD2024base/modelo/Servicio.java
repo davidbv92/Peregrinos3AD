@@ -1,5 +1,10 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 
 /**
@@ -12,6 +17,7 @@ public class Servicio {
 	private Long id;
 	private String nombre;
 	private double precio;
+	private Set<Long> conjuntosContratados=new HashSet<>(0);
 	
 	
 	//constructores
