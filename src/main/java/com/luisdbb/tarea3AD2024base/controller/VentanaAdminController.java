@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.db4o.DataConnection;
+import com.luisdbb.tarea3AD2024base.db4o.DataConnectionDB4O;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Servicio;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
@@ -71,7 +71,7 @@ public class VentanaAdminController implements Initializable{
 	private PeregrinoService peregrinoService;
 	
 	@Autowired
-    private DataConnection db4o;
+    private DataConnectionDB4O db4o;
 	
 	
 	

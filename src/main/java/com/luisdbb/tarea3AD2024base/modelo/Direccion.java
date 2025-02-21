@@ -1,14 +1,16 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * @author David Ballesteros
  * @since 14-02-2024
  */
 
-@Entity
+@Embeddable
 public class Direccion {
 	@Id
 	private Long id;

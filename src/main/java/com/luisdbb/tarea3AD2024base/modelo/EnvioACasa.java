@@ -1,6 +1,7 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -19,8 +20,7 @@ public class EnvioACasa extends Servicio{
 	private int[] volumen=new int[3];
 	private boolean urgente=false;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn
+	@Embedded
 	private Direccion direccion;
 	private Long idParada;
 	

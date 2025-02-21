@@ -55,6 +55,7 @@ public class StageManager {
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.centerOnScreen();
+        primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/concha.png")));
         
       scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -117,6 +118,7 @@ public class StageManager {
         Stage modalStage = new Stage();
         modalStage.initModality(Modality.APPLICATION_MODAL);
         modalStage.setTitle(title);
+        modalStage.setResizable(false);
         Scene scene = new Scene(rootnode);
         modalStage.setScene(scene);
         modalStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/concha.png")));

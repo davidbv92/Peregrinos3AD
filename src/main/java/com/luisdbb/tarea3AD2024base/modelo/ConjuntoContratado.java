@@ -16,6 +16,7 @@ public class ConjuntoContratado {
 	private double precio;
 	private char metodoPago;
 	private String extra=null;
+	
 	private Long idEstancia;
 	private Set<Long> servicios=new HashSet<Long>(0);
 	

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.db4o.DataConnection;
+import com.luisdbb.tarea3AD2024base.db4o.DataConnectionDB4O;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
@@ -63,7 +63,7 @@ public class RegistroServicioController implements Initializable{
     @Autowired
 	private ParadaService paradaService;
     @Autowired
-    private DataConnection db4o;
+    private DataConnectionDB4O db4o;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -76,6 +76,8 @@ public class RegistroServicioController implements Initializable{
 		
         //cargar Tabla
         cargarDatosTabla();
+        
+        //listener para no permitir precios no correctos
 	}
 
 	private void cargarDatosTabla() {
@@ -100,8 +102,24 @@ public class RegistroServicioController implements Initializable{
 	}
 
 	private boolean datosValidos() {
-		// TODO Auto-generated method stub
+		String nombre=txtNombre.getText();
+		String precio=txtPrecio.getText();
+		if(!nombreValido(nombre)) {
+			return false;
+		}if(!precioValido(precio)) {
+			return false;
+		}
 		return true;
+	}
+
+	private boolean precioValido(String precio) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean nombreValido(String nombre) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	public void onLimpiar() {
