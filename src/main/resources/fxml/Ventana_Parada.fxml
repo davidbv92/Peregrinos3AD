@@ -103,8 +103,13 @@
                               </Button>
                               <Button fx:id="btnExportarDatos" onAction="#onExportarDatos" prefWidth="150.0" style="-fx-background-color: #00528c;" text="E_xportar Datos" textFill="WHITE">
                                  <VBox.margin>
-                                    <Insets />
+                                    <Insets bottom="25.0" />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnVerEnvios" onAction="#onVerEnvios" prefWidth="150.0" style="-fx-background-color: #00528c;" text="_Ver Envíos Realizados" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -122,7 +127,7 @@
                      <bottom>
                         <FlowPane alignment="CENTER" prefHeight="50.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button fx:id="btnCerrarSesion" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Cerrar Sesión" textFill="WHITE" onAction="#onCerrarSesion">
+                              <Button fx:id="btnCerrarSesion" onAction="#onCerrarSesion" prefWidth="100.0" style="-fx-background-color: #00528c;" text="_Cerrar Sesión" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>

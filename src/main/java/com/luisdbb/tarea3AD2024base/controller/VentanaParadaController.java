@@ -60,6 +60,8 @@ public class VentanaParadaController implements Initializable {
 	@FXML
 	private Button btnExportarDatos;
 	@FXML
+	private Button btnVerEnvios;
+	@FXML
 	private Button btnCerrarSesion;
 	
 	
@@ -134,6 +136,10 @@ public class VentanaParadaController implements Initializable {
 		helpStage.initModality(Modality.APPLICATION_MODAL);
 		helpStage.setResizable(true);
 		helpStage.show();
+	}
+	
+	public void onVerEnvios() {
+		stageManager.openModal(FxmlView.ENVIOS_REALIZADOS);
 	}
 	
 }

@@ -120,6 +120,30 @@ public enum FxmlView {
 			return "/fxml/Registro_Servicio.fxml";
 		}
 		
+	},DETALLES_ESTANCIA{
+
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("detalesEstancia.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Detalles_Estancia_2.fxml";
+		}
+		
+	},ENVIOS_REALIZADOS{
+
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("enviosRealizados.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Envios_Realizados.fxml";
+		}
+		
 	};
 
 	public abstract String getTitle();
