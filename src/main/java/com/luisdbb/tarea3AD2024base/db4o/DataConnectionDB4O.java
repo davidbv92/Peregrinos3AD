@@ -9,35 +9,31 @@ import com.db4o.ObjectContainer;
 @Component
 public class DataConnectionDB4O {
 
-       private static DataConnectionDB4O INSTANCE = null;
-       
-       @Value("${db40.path}")
-   	   private String PATH;
-       private static ObjectContainer db;
+	private ObjectContainer db;
 
+    @Value("${db40.path}")
+    private String path;
 
-       private DataConnectionDB4O() {
-       }
+    public DataConnectionDB4O() {
+    }
 
-       private synchronized static void createInstance() {
-	   		if (INSTANCE == null) { 
-	   			INSTANCE = new DataConnectionDB4O();
-	   			INSTANCE.performConnection();
-	   		}
-   		}
+    public void performConnection() {
+        if (db == null || db.ext().isClosed()) {
+            db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), path);
+        }
+    }
 
-       public static ObjectContainer getInstance() {
-            if (INSTANCE == null)
-                createInstance();
-            return db;
-       }
+    public ObjectContainer getInstance() {
+        if (db == null || db.ext().isClosed()) {
+            performConnection();
+        }
+        return db;
+    }
 
-       public void performConnection() {
-	   		db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), PATH);
-   	}
-       
-       public void closeConnection() {
-           db.close();
-       }
+    public void closeConnection() {
+        if (db != null) {
+            db.close();
+        }
+    }
 
 }

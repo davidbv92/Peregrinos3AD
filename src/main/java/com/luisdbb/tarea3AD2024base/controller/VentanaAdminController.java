@@ -48,6 +48,8 @@ public class VentanaAdminController implements Initializable{
 	@FXML
 	private Button btnCrearServicio;
 	@FXML
+	private Button btnEditarServicio;
+	@FXML
 	private Button btnCerrarSesion;
 	
 	@FXML
@@ -128,11 +130,10 @@ public class VentanaAdminController implements Initializable{
 	
 	public void onCrearServicio() {
 		stageManager.switchScene(FxmlView.REGISTRO_SERVICIO);
-//		 Servicio s1 = new Servicio(100L, "Prueba",0.0);
-//		 db4o.getInstance().store(s1);
-//		 db4o.getInstance().commit();
-//		 ObjectSet<Servicio> result =  db4o.getInstance().query(Servicio.class);
-//		 MiAlerta.showInformationAlert("Servicios (número)", result.size()+"");
+	}
+	
+	public void onEditarServicio() {
+		stageManager.switchScene(FxmlView.EDITAR_SERVICIO);
 	}
 	
 

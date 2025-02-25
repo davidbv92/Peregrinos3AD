@@ -144,6 +144,18 @@ public enum FxmlView {
 			return "/fxml/Envios_Realizados.fxml";
 		}
 		
+	},EDITAR_SERVICIO{
+
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("editarServicio.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Editar_Servicio.fxml";
+		}
+		
 	};
 
 	public abstract String getTitle();

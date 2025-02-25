@@ -17,7 +17,8 @@ public class Servicio {
 	private Long id;
 	private String nombre;
 	private double precio;
-	private Set<Long> conjuntosContratados=new HashSet<>(0);
+	private List<Long> paradas = new ArrayList<>(0);
+	private List<Long> conjuntos = new ArrayList<>(0);
 	
 	
 	//constructores
@@ -33,6 +34,23 @@ public class Servicio {
 	}
 
 	
+	public Servicio(Long id, String nombre, double precio, List<Long> paradas, List<Long> conjuntos) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.paradas = paradas;
+		this.conjuntos = conjuntos;
+	}
+
+	public Servicio(Long id, String nombre, double precio, List<Long> paradas) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.paradas = paradas;
+	}
+
 	//getter y setter
 	public Long getId() {
 		return id;
@@ -57,6 +75,24 @@ public class Servicio {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+
+	public List<Long> getParadas() {
+		return paradas;
+	}
+
+	public void setParadas(List<Long> paradas) {
+		this.paradas = paradas;
+	}
+
+	public List<Long> getConjuntos() {
+		return conjuntos;
+	}
+
+	public void setConjuntos(List<Long> conjuntos) {
+		this.conjuntos = conjuntos;
+	}
+	
+	
 	
 	//métodos
 }
