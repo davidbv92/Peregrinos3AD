@@ -1,11 +1,8 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 
 /**
  * @author David Ballesteros

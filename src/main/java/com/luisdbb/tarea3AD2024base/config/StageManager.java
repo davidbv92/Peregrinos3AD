@@ -2,14 +2,11 @@ package com.luisdbb.tarea3AD2024base.config;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
 import org.slf4j.Logger;
 
 import com.luisdbb.tarea3AD2024base.view.FxmlView;

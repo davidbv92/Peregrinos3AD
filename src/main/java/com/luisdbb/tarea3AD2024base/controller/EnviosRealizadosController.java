@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.modelo.EnvioACasa;
-import com.luisdbb.tarea3AD2024base.modelo.Estancia;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +29,7 @@ public class EnviosRealizadosController implements Initializable{
 	@FXML
 	private Label lblEnvios;
 	@FXML
-	private TableView tableView;
+	private TableView<EnvioACasa> tableView;
 	@FXML
     private TableColumn<EnvioACasa, Long> colId;
 	@FXML

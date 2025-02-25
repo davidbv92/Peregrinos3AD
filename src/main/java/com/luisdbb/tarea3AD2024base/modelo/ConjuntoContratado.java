@@ -3,7 +3,6 @@ package com.luisdbb.tarea3AD2024base.modelo;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Entity;
 
 /**
  * @author David Ballesteros

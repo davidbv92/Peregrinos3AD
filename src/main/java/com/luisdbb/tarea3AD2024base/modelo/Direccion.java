@@ -1,9 +1,8 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+
 
 /**
  * @author David Ballesteros

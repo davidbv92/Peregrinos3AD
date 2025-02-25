@@ -30,7 +30,7 @@ public class DetallesEstancia implements Initializable{
 	private VBox panelServicios;
 	
 	@FXML
-	private ComboBox cbPago;
+	private ComboBox<String> cbPago;
 	@FXML
 	private TextField txtExtra;
 	@FXML

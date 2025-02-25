@@ -1,11 +1,7 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import jakarta.persistence.Entity;
 
 /**
  * @author David Ballesteros
@@ -32,8 +28,8 @@ public class Servicio {
 		this.nombre = nombre;
 		this.precio = precio;
 	}
-
 	
+
 	public Servicio(Long id, String nombre, double precio, List<Long> paradas, List<Long> conjuntos) {
 		super();
 		this.id = id;
@@ -42,7 +38,8 @@ public class Servicio {
 		this.paradas = paradas;
 		this.conjuntos = conjuntos;
 	}
-
+	
+	
 	public Servicio(Long id, String nombre, double precio, List<Long> paradas) {
 		super();
 		this.id = id;
@@ -91,8 +88,7 @@ public class Servicio {
 	public void setConjuntos(List<Long> conjuntos) {
 		this.conjuntos = conjuntos;
 	}
-	
-	
+
 	
 	//métodos
 }
