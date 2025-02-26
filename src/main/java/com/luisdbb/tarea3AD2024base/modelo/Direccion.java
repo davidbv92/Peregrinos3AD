@@ -11,8 +11,7 @@ import jakarta.persistence.Id;
 
 @Embeddable
 public class Direccion {
-	@Id
-	private Long id;
+	private Long idDireccion;
 	private String direccion;
 	private String localidad;
 	
@@ -22,7 +21,7 @@ public class Direccion {
 	}
 	public Direccion(Long id, String direccion, String localidad) {
 		super();
-		this.id = id;
+		this.idDireccion = id;
 		this.direccion = direccion;
 		this.localidad = localidad;
 	}
@@ -30,10 +29,10 @@ public class Direccion {
 	//getters y setters
 	
 	public Long getId() {
-		return id;
+		return idDireccion;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.idDireccion = id;
 	}
 	public String getDireccion() {
 		return direccion;

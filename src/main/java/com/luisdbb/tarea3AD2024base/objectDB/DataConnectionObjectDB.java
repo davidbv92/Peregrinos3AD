@@ -1,44 +1,50 @@
 package com.luisdbb.tarea3AD2024base.objectDB;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
+@Component
 public class DataConnectionObjectDB {
 
-	private static DataConnectionObjectDB INSTANCE = null;
-    private static EntityManagerFactory emf;
-    private static EntityManager em;
+    private EntityManagerFactory emf;
+    private EntityManager em;
 
     @Value("${objectDB.path}")
-	   private String PATH;
+    private String path;
 
-    private DataConnectionObjectDB() {
+    public DataConnectionObjectDB() {
     }
 
-
-    private synchronized static void createInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new DataConnectionObjectDB();
-            INSTANCE.performConnection();
+    
+    public void init() {
+        try {
+            //emf = Persistence.createEntityManagerFactory(path);
+        	emf = Persistence.createEntityManagerFactory("peregrinosODB.odb");
+            em = emf.createEntityManager();
+            System.out.println("Init entro");
+        } catch (Exception e) {
+        	MiAlerta.showErrorAlert("Error al conectar con la base de datos ObjectDB", e.getMessage());
         }
     }
 
-
-    public static EntityManager getInstance() {
-        if (INSTANCE == null)
-            createInstance();
+    public EntityManager getEntityManager() {
+        if (em == null || !em.isOpen()) {
+        	//emf = Persistence.createEntityManagerFactory(path);
+        	emf = Persistence.createEntityManagerFactory("peregrinosODB.odb");
+            em = emf.createEntityManager();
+        }
         return em;
     }
 
-    public void performConnection() {
-        emf = Persistence.createEntityManagerFactory("objectdb:" + PATH); 
-        em = emf.createEntityManager();
-    }
-
-    // Cerrar la conexión
+    
     public void closeConnection() {
         if (em != null && em.isOpen()) {
             em.close();

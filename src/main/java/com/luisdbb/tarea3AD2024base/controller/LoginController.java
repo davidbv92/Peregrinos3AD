@@ -9,16 +9,21 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Direccion;
+import com.luisdbb.tarea3AD2024base.modelo.EnvioACasa;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.User;
+import com.luisdbb.tarea3AD2024base.objectDB.DataConnectionObjectDB;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
+import com.luisdbb.tarea3AD2024base.services.EnvioACasaService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
+import jakarta.persistence.EntityManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -70,6 +75,7 @@ public class LoginController implements Initializable{
 	
 	@Autowired
     private ParadaService paradaService;
+	
 
 	@Value("${admin.username}")
 	private String adminUsername;
@@ -178,6 +184,24 @@ public class LoginController implements Initializable{
 
 	public void onRecuperarPassword() {
 		MiAlerta.showInformationAlert("Esta funcionalidad no está disponible en esta versión");
+//		int[] dim= {3,3,3};
+//		EnvioACasa e=new EnvioACasa(5L,5L,2.0,dim,false,new Direccion(1L,"d2","l2"), 1L) ;
+//		EnvioACasa e2=new EnvioACasa(3L,3L,2.0,dim,false,new Direccion(1L,"d3","l3"), 1L) ;
+//		DataConnectionObjectDB db=new DataConnectionObjectDB();
+//		db.init();
+//		db.getEntityManager().getTransaction().begin();
+//		
+//		db.getEntityManager().persist(e);
+//		db.getEntityManager().getTransaction().commit();
+//		db.closeConnection();
+//		
+//		db.init();
+//		db.getEntityManager().getTransaction().begin();
+//		db.getEntityManager().persist(e2);
+//		db.getEntityManager().getTransaction().commit();
+//		db.closeConnection();
+		
+//		envioACasaService.save(e);
 	}
 	
 	public void onRegistrarse() {

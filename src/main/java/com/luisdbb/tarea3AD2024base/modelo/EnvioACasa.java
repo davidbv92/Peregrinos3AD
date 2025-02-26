@@ -97,7 +97,12 @@ public class EnvioACasa extends Servicio{
 	public void setIdParada(Long idParada) {
 		this.idParada = idParada;
 	}
+
+	
 	
 	//métodos
-	
+	public String mostrarDimensiones() {
+		String res="x: "+volumen[0]+", y: "+volumen[1]+", z: "+volumen[2];
+		return res;
+	}
 }

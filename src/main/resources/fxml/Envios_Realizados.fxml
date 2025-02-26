@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.EnviosRealizadosController">
@@ -16,54 +15,24 @@
          </font>
       </Label>
    </top>
-   <left>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00528c; -fx-border-color: black; -fx-border-width: 0 2px 0 0;" BorderPane.alignment="CENTER">
-         <top>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="INFORMACIÓN" textFill="WHITE" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-         </top>
-         <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="lblNombre" text="Nombre:" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label fx:id="lblRegion" text="Región:" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label fx:id="lblResponsable" text="Responsable:" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets bottom="25.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label fx:id="lblEnvios" text="Envíos Realizados:" textFill="WHITE" />
-               </children>
-            </VBox>
-         </center>
-      </BorderPane>
-   </left>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #00528c;" BorderPane.alignment="CENTER">
          <top>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="400.0" text="LISTADO DE ENVÍOS" textFill="#00528c" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="400.0" text="LISTADO DE ENVÍOS" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
          </top>
          <center>
-            <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tableView" prefHeight="200.0" prefWidth="500.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="colNombre" prefWidth="199.0" text="NOMBRE" />
-                  <TableColumn fx:id="colPrecio" minWidth="0.0" prefWidth="105.0" text="PRECIO" />
+                <TableColumn fx:id="colId" prefWidth="40.0" text="ID" />
+                <TableColumn fx:id="colDireccion" prefWidth="150.0" text="DIRECCION" />
+                  <TableColumn fx:id="colPrecio" minWidth="0.0" prefWidth="90.0" text="PRECIO" />
+                  <TableColumn fx:id="colDimensiones" prefWidth="120.0" text="DIMENSIONES" />
+                  <TableColumn fx:id="colPeso" prefWidth="100.0" text="PESO" />
+                  <TableColumn fx:id="colUrgente" prefWidth="75.0" text="URGENTE" />
               </columns>
                <BorderPane.margin>
                   <Insets bottom="25.0" left="10.0" right="10.0" />
