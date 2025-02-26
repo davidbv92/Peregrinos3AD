@@ -78,19 +78,6 @@ public class EnviosRealizadosController implements Initializable{
 
 	private void cargarDatosTabla() {
 		List<EnvioACasa> listaEnvios = envioACasaService.findByIdParada(Sesion.getInstancia().getId());
-//		DataConnectionObjectDB db=new DataConnectionObjectDB();
-//		db.init();
-//        List<EnvioACasa> listaEnvios = null;
-//        
-//        try {
-//            TypedQuery<EnvioACasa> query = db.getEntityManager().createQuery("SELECT e FROM EnvioACasa e WHERE e.idParada = :idParada", EnvioACasa.class);
-//            query.setParameter("idParada", Sesion.getInstancia().getId());
-//            listaEnvios = query.getResultList();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            db.closeConnection();
-//        }
 	    ObservableList<EnvioACasa> observableList = FXCollections.observableArrayList(listaEnvios);
 	    tableView.setItems(observableList);
 		
