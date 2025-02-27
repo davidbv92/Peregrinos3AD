@@ -29,7 +29,7 @@
               <columns>
                 <TableColumn fx:id="colId" prefWidth="40.0" text="ID" />
                 <TableColumn fx:id="colDireccion" prefWidth="150.0" text="DIRECCION" />
-                  <TableColumn fx:id="colPrecio" minWidth="0.0" prefWidth="90.0" text="PRECIO" />
+                  <TableColumn fx:id="colLocalidad" minWidth="0.0" prefWidth="90.0" text="LOCALIDAD" />
                   <TableColumn fx:id="colDimensiones" prefWidth="120.0" text="DIMENSIONES" />
                   <TableColumn fx:id="colPeso" prefWidth="100.0" text="PESO" />
                   <TableColumn fx:id="colUrgente" prefWidth="75.0" text="URGENTE" />
