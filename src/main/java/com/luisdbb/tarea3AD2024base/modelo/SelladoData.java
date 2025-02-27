@@ -8,6 +8,8 @@ public class SelladoData {
 
 	private static SelladoData instancia;
     private boolean vip;
+    private Peregrino peregrino;
+    private Parada parada;
     
     private SelladoData() {
     }
@@ -25,5 +27,21 @@ public class SelladoData {
 
 	public void setVip(boolean vip) {
 		this.vip = vip;
+	}
+
+	public Peregrino getPeregrino() {
+		return peregrino;
+	}
+
+	public void setPeregrino(Peregrino peregrino) {
+		this.peregrino = peregrino;
+	}
+
+	public Parada getParada() {
+		return parada;
+	}
+
+	public void setParada(Parada parada) {
+		this.parada = parada;
 	}
 }

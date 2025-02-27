@@ -74,6 +74,8 @@ public class EditarServiciosController implements Initializable{
     @Autowired
     private DataConnectionDB4O db4o;
     
+    private String nombreAntiguo="";
+    
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -94,6 +96,12 @@ public class EditarServiciosController implements Initializable{
 	            servicio = servicioService.findById(servicioId);
 	            if (servicio != null) {
 	                txtNombre.setText(servicio.getNombre());
+	                nombreAntiguo=servicio.getNombre();
+	                if(servicio.getNombre().equals("Envío a Casa")) {
+	                	txtNombre.setDisable(true);
+	                }else {
+	                	txtNombre.setDisable(false);
+	                }
 	                txtPrecio.setText(String.valueOf(servicio.getPrecio()));
 	                marcarParadasSeleccionadas(servicio);
 	            }
@@ -111,13 +119,14 @@ public class EditarServiciosController implements Initializable{
 
 
 	private void marcarParadasSeleccionadas(Servicio servicio) {
-    List<Long> idsParadas = servicio.getParadas();
-    for (Parada parada : tableView.getItems()) {
-        if (idsParadas.contains(parada.getId())) {
-            tableView.getSelectionModel().select(parada);
-        }
-    }
-}
+		tableView.getSelectionModel().clearSelection();
+	    List<Long> idsParadas = servicio.getParadas();
+	    for (Parada parada : tableView.getItems()) {
+	        if (idsParadas.contains(parada.getId())) {
+	            tableView.getSelectionModel().select(parada);
+	        }
+	    }
+	}
 
 
 	private long obtenerIdServicio(String newValue) {
@@ -142,8 +151,12 @@ public class EditarServiciosController implements Initializable{
 	
 	
 	public void onLimpiar() {
-		txtNombre.setText("");
-		txtPrecio.setText("");
+		if(!txtNombre.isDisabled()) {
+			txtNombre.setText("");
+		}
+		if(!txtPrecio.isDisabled()) {
+			txtPrecio.setText("");
+		}
 		tableView.getSelectionModel().clearSelection();
 	}
 	
@@ -160,10 +173,10 @@ public class EditarServiciosController implements Initializable{
 			servicio.setPrecio(precio);
 			servicio.setParadas(ids);
 			
-			int anterior=servicioService.findAll().size();
+			//int anterior=servicioService.findAll().size();
 			servicioService.update(servicio);
-			int posterior=servicioService.findAll().size();
-			MiAlerta.showInformationAlert(anterior+" -> "+posterior);
+			//int posterior=servicioService.findAll().size();
+			MiAlerta.showInformationAlert("Edición exitosa", "Los nuevos valores se han registrado correctamente");
 		}
 	}
 
@@ -202,6 +215,8 @@ public class EditarServiciosController implements Initializable{
 		if(nombre==null || nombre.isBlank() ||nombre.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el nombre", "El nombre no puede estar vacío ni ser solo espacios en blanco.");
 			return false;
+		}else if(nombre.equals(nombreAntiguo)) {
+			return true;
 		}else if(nombre.length()>50) {
 			MiAlerta.showWarningAlert("Error en el nombre", "El nombre no puede tener una longitud superior a 50 caracteres.");
 			return false;

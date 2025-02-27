@@ -26,4 +26,9 @@ public class EnvioACasaService {
 		return envioACasaRepository.findByIdParada(id);
 		
 	}
+
+	public Long calcularIdMaximo() {
+		return envioACasaRepository.calcularIdMaximo();
+	}
+
 }

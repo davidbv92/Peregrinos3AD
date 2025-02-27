@@ -104,7 +104,7 @@ public class RegistroServicioController implements Initializable{
 			int anterior=servicioService.findAll().size();
 			servicioService.save(s);
 			int posterior=servicioService.findAll().size();
-			MiAlerta.showInformationAlert(anterior+" -> "+posterior);
+			MiAlerta.showInformationAlert("Servicio creado correctamente.", "El serviico se registró correctamente, ya puede ser contratado en las paradas en las que esté disponible");;
 		}
 	}
 	

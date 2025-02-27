@@ -16,6 +16,7 @@ import com.luisdbb.tarea3AD2024base.modelo.Estancia;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
+import com.luisdbb.tarea3AD2024base.modelo.SelladoData;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.Visita;
 import com.luisdbb.tarea3AD2024base.services.CarnetService;
@@ -177,25 +178,33 @@ public class VentanaSelladoController implements Initializable{
 			if(puedeSellar()) {
 				if(puedeEstanciar() && quiereEstancia) {
 					//añadir estancia y actualizar carnet y añadir visita
-					Estancia estancia=new Estancia();
-					estancia.setFecha(LocalDate.now());
-					estancia.setParada(parada);
-					estancia.setPeregrino(peregrino);
-					estancia.setVip(quiereVip);
-					Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
-					carnet.setDistancia(carnet.getDistancia()+5.0);
-					if(quiereVip) {
-						carnet.setNvips(carnet.getNvips()+1);
-					}
-					Visita visita=new Visita();
-					visita.setFecha(LocalDate.now());
-					visita.setParada(parada);
-					visita.setPeregrino(peregrino);
+//					Estancia estancia=new Estancia();
+//					estancia.setFecha(LocalDate.now());
+//					estancia.setParada(parada);
+//					estancia.setPeregrino(peregrino);
+//					estancia.setVip(quiereVip);
+//					Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
+//					carnet.setDistancia(carnet.getDistancia()+5.0);
+//					if(quiereVip) {
+//						carnet.setNvips(carnet.getNvips()+1);
+//					}
+//					Visita visita=new Visita();
+//					visita.setFecha(LocalDate.now());
+//					visita.setParada(parada);
+//					visita.setPeregrino(peregrino);
+//					
+//					carnetService.save(carnet);
+//					estanciaService.save(estancia);
+//					visitaService.save(visita);
 					
-					carnetService.save(carnet);
-					estanciaService.save(estancia);
-					visitaService.save(visita);
-					MiAlerta.showInformationAlert("Sellado exitoso", "Ha realizado su sellado con éxito en esta parada y se ha registrado su visita. Además, puede disfrutar durante el día de hoy de la estancia en esta parada.");
+//					MiAlerta.showInformationAlert("Sellado exitoso", "Ha realizado su sellado con éxito en esta parada y se ha registrado su visita. Además, puede disfrutar durante el día de hoy de la estancia en esta parada.");
+					boolean res=MiAlerta.showConfirmationAlert("¿Deseas avanzar a la selección de los detalles de la estancias?", "En la siguiente ventana seleccionarás los detalles para complementar la estancia.");
+					if(res) {
+						SelladoData.getInstancia().setParada(parada);
+						SelladoData.getInstancia().setPeregrino(peregrino);
+						SelladoData.getInstancia().setVip(quiereVip);
+						stageManager.switchScene(FxmlView.DETALLES_ESTANCIA);
+					}
 					limpiarRadioButtons();
 				}else if(quiereEstancia && !puedeEstanciar()) {
 					MiAlerta.showWarningAlert("No puede estanciarse, ya tiene una estancia en esta parada hoy.");

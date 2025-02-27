@@ -27,7 +27,7 @@ public class DataConnectionObjectDB {
     public void init() {
         try {
             //emf = Persistence.createEntityManagerFactory(path);
-        	emf = Persistence.createEntityManagerFactory("peregrinosODB.odb");
+        	emf = Persistence.createEntityManagerFactory("objectdb://localhost:6136/peregrinosODB.odb;user=admin;password=admin");
             em = emf.createEntityManager();
             System.out.println("Init entro");
         } catch (Exception e) {

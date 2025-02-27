@@ -50,10 +50,9 @@ public class EnvioACasaRepository {
 		List<EnvioACasa> listaEnvios = new ArrayList<>(0);
 		EntityManager em=dataConnection.getEntityManager();
 		try {
-	        EntityTransaction et = em.getTransaction();
 
 	        TypedQuery<EnvioACasa> query = em.createQuery("SELECT e FROM EnvioACasa e WHERE e.idParada = :idParada", EnvioACasa.class);
-            query.setParameter("idParada", Sesion.getInstancia().getId());
+            query.setParameter("idParada", id);
             listaEnvios = query.getResultList();
 	    } catch (Exception e) {
 	        MiAlerta.showErrorAlert("Error al consultar los envíos a casa", e.getMessage());
@@ -64,5 +63,17 @@ public class EnvioACasaRepository {
 	    	dataConnection.closeConnection();
 	    }
 		return listaEnvios;
+	}
+
+	public Long calcularIdMaximo() {
+	    EntityManager em = dataConnection.getEntityManager();
+	    try {
+	        TypedQuery<Long> query = em.createQuery("SELECT MAX(e.id) FROM EnvioACasa e", Long.class);
+	        Long maxId = query.getSingleResult();
+	        return (maxId != null) ? maxId : 0L;
+	    } catch (Exception e) {
+	        MiAlerta.showErrorAlert("Error al calcular el ID máximo", e.getMessage());
+	        return 0L;
+	    }
 	}
 }

@@ -1,6 +1,7 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,13 +13,26 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Carnet;
 import com.luisdbb.tarea3AD2024base.modelo.ConjuntoContratado;
+import com.luisdbb.tarea3AD2024base.modelo.Direccion;
+import com.luisdbb.tarea3AD2024base.modelo.EnvioACasa;
+import com.luisdbb.tarea3AD2024base.modelo.Estancia;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+import com.luisdbb.tarea3AD2024base.modelo.Parada;
+import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
+import com.luisdbb.tarea3AD2024base.modelo.SelladoData;
 import com.luisdbb.tarea3AD2024base.modelo.Servicio;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
+import com.luisdbb.tarea3AD2024base.modelo.Visita;
+import com.luisdbb.tarea3AD2024base.services.CarnetService;
 import com.luisdbb.tarea3AD2024base.services.ConjuntoContratadoService;
 import com.luisdbb.tarea3AD2024base.services.EnvioACasaService;
+import com.luisdbb.tarea3AD2024base.services.EstanciaService;
+import com.luisdbb.tarea3AD2024base.services.ParadaService;
+import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.services.ServicioService;
+import com.luisdbb.tarea3AD2024base.services.VisitaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
@@ -81,6 +95,22 @@ public class DetallesEstanciaController implements Initializable{
     private ConjuntoContratadoService conjuntoContratadoService;
 	@Autowired
     private EnvioACasaService envioACasaService;
+	@Autowired
+	private ParadaService paradaService;
+	@Autowired
+	private PeregrinoService peregrinoService;
+	@Autowired
+	private CarnetService carnetService;
+	@Autowired
+	private VisitaService visitaService;
+	@Autowired
+	private EstanciaService estanciaService;
+	
+	private Parada parada=new Parada();
+	
+	private Peregrino peregrino=new Peregrino();
+	
+	private Servicio servicio=null;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -97,6 +127,7 @@ public class DetallesEstanciaController implements Initializable{
 			checkBoxes.get(posicion).selectedProperty().addListener((obs, wasSelected, isSelected) -> {
                 panelEnvio.setDisable(!isSelected);
             });
+			servicio=listaServicios.get(posicion);
 		}
 		
 	}
@@ -143,19 +174,78 @@ public class DetallesEstanciaController implements Initializable{
 	        Long id=conjuntoContratadoService.calcularIdMaximo()+1;
 	        double total=calcularTotal(listaServicios);
 	        char pagoChar=pago.charAt(0);
-	        Long idEstancia=null;
-	        ConjuntoContratado c=new ConjuntoContratado(id,total,pagoChar,extra,idEstancia,seleccionados);
-			conjuntoContratadoService.save(null);
 	        
+	        //recuperar datos de ventana anterior
+	        if(SelladoData.getInstancia().getPeregrino()!=null) {
+	        	peregrino=SelladoData.getInstancia().getPeregrino();
+	        }else {
+	        	MiAlerta.showErrorAlert("Error en la carga de datos del peregrino.", "Volverá a la pantalla anterior para intentar repetir el proceso de sellado");
+	        }
+	        if(SelladoData.getInstancia().getParada()!=null) {
+	        	parada=SelladoData.getInstancia().getParada();
+	        }else {
+	        	MiAlerta.showErrorAlert("Error en la carga de datos de la parada.", "Volverá a la pantalla anterior para intentar repetir el proceso de sellado");
+	        }
+	        boolean quiereVip=SelladoData.getInstancia().isVip();
+	        
+	      //añadir estancia y actualizar carnet y añadir visita
+			Estancia estancia=new Estancia();
+			estancia.setFecha(LocalDate.now());
+			estancia.setParada(parada);
+			estancia.setPeregrino(peregrino);
+			estancia.setVip(quiereVip);
+			Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
+			carnet.setDistancia(carnet.getDistancia()+5.0);
+			if(quiereVip) {
+				carnet.setNvips(carnet.getNvips()+1);
+			}
+			Visita visita=new Visita();
+			visita.setFecha(LocalDate.now());
+			visita.setParada(parada);
+			visita.setPeregrino(peregrino);
+			
+			carnetService.save(carnet);
+			Estancia estanciaGuardada=estanciaService.save(estancia);
+			visitaService.save(visita);
+	        
+			//guardar el conjunto contratado de esta estancia
+			
+	        Long idEstancia=estanciaGuardada.getId();
+	        ConjuntoContratado c=new ConjuntoContratado(id,total,pagoChar,extra,idEstancia,seleccionados);
+			conjuntoContratadoService.save(c);
+	        
+			//guardar el envío si procede
 			if(!panelEnvio.isDisabled()) {
+				Long idServicio=0L;
+				String nombreServicio="Envío a Casa";
+				double precio=50.0;
+				if(servicio!=null) {
+					idServicio=servicio.getId();
+					nombreServicio=servicio.getNombre();
+					precio=servicio.getPrecio();
+				}
+				Long idEnvio=envioACasaService.calcularIdMaximo()+1;
 				String direccion=txtDireccion.getText();
 				String localidad=txtLocalidad.getText();
 				String peso=txtPeso.getText();
+				double pesoD=Double.parseDouble(peso);
 				String alto=txtAlto.getText();
 				String ancho=txtAncho.getText();
 				String profundo=txtProfundo.getText();
 				boolean urgente=checkUrgente.isSelected();
+				int[] dim= {Integer.parseInt(alto),Integer.parseInt(ancho),Integer.parseInt(profundo)};
+				Direccion direccionObj=new Direccion(idEnvio,direccion,localidad);
+		
+				EnvioACasa e=new EnvioACasa(idServicio,nombreServicio,precio,idEnvio,pesoD,dim,urgente,direccionObj,parada.getId());
+				envioACasaService.save(e);
+				
 			}
+			
+			MiAlerta.showInformationAlert("Registro de la estancia exitoso", "Se han registrado todos los detalles de su estancia correctamente");
+			SelladoData.getInstancia().setParada(null);
+			SelladoData.getInstancia().setPeregrino(null);
+			SelladoData.getInstancia().setVip(false);
+			stageManager.switchScene(FxmlView.VENTANA_SELLADO);
 		}
 //		List<Servicio> seleccionados = new ArrayList<>();
 //        for (int i = 0; i < listaServicios.size(); i++) {
@@ -215,10 +305,33 @@ public class DetallesEstanciaController implements Initializable{
 	}
 
 	private boolean medidasValidas(String alto, String ancho, String profundo) {
+		if(alto==null || alto.isBlank() ||alto.isEmpty()) {
+			MiAlerta.showWarningAlert("Error en el alto", "El alto no puede estar vacío ni ser solo espacios en blanco.");
+			return false;
+		}else if(alto.length()>9) {
+			MiAlerta.showWarningAlert("Error en el alto", "El alto no puede ser tan elevado.");
+			return false;
+		}
+		
+		if(ancho==null || ancho.isBlank() ||ancho.isEmpty()) {
+			MiAlerta.showWarningAlert("Error en el ancho", "El ancho no puede estar vacío ni ser solo espacios en blanco.");
+			return false;
+		}else if(ancho.length()>9) {
+			MiAlerta.showWarningAlert("Error en el ancho", "El ancho no puede ser tan elevado.");
+			return false;
+		}
+		
+		if(profundo==null || profundo.isBlank() ||profundo.isEmpty()) {
+			MiAlerta.showWarningAlert("Error en el profundo", "El profundo no puede estar vacío ni ser solo espacios en blanco.");
+			return false;
+		}else if(profundo.length()>9) {
+			MiAlerta.showWarningAlert("Error en el profundo", "El profundo no puede ser tan elevado.");
+			return false;
+		}
 		try {
-	        double altura = Double.parseDouble(alto);
-	        double anchoMedida = Double.parseDouble(ancho);
-	        double profundidad = Double.parseDouble(profundo);
+	        int altura = Integer.parseInt(alto);
+	        int anchoMedida = Integer.parseInt(ancho);
+	        int profundidad = Integer.parseInt(profundo);
 
 	        if (altura > 0 && anchoMedida > 0 && profundidad > 0) {
 	            return true;
@@ -227,7 +340,7 @@ public class DetallesEstanciaController implements Initializable{
 	            return false;  
 	        }
 	    } catch (NumberFormatException e) {
-	    	MiAlerta.showWarningAlert("Error en las medidas", "No introdujiste medidas en formato válido. Deberán tener el siguiente formato X(.XX).");
+	    	MiAlerta.showWarningAlert("Error en las medidas", "No introdujiste medidas en formato válido. Deberán ser números enteros.");
 	        return false;
 	    }
 	}
@@ -246,9 +359,22 @@ public class DetallesEstanciaController implements Initializable{
 	        if(!matcher.matches()) {
 	        	MiAlerta.showWarningAlert("Error en el peso.", "El peso debe ser positivo y seguir el formato X(.XX) de parte entera y opcionalmente parte decimal separada por un (.) y de hasta dos decimales.");
 				return false;
+	        }else {
+	        	try {
+			        double pesoD = Double.parseDouble(peso);
+
+			        if (pesoD>0) {
+			            return true;
+			        } else {
+			        	MiAlerta.showWarningAlert("Error en el peso", "El peso no puede estar vacío ni ser solo espacios en blanco.");
+			            return false;  
+			        }
+			    } catch (NumberFormatException e) {
+			    	MiAlerta.showWarningAlert("Error en el peso", "No introdujiste peso en formato válido. El peso debe ser positivo y seguir el formato X(.XX) de parte entera y opcionalmente parte decimal separada por un (.) y de hasta dos decimales.");
+			        return false;
+			    }
 	        }
 		}
-		return true;
 	}
 
 	private boolean localidadValida(String localidad) {
@@ -286,7 +412,7 @@ public class DetallesEstanciaController implements Initializable{
 				return false;
 	        }
 		}
-		return false;
+		return true;
 	}
 
 	private boolean extraValido(String extra) {
@@ -323,7 +449,7 @@ public class DetallesEstanciaController implements Initializable{
 	public void onVolver() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas volver?, no se guardarán los datos.");
 		if(res) {
-			stageManager.switchScene(FxmlView.VENTANA_PARADA);
+			stageManager.switchScene(FxmlView.VENTANA_SELLADO);
 			
 		}
 	}

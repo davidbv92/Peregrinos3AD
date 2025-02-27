@@ -45,7 +45,7 @@ public class EnviosRealizadosController implements Initializable{
 	@FXML
     private TableColumn<EnvioACasa, String> colDireccion;
 	@FXML
-    private TableColumn<EnvioACasa, Double> colPrecio;
+    private TableColumn<EnvioACasa, String> colLocalidad;
 	@FXML
     private TableColumn<EnvioACasa, String> colDimensiones;
 	@FXML
@@ -61,9 +61,11 @@ public class EnviosRealizadosController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		colDireccion.setCellValueFactory(cellData -> 
-        new SimpleStringProperty(cellData.getValue().getDireccion().getDireccion()+" ("+cellData.getValue().getDireccion().getLocalidad()+")")
+        new SimpleStringProperty(cellData.getValue().getDireccion().getDireccion())
     );
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colLocalidad.setCellValueFactory(cellData -> 
+        new SimpleStringProperty(cellData.getValue().getDireccion().getLocalidad())
+    );
         colDimensiones.setCellValueFactory(cellData -> 
         new SimpleStringProperty(cellData.getValue().mostrarDimensiones())
     );

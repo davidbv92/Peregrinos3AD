@@ -14,10 +14,12 @@ import com.luisdbb.tarea3AD2024base.modelo.EnvioACasa;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
+import com.luisdbb.tarea3AD2024base.modelo.Servicio;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.objectDB.DataConnectionObjectDB;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
+import com.luisdbb.tarea3AD2024base.services.ServicioService;
 import com.luisdbb.tarea3AD2024base.services.EnvioACasaService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.UserService;
@@ -76,6 +78,9 @@ public class LoginController implements Initializable{
 	@Autowired
     private ParadaService paradaService;
 	
+	@Autowired
+    private ServicioService servicioService;
+	
 
 	@Value("${admin.username}")
 	private String adminUsername;
@@ -102,6 +107,12 @@ public class LoginController implements Initializable{
 //
 //			
 //        });
+		
+		//persistir Envío a Casa permanente
+		if(servicioService.findByName("Envío a Casa")==null) {
+			Servicio servicio=new Servicio(0L,"Envío a Casa",10.0);
+			servicioService.save(servicio);
+		}
 		
 	}
 	
