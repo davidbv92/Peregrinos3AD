@@ -37,7 +37,7 @@ import jakarta.persistence.Transient;
 
 /**
  * @author David Ballesteros
- * @since 08-01-2024
+ * @since 08-01-2025
  */
 
 @Entity

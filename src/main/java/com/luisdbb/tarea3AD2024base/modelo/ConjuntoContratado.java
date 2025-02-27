@@ -1,12 +1,14 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
 /**
  * @author David Ballesteros
- * @since 14-02-2024
+ * @since 14-02-2025
  */
 
 public class ConjuntoContratado {
@@ -17,12 +19,12 @@ public class ConjuntoContratado {
 	private String extra=null;
 	
 	private Long idEstancia;
-	private Set<Long> servicios=new HashSet<Long>(0);
+	private List<Long> servicios=new ArrayList<Long>(0);
 	
 	
 	//constructores
 	public ConjuntoContratado(Long id, double precio, char metodoPago, String extra, Long idEstancia,
-			Set<Long> servicios) {
+			List<Long> servicios) {
 		super();
 		this.id = id;
 		this.precio = precio;
@@ -33,7 +35,7 @@ public class ConjuntoContratado {
 	}
 	
 	public ConjuntoContratado(Long id, double precio, char metodoPago, Long idEstancia,
-			Set<Long> servicios) {
+			List<Long> servicios) {
 		super();
 		this.id = id;
 		this.precio = precio;
@@ -89,15 +91,14 @@ public class ConjuntoContratado {
 		this.idEstancia = idEstancia;
 	}
 
-	public Set<Long> getServicios() {
+	public List<Long> getServicios() {
 		return servicios;
 	}
 
-	public void setServicios(Set<Long> servicios) {
+	public void setServicios(List<Long> servicios) {
 		this.servicios = servicios;
 	}
 	
 	//métodos
-	
 	
 }

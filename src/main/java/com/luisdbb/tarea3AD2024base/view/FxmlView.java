@@ -124,7 +124,7 @@ public enum FxmlView {
 
 		@Override
 		public String getTitle() {
-			return getStringFromResourceBundle("detalesEstancia.title");
+			return getStringFromResourceBundle("detallesEstancia.title");
 		}
 
 		@Override

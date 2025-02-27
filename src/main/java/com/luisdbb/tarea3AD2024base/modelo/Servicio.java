@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @author David Ballesteros
- * @since 14-02-2024
+ * @since 14-02-2025
  */
 
 public class Servicio {
@@ -91,4 +91,19 @@ public class Servicio {
 
 	
 	//métodos
+	public boolean contieneParada(Long id) {
+		return paradas.contains(id);
+	}
+	
+	public String formatoCadena() {
+		return getNombre()+" (+"+getPrecio()+"€)";
+	}
+
+	@Override
+	public String toString() {
+		return "Servicio [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", paradas=" + paradas
+				+ ", conjuntos=" + conjuntos + "]";
+	}
+	
+	
 }

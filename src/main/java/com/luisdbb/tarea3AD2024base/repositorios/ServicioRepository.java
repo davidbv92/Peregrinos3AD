@@ -1,5 +1,6 @@
 package com.luisdbb.tarea3AD2024base.repositorios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.luisdbb.tarea3AD2024base.db4o.DataConnectionDB4O;
+import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Servicio;
 
 @Repository
@@ -28,7 +30,8 @@ public class ServicioRepository {
 			db.commit();
 		}catch (Exception e) {
 			db.rollback();
-			e.printStackTrace();
+			MiAlerta.showErrorAlert("Error en la inserción", e.getMessage());
+			//e.printStackTrace();
 		}finally {
 			db.close();
 		}
@@ -42,7 +45,8 @@ public class ServicioRepository {
 	        ObjectSet<Servicio> result = db.queryByExample(ejemplo);
 	        return result.isEmpty() ? null : result.get(0); 
 	    } catch (Exception ex) {
-	        ex.printStackTrace();
+	        //ex.printStackTrace();
+	    	MiAlerta.showErrorAlert("Error en la búsqueda", ex.getMessage());
 	        return null;
 	    } finally {
 	        db.close();
@@ -76,7 +80,7 @@ public class ServicioRepository {
     }
 	
 	public Long calcularIdMaximo() {
-ObjectContainer db = dataConnection.getInstance(); 
+		ObjectContainer db = dataConnection.getInstance(); 
 		
 		try {
 			ObjectSet<Servicio> result = db.queryByExample(new Servicio());
@@ -105,10 +109,24 @@ ObjectContainer db = dataConnection.getInstance();
 			}
 		} catch (Exception e) {
 			db.rollback();
-			e.printStackTrace();
+			//e.printStackTrace();
+			MiAlerta.showErrorAlert("Error en la actualización", e.getMessage());
 		} finally {
 			db.close();
 		}
 		
+	}
+
+	public List<Servicio> findAllByParadaId(Long id) {
+		ObjectContainer db =dataConnection.getInstance(); 
+		List<Servicio> servicios=db.query(Servicio.class);
+		List<Servicio> filtrados = new ArrayList<>(0);
+		for(Servicio s:servicios) {
+			if(s.contieneParada(id)) {
+				filtrados.add(s);
+			}
+		}
+        return filtrados;
+        		
 	}
 }

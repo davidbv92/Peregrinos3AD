@@ -86,7 +86,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <GridPane prefHeight="212.0" prefWidth="350.0" style="-fx-border-color: #00528c; -fx-border-width: 2px;">
+                  <GridPane fx:id="panelEnvio" prefHeight="212.0" prefWidth="350.0" style="-fx-border-color: #00528c; -fx-border-width: 2px;">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

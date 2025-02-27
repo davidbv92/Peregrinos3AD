@@ -154,7 +154,7 @@ public class RegistroServicioController implements Initializable{
 			MiAlerta.showWarningAlert("Error en el nombre.", "El nombre ya está registrado en la base de datos.");
 			return false;
 		}else {
-			String regex = "^[A-Za-z]+(?: [A-Za-z]+)*$";
+			String regex = "^[\\p{L}]+(?: [\\p{L}]+)*$";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(nombre);
 	        if(!matcher.matches()) {

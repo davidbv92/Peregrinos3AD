@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 
 /**
  * @author David Ballesteros
- * @since 14-02-2024
+ * @since 14-02-2025
  */
 
 @Entity

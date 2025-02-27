@@ -2,7 +2,7 @@ package com.luisdbb.tarea3AD2024base.modelo;
 
 /**
  * @author David Ballesteros
- * @since 08-01-2024
+ * @since 08-01-2025
  */
 
 public class Sesion {

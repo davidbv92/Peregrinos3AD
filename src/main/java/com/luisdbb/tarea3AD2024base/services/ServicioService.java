@@ -42,4 +42,8 @@ public class ServicioService {
 	public Long calcularIdMaximo() {
 		return servicioRepository.calcularIdMaximo();
 	}
+
+	public List<Servicio> findAllByParadaId(Long id) {
+		return servicioRepository.findAllByParadaId(id);
+	}
 }
