@@ -1,6 +1,7 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.ConjuntoContratado;
 import com.luisdbb.tarea3AD2024base.modelo.Direccion;
 import com.luisdbb.tarea3AD2024base.modelo.EnvioACasa;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
@@ -20,6 +22,7 @@ import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.objectDB.DataConnectionObjectDB;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.services.ServicioService;
+import com.luisdbb.tarea3AD2024base.services.ConjuntoContratadoService;
 import com.luisdbb.tarea3AD2024base.services.EnvioACasaService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.UserService;
@@ -80,6 +83,9 @@ public class LoginController implements Initializable{
 	
 	@Autowired
     private ServicioService servicioService;
+	
+//	@Autowired
+//    private ConjuntoContratadoService conjuntoContratadoService;
 	
 
 	@Value("${admin.username}")
@@ -195,26 +201,18 @@ public class LoginController implements Initializable{
 
 	public void onRecuperarPassword() {
 		MiAlerta.showInformationAlert("Esta funcionalidad no está disponible en esta versión");
-//		int[] dim= {3,3,3};
-//		EnvioACasa e=new EnvioACasa(5L,5L,2.0,dim,false,new Direccion(1L,"d2","l2"), 1L) ;
-//		EnvioACasa e2=new EnvioACasa(3L,3L,2.0,dim,false,new Direccion(1L,"d3","l3"), 1L) ;
-//		DataConnectionObjectDB db=new DataConnectionObjectDB();
-//		db.init();
-//		db.getEntityManager().getTransaction().begin();
-//		
-//		db.getEntityManager().persist(e);
-//		db.getEntityManager().getTransaction().commit();
-//		db.closeConnection();
-//		
-//		db.init();
-//		db.getEntityManager().getTransaction().begin();
-//		db.getEntityManager().persist(e2);
-//		db.getEntityManager().getTransaction().commit();
-//		db.closeConnection();
-		
-//		envioACasaService.save(e);
+		//MiAlerta.showInformationAlert("Conjuntos", mostrarConjuntos());
 	}
 	
+//	private String mostrarConjuntos() {
+//		String sol="";
+//		List<ConjuntoContratado> conjuntos=conjuntoContratadoService.findAll();
+//		for(ConjuntoContratado c:conjuntos) {
+//			sol=sol+c.toString()+"\n";
+//		}
+//		return sol;
+//	}
+
 	public void onRegistrarse() {
 		stageManager.switchScene(FxmlView.REGISTRO_PEREGRINO);
 	}

@@ -83,7 +83,7 @@ public class DetallesEstanciaController implements Initializable{
 	private Button btnSellar;
 	
 	private List<Servicio> listaServicios=new ArrayList<>(0);
-	private final List<CheckBox> checkBoxes = new ArrayList<>(0); 
+	private List<CheckBox> checkBoxes = new ArrayList<>(0); 
 	
 	@Lazy
     @Autowired
@@ -114,6 +114,9 @@ public class DetallesEstanciaController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//resets
+		listaServicios=new ArrayList<>(0);
+		checkBoxes = new ArrayList<>(0); 
 		panelEnvio.setDisable(true);
 		listaServicios=servicioService.findAllByParadaId(Sesion.getInstancia().getId());
 		
@@ -154,7 +157,7 @@ public class DetallesEstanciaController implements Initializable{
 		for (Servicio s : listaServicios) {
 			String cadena=s.formatoCadena();
             CheckBox checkBox = new CheckBox(cadena);
-            checkBoxes.add(checkBox); // Guardamos cada CheckBox en la lista
+            checkBoxes.add(checkBox);
             panelServicios.getChildren().add(checkBox);
         }
 		
@@ -216,15 +219,15 @@ public class DetallesEstanciaController implements Initializable{
 	        
 			//guardar el envío si procede
 			if(!panelEnvio.isDisabled()) {
-				Long idServicio=0L;
-				String nombreServicio="Envío a Casa";
-				double precio=50.0;
-				if(servicio!=null) {
-					idServicio=servicio.getId();
-					nombreServicio=servicio.getNombre();
-					precio=servicio.getPrecio();
-				}
-				Long idEnvio=envioACasaService.calcularIdMaximo()+1;
+				//Long idServicio=0L;
+				//String nombreServicio="Envío a Casa";
+				//double precio=50.0;
+//				if(servicio!=null) {
+//					idServicio=servicio.getId();
+//					nombreServicio=servicio.getNombre();
+//					precio=servicio.getPrecio();
+//				}
+				//Long idEnvio=envioACasaService.calcularIdMaximo()+1;
 				String direccion=txtDireccion.getText();
 				String localidad=txtLocalidad.getText();
 				String peso=txtPeso.getText();
@@ -234,9 +237,10 @@ public class DetallesEstanciaController implements Initializable{
 				String profundo=txtProfundo.getText();
 				boolean urgente=checkUrgente.isSelected();
 				int[] dim= {Integer.parseInt(alto),Integer.parseInt(ancho),Integer.parseInt(profundo)};
-				Direccion direccionObj=new Direccion(idEnvio,direccion,localidad);
+				Direccion direccionObj=new Direccion(direccion,localidad);
 		
-				EnvioACasa e=new EnvioACasa(idServicio,nombreServicio,precio,idEnvio,pesoD,dim,urgente,direccionObj,parada.getId());
+				//EnvioACasa e=new EnvioACasa(idServicio,nombreServicio,precio,idEnvio,pesoD,dim,urgente,direccionObj,parada.getId());
+				EnvioACasa e=new EnvioACasa(pesoD,dim,urgente,direccionObj,parada.getId());
 				envioACasaService.save(e);
 				
 			}
@@ -258,8 +262,15 @@ public class DetallesEstanciaController implements Initializable{
 	}
 	
 	private double calcularTotal(List<Servicio> listaServicios2) {
+		List<Integer>posiciones=new ArrayList<>(0);
+		for(int i=0;i<checkBoxes.size();i++) {
+			if(checkBoxes.get(i).isSelected()) {
+				posiciones.add(i);
+			}
+		}
 		double total=0L;
-		for(Servicio s:listaServicios2) {
+		for(Integer i:posiciones) {
+			Servicio s=listaServicios2.get(i);
 			total=total+s.getPrecio();
 		}
 		return total;
@@ -336,7 +347,7 @@ public class DetallesEstanciaController implements Initializable{
 	        if (altura > 0 && anchoMedida > 0 && profundidad > 0) {
 	            return true;
 	        } else {
-	        	MiAlerta.showWarningAlert("Error en las medidas", "Las medidas no pueden estar vacías ni ser solo espacios en blanco.");
+	        	MiAlerta.showWarningAlert("Error en las medidas", "Las medidas no pueden estar vacías ni ser solo espacios en blanco o ceros.");
 	            return false;  
 	        }
 	    } catch (NumberFormatException e) {
@@ -443,7 +454,14 @@ public class DetallesEstanciaController implements Initializable{
 	}
 
 	public void onLimpiar() {
-		
+		List<Servicio> seleccionados = new ArrayList<>();
+      for (int i = 0; i < listaServicios.size(); i++) {
+          if (checkBoxes.get(i).isSelected()) {
+              seleccionados.add(listaServicios.get(i));
+          }
+      }
+      
+      MiAlerta.showInformationAlert(mostrarSeleccionados(seleccionados));
 	}
 	
 	public void onVolver() {

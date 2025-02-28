@@ -38,7 +38,8 @@ public class DataConnectionObjectDB {
     public EntityManager getEntityManager() {
         if (em == null || !em.isOpen()) {
         	//emf = Persistence.createEntityManagerFactory(path);
-        	emf = Persistence.createEntityManagerFactory("peregrinosODB.odb");
+        	//emf = Persistence.createEntityManagerFactory("peregrinosODB.odb");
+        	emf = Persistence.createEntityManagerFactory("objectdb://localhost:6136/peregrinosODB.odb;user=admin;password=admin");
             em = emf.createEntityManager();
         }
         return em;

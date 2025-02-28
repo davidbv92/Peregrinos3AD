@@ -2,6 +2,8 @@ package com.luisdbb.tarea3AD2024base.modelo;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
@@ -12,6 +14,7 @@ import jakarta.persistence.Id;
 @Entity
 public class EnvioACasa extends Servicio{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private double peso;
 	private int[] volumen=new int[3];
@@ -45,6 +48,15 @@ public class EnvioACasa extends Servicio{
 	
 	public EnvioACasa() {
 		
+	}
+	
+	public EnvioACasa(double peso, int[] volumen, boolean urgente, Direccion direccion, long idParada) {
+		super();
+		this.peso = peso;
+		this.volumen = volumen;
+		this.urgente = urgente;
+		this.direccion = direccion;
+		this.idParada = idParada;
 	}
 
 	

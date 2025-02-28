@@ -98,7 +98,14 @@ public class ConjuntoContratado {
 	public void setServicios(List<Long> servicios) {
 		this.servicios = servicios;
 	}
+
+	
 	
 	//métodos
+	@Override
+	public String toString() {
+		return "ConjuntoContratado [id=" + id + ", precio=" + precio + ", metodoPago=" + metodoPago + ", extra=" + extra
+				+ ", idEstancia=" + idEstancia + ", servicios=" + servicios + "]";
+	}
 	
 }

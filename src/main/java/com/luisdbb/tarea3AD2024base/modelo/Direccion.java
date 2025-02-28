@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 
 @Embeddable
 public class Direccion {
-	private Long idDireccion;
+	//private Long idDireccion;
 	private String direccion;
 	private String localidad;
 	
@@ -19,21 +19,27 @@ public class Direccion {
 	public Direccion() {
 		
 	}
-	public Direccion(Long id, String direccion, String localidad) {
+//	public Direccion(Long id, String direccion, String localidad) {
+//		super();
+//		this.idDireccion = id;
+//		this.direccion = direccion;
+//		this.localidad = localidad;
+//	}
+	
+	public Direccion(String direccion, String localidad) {
 		super();
-		this.idDireccion = id;
 		this.direccion = direccion;
 		this.localidad = localidad;
 	}
 
 	//getters y setters
 	
-	public Long getId() {
-		return idDireccion;
-	}
-	public void setId(Long id) {
-		this.idDireccion = id;
-	}
+//	public Long getId() {
+//		return idDireccion;
+//	}
+//	public void setId(Long id) {
+//		this.idDireccion = id;
+//	}
 	public String getDireccion() {
 		return direccion;
 	}
