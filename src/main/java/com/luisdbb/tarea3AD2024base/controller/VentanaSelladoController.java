@@ -88,11 +88,13 @@ public class VentanaSelladoController implements Initializable{
 	
 	private Parada parada=new Parada();
 	
-	private Peregrino peregrino=new Peregrino();
+	private Peregrino peregrino=null;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//reseteo de peregrino y parada
+		peregrino=null;
 		parada=paradaService.find(Sesion.getInstancia().getId());
 		//cargar combobox de peregrinos
 		cargarPeregrinos();
@@ -177,26 +179,7 @@ public class VentanaSelladoController implements Initializable{
 			boolean quiereVip=rdbtnVipSi.isSelected();
 			if(puedeSellar()) {
 				if(puedeEstanciar() && quiereEstancia) {
-					//añadir estancia y actualizar carnet y añadir visita
-//					Estancia estancia=new Estancia();
-//					estancia.setFecha(LocalDate.now());
-//					estancia.setParada(parada);
-//					estancia.setPeregrino(peregrino);
-//					estancia.setVip(quiereVip);
-//					Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
-//					carnet.setDistancia(carnet.getDistancia()+5.0);
-//					if(quiereVip) {
-//						carnet.setNvips(carnet.getNvips()+1);
-//					}
-//					Visita visita=new Visita();
-//					visita.setFecha(LocalDate.now());
-//					visita.setParada(parada);
-//					visita.setPeregrino(peregrino);
-//					
-//					carnetService.save(carnet);
-//					estanciaService.save(estancia);
-//					visitaService.save(visita);
-					
+					//añadir estancia y actualizar carnet y añadir visita					
 //					MiAlerta.showInformationAlert("Sellado exitoso", "Ha realizado su sellado con éxito en esta parada y se ha registrado su visita. Además, puede disfrutar durante el día de hoy de la estancia en esta parada.");
 					boolean res=MiAlerta.showConfirmationAlert("¿Deseas avanzar a la selección de los detalles de la estancias?", "En la siguiente ventana seleccionarás los detalles para complementar la estancia.");
 					if(res) {
@@ -221,13 +204,21 @@ public class VentanaSelladoController implements Initializable{
 					MiAlerta.showInformationAlert("Sellado exitoso", "Ha sellado su carnet con éxito, la visita a esta parada se registró correctamente");
 				}
 			}else if(puedeEstanciar() && quiereEstancia){
-				Estancia estancia=new Estancia();
-				estancia.setFecha(LocalDate.now());
-				estancia.setParada(parada);
-				estancia.setPeregrino(peregrino);
-				estancia.setVip(quiereVip);
-				estanciaService.save(estancia);
-				MiAlerta.showInformationAlert("Estancia registrada correctamente", "Se ha registrado la estancia correctamente, no se ha realizado el sellado puesto que ya ha sellado hoy en esta parada");
+				boolean res=MiAlerta.showConfirmationAlert("¿Deseas avanzar a la selección de los detalles de la estancias?", "En la siguiente ventana seleccionarás los detalles para complementar la estancia.");
+				if(res) {
+					SelladoData.getInstancia().setParada(parada);
+					SelladoData.getInstancia().setPeregrino(peregrino);
+					SelladoData.getInstancia().setVip(quiereVip);
+					stageManager.switchScene(FxmlView.DETALLES_ESTANCIA);
+				}
+				limpiarRadioButtons();
+//				Estancia estancia=new Estancia();
+//				estancia.setFecha(LocalDate.now());
+//				estancia.setParada(parada);
+//				estancia.setPeregrino(peregrino);
+//				estancia.setVip(quiereVip);
+//				estanciaService.save(estancia);
+//				MiAlerta.showInformationAlert("Estancia registrada correctamente", "Se ha registrado la estancia correctamente, no se ha realizado el sellado puesto que ya ha sellado hoy en esta parada");
 			}else {
 				MiAlerta.showWarningAlert("No puede sellar aquí su carnet, ya ha sido sellado hoy en esta parada.");
 			}
@@ -269,11 +260,18 @@ public class VentanaSelladoController implements Initializable{
 
 
 	private boolean peregrinoValido() {
-		if(!existePeregrinoBBDD(peregrino)) {
+		if(peregrino==null) {
+			//MiAlerta.showWarningAlert("Error en la selección del peregrino", "Debes seleccionar un peregrino para realizarle el sellado");
 			return false;
 		}else {
-			return true;
+			if(!existePeregrinoBBDD(peregrino)) {
+				//MiAlerta.showWarningAlert("Error en la selección del peregrino", "Debes seleccionar un peregrino para realizarle el sellado");
+				return false;
+			}else {
+				return true;
+			}
 		}
+		
 	}
 
 

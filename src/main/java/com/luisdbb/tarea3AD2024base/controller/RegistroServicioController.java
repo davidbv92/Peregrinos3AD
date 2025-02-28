@@ -66,8 +66,6 @@ public class RegistroServicioController implements Initializable{
 	private ParadaService paradaService;
     @Autowired
 	private ServicioService servicioService;
-    @Autowired
-    private DataConnectionDB4O db4o;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -104,7 +102,8 @@ public class RegistroServicioController implements Initializable{
 			int anterior=servicioService.findAll().size();
 			servicioService.save(s);
 			int posterior=servicioService.findAll().size();
-			MiAlerta.showInformationAlert("Servicio creado correctamente.", "El serviico se registró correctamente, ya puede ser contratado en las paradas en las que esté disponible");;
+			MiAlerta.showInformationAlert("Servicio creado correctamente.", "El servicio se registró correctamente, ya puede ser contratado en las paradas en las que esté disponible");;
+			stageManager.switchScene(FxmlView.VENTANA_ADMIN);
 		}
 	}
 	

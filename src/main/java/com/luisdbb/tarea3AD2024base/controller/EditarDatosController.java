@@ -68,6 +68,7 @@ public class EditarDatosController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//reset de peregrino
 		peregrino=peregrinoService.find(Sesion.getInstancia().getId());
 		//cargarNacionalidades
 		cargarNacionalidades();

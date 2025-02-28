@@ -113,8 +113,7 @@ public class VentanaParadaController implements Initializable {
 	}
 	
 	public void onExportarDatos() {
-//		MiAlerta.showInformationAlert("Exportar datos accionado");
-		stageManager.openModal(FxmlView.DETALLES_ESTANCIA);
+		MiAlerta.showInformationAlert("Esta funcionalidad no está disponible en esta versión.");
 	}
 	
 	public void onAyuda() {

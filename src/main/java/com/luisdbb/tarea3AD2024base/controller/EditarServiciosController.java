@@ -62,7 +62,7 @@ public class EditarServiciosController implements Initializable{
 	@FXML
 	private Button btnEditar;
 	
-	private Servicio servicio=new Servicio();
+	
 	
 	@Lazy
     @Autowired
@@ -75,10 +75,13 @@ public class EditarServiciosController implements Initializable{
     private DataConnectionDB4O db4o;
     
     private String nombreAntiguo="";
+    private Servicio servicio=null;
     
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//resetear servicio
+		servicio=null;
 		//preparar tabla
 		tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -88,7 +91,6 @@ public class EditarServiciosController implements Initializable{
 		//cargar datos
 		cargarCbIds();
 		cargarDatosTabla();
-		
 		//actualizar con el combobox
 		cbId.valueProperty().addListener((observable, oldValue, newValue) -> {
 	        if (newValue != null && !newValue.isEmpty()) {
@@ -177,6 +179,7 @@ public class EditarServiciosController implements Initializable{
 			servicioService.update(servicio);
 			//int posterior=servicioService.findAll().size();
 			MiAlerta.showInformationAlert("Edición exitosa", "Los nuevos valores se han registrado correctamente");
+			stageManager.switchScene(FxmlView.VENTANA_ADMIN);
 		}
 	}
 
@@ -184,7 +187,9 @@ public class EditarServiciosController implements Initializable{
 	private boolean datosValidos() {
 		String nombre=txtNombre.getText();
 		String precio=txtPrecio.getText();
-		if(!nombreValido(nombre)) {
+		if(!servicioValido()) {
+			return false;
+		}else if(!nombreValido(nombre)) {
 			return false;
 		}if(!precioValido(precio)) {
 			return false;
@@ -192,6 +197,23 @@ public class EditarServiciosController implements Initializable{
 		return true;
 	}
 	
+	private boolean servicioValido() {
+		if(servicio==null) {
+			MiAlerta.showWarningAlert("Error en la selección del servicio", "Debes escoger un servicio para editar.");
+			return false;
+		}else {
+			if(servicio.getNombre()==null || servicio.getNombre().isBlank() ||servicio.getNombre().isEmpty()) {
+				MiAlerta.showWarningAlert("Error en la selección del servicio", "Debes escoger un servicio para editar.");
+				return false;
+			}
+			else {
+				//MiAlerta.showInformationAlert(servicio.toString(),"Servicio válido");
+				return true;
+			}
+		}
+	}
+
+
 	private boolean precioValido(String precio) {
 		if(precio==null || precio.isBlank() ||precio.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el precio", "El precio no puede estar vacío ni ser solo espacios en blanco.");
