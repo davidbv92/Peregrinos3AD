@@ -36,6 +36,17 @@ public class User {
 //		this.id = id;
 //	}
 
+	public User(String usuario, String rol, String email, String password) {
+		this.usuario=usuario;
+		this.rol=rol;
+		this.email=email;
+		this.password=password;
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getEmail() {
 		return email;
 	}
