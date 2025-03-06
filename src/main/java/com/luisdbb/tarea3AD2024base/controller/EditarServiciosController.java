@@ -164,22 +164,26 @@ public class EditarServiciosController implements Initializable{
 	
 	public void onEditar() {
 		if(datosValidos()) {
-			String nombre=txtNombre.getText();
-			double precio=Double.parseDouble(txtPrecio.getText());
-			List<Long> ids=new ArrayList<Long>(0);
-			for (Parada parada : tableView.getSelectionModel().getSelectedItems()) {
-		        ids.add(parada.getId());
-		    }
+			boolean res=MiAlerta.showConfirmationAlert("¿Desea editar el servicio?", "El servicio será modificado con los nuevos valores definitivamente en el sistema.");
+			if(res) {
+				String nombre=txtNombre.getText();
+				double precio=Double.parseDouble(txtPrecio.getText());
+				List<Long> ids=new ArrayList<Long>(0);
+				for (Parada parada : tableView.getSelectionModel().getSelectedItems()) {
+			        ids.add(parada.getId());
+			    }
+				
+				servicio.setNombre(nombre);
+				servicio.setPrecio(precio);
+				servicio.setParadas(ids);
+				
+				//int anterior=servicioService.findAll().size();
+				servicioService.update(servicio);
+				//int posterior=servicioService.findAll().size();
+				MiAlerta.showInformationAlert("Edición exitosa", "Los nuevos valores se han registrado correctamente");
+				stageManager.switchScene(FxmlView.VENTANA_ADMIN);
+			}
 			
-			servicio.setNombre(nombre);
-			servicio.setPrecio(precio);
-			servicio.setParadas(ids);
-			
-			//int anterior=servicioService.findAll().size();
-			servicioService.update(servicio);
-			//int posterior=servicioService.findAll().size();
-			MiAlerta.showInformationAlert("Edición exitosa", "Los nuevos valores se han registrado correctamente");
-			stageManager.switchScene(FxmlView.VENTANA_ADMIN);
 		}
 	}
 

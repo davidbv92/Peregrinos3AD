@@ -165,91 +165,95 @@ public class DetallesEstanciaController implements Initializable{
 
 	public void onSellar() {
 		if(camposValidos()) {
-			String pago=cbPago.getValue();
-			String extra=txtExtra.getText();
-			List<Long> seleccionados = new ArrayList<>();
-	        for (int i = 0; i < listaServicios.size(); i++) {
-	            if (checkBoxes.get(i).isSelected()) {
-	                seleccionados.add(listaServicios.get(i).getId());
-	            }
-	        }
-	        
-	        Long id=conjuntoContratadoService.calcularIdMaximo()+1;
-	        double total=calcularTotal(listaServicios);
-	        char pagoChar=pago.charAt(0);
-	        
-	        //recuperar datos de ventana anterior
-	        if(SelladoData.getInstancia().getPeregrino()!=null) {
-	        	peregrino=SelladoData.getInstancia().getPeregrino();
-	        }else {
-	        	MiAlerta.showErrorAlert("Error en la carga de datos del peregrino.", "Volverá a la pantalla anterior para intentar repetir el proceso de sellado");
-	        }
-	        if(SelladoData.getInstancia().getParada()!=null) {
-	        	parada=SelladoData.getInstancia().getParada();
-	        }else {
-	        	MiAlerta.showErrorAlert("Error en la carga de datos de la parada.", "Volverá a la pantalla anterior para intentar repetir el proceso de sellado");
-	        }
-	        boolean quiereVip=SelladoData.getInstancia().isVip();
-	        
-	      //añadir estancia y actualizar carnet y añadir visita
-			Estancia estancia=new Estancia();
-			estancia.setFecha(LocalDate.now());
-			estancia.setParada(parada);
-			estancia.setPeregrino(peregrino);
-			estancia.setVip(quiereVip);
-			Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
-			carnet.setDistancia(carnet.getDistancia()+5.0);
-			if(quiereVip) {
-				carnet.setNvips(carnet.getNvips()+1);
-			}
-			Visita visita=new Visita();
-			visita.setFecha(LocalDate.now());
-			visita.setParada(parada);
-			visita.setPeregrino(peregrino);
-			
-			carnetService.save(carnet);
-			Estancia estanciaGuardada=estanciaService.save(estancia);
-			visitaService.save(visita);
-	        
-			//guardar el conjunto contratado de esta estancia
-			
-	        Long idEstancia=estanciaGuardada.getId();
-	        ConjuntoContratado c=new ConjuntoContratado(id,total,pagoChar,extra,idEstancia,seleccionados);
-			conjuntoContratadoService.save(c);
-	        
-			//guardar el envío si procede
-			if(!panelEnvio.isDisabled()) {
-				//Long idServicio=0L;
-				//String nombreServicio="Envío a Casa";
-				//double precio=50.0;
-//				if(servicio!=null) {
-//					idServicio=servicio.getId();
-//					nombreServicio=servicio.getNombre();
-//					precio=servicio.getPrecio();
-//				}
-				//Long idEnvio=envioACasaService.calcularIdMaximo()+1;
-				String direccion=txtDireccion.getText();
-				String localidad=txtLocalidad.getText();
-				String peso=txtPeso.getText();
-				double pesoD=Double.parseDouble(peso);
-				String alto=txtAlto.getText();
-				String ancho=txtAncho.getText();
-				String profundo=txtProfundo.getText();
-				boolean urgente=checkUrgente.isSelected();
-				int[] dim= {Integer.parseInt(alto),Integer.parseInt(ancho),Integer.parseInt(profundo)};
-				Direccion direccionObj=new Direccion(direccion,localidad);
-		
-				//EnvioACasa e=new EnvioACasa(idServicio,nombreServicio,precio,idEnvio,pesoD,dim,urgente,direccionObj,parada.getId());
-				EnvioACasa e=new EnvioACasa(pesoD,dim,urgente,direccionObj,parada.getId());
-				envioACasaService.save(e);
+			boolean res=MiAlerta.showConfirmationAlert("¿Desea resgistrar la estancia con estos datos?", "La estancia con el conjunto de servicios y todos los datos que ha introducido quedarán registrados. Si desea modificar algo puede volver accionando Cancelar");
+			if(res) {
+				String pago=cbPago.getValue();
+				String extra=txtExtra.getText();
+				List<Long> seleccionados = new ArrayList<>();
+		        for (int i = 0; i < listaServicios.size(); i++) {
+		            if (checkBoxes.get(i).isSelected()) {
+		                seleccionados.add(listaServicios.get(i).getId());
+		            }
+		        }
+		        
+		        Long id=conjuntoContratadoService.calcularIdMaximo()+1;
+		        double total=calcularTotal(listaServicios);
+		        char pagoChar=pago.charAt(0);
+		        
+		        //recuperar datos de ventana anterior
+		        if(SelladoData.getInstancia().getPeregrino()!=null) {
+		        	peregrino=SelladoData.getInstancia().getPeregrino();
+		        }else {
+		        	MiAlerta.showErrorAlert("Error en la carga de datos del peregrino.", "Volverá a la pantalla anterior para intentar repetir el proceso de sellado");
+		        }
+		        if(SelladoData.getInstancia().getParada()!=null) {
+		        	parada=SelladoData.getInstancia().getParada();
+		        }else {
+		        	MiAlerta.showErrorAlert("Error en la carga de datos de la parada.", "Volverá a la pantalla anterior para intentar repetir el proceso de sellado");
+		        }
+		        boolean quiereVip=SelladoData.getInstancia().isVip();
+		        
+		      //añadir estancia y actualizar carnet y añadir visita
+				Estancia estancia=new Estancia();
+				estancia.setFecha(LocalDate.now());
+				estancia.setParada(parada);
+				estancia.setPeregrino(peregrino);
+				estancia.setVip(quiereVip);
+				Carnet carnet=carnetService.findByPeregrino_Id(peregrino.getId());
+				carnet.setDistancia(carnet.getDistancia()+5.0);
+				if(quiereVip) {
+					carnet.setNvips(carnet.getNvips()+1);
+				}
+				Visita visita=new Visita();
+				visita.setFecha(LocalDate.now());
+				visita.setParada(parada);
+				visita.setPeregrino(peregrino);
 				
+				carnetService.save(carnet);
+				Estancia estanciaGuardada=estanciaService.save(estancia);
+				visitaService.save(visita);
+		        
+				//guardar el conjunto contratado de esta estancia
+				
+		        Long idEstancia=estanciaGuardada.getId();
+		        ConjuntoContratado c=new ConjuntoContratado(id,total,pagoChar,extra,idEstancia,seleccionados);
+				conjuntoContratadoService.save(c);
+		        
+				//guardar el envío si procede
+				if(!panelEnvio.isDisabled()) {
+					//Long idServicio=0L;
+					//String nombreServicio="Envío a Casa";
+					//double precio=50.0;
+//					if(servicio!=null) {
+//						idServicio=servicio.getId();
+//						nombreServicio=servicio.getNombre();
+//						precio=servicio.getPrecio();
+//					}
+					//Long idEnvio=envioACasaService.calcularIdMaximo()+1;
+					String direccion=txtDireccion.getText();
+					String localidad=txtLocalidad.getText();
+					String peso=txtPeso.getText();
+					double pesoD=Double.parseDouble(peso);
+					String alto=txtAlto.getText();
+					String ancho=txtAncho.getText();
+					String profundo=txtProfundo.getText();
+					boolean urgente=checkUrgente.isSelected();
+					int[] dim= {Integer.parseInt(alto),Integer.parseInt(ancho),Integer.parseInt(profundo)};
+					Direccion direccionObj=new Direccion(direccion,localidad);
+			
+					//EnvioACasa e=new EnvioACasa(idServicio,nombreServicio,precio,idEnvio,pesoD,dim,urgente,direccionObj,parada.getId());
+					EnvioACasa e=new EnvioACasa(pesoD,dim,urgente,direccionObj,parada.getId());
+					envioACasaService.save(e);
+					
+				}
+				
+				MiAlerta.showInformationAlert("Registro de la estancia exitoso", "Se han registrado todos los detalles de su estancia correctamente");
+				SelladoData.getInstancia().setParada(null);
+				SelladoData.getInstancia().setPeregrino(null);
+				SelladoData.getInstancia().setVip(false);
+				stageManager.switchScene(FxmlView.VENTANA_SELLADO);
 			}
 			
-			MiAlerta.showInformationAlert("Registro de la estancia exitoso", "Se han registrado todos los detalles de su estancia correctamente");
-			SelladoData.getInstancia().setParada(null);
-			SelladoData.getInstancia().setPeregrino(null);
-			SelladoData.getInstancia().setVip(false);
-			stageManager.switchScene(FxmlView.VENTANA_SELLADO);
 		}
 //		List<Servicio> seleccionados = new ArrayList<>();
 //        for (int i = 0; i < listaServicios.size(); i++) {

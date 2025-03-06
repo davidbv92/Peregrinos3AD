@@ -1,6 +1,7 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -82,10 +83,14 @@ public class EditarDatosController implements Initializable{
 
 	private void cargarNacionalidades() {
 		try {
-            File xmlFile = new File("src/main/resources/files/paises.xml");
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("files/paises.xml");
+			//String content =new String(inputStream.readAllBytes());
+			//File xmlFile=new File(content);
+			//InputStreamReader reader = new InputStreamReader(new FileInputStream(xmlFile), StandardCharsets.UTF_8);
+//            File xmlFile = new File("src/main/resources/files/paises.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(xmlFile);
+            Document document = builder.parse(inputStream);
 
             NodeList nombres = document.getElementsByTagName("nombre");
 

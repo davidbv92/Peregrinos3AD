@@ -1,7 +1,11 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,10 +134,14 @@ public class RegistroPeregrinoController implements Initializable{
 
 	private void cargarNacionalidades() {
 		try {
-            File xmlFile = new File("src/main/resources/files/paises.xml");
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("files/paises.xml");
+			//String content =new String(inputStream.readAllBytes());
+			//File xmlFile=new File(content);
+			//InputStreamReader reader = new InputStreamReader(new FileInputStream(xmlFile), StandardCharsets.UTF_8);
+//            File xmlFile = new File("src/main/resources/files/paises.xml");
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(xmlFile);
+            Document document = builder.parse(inputStream);
 
             NodeList nombres = document.getElementsByTagName("nombre");
 
@@ -245,11 +253,12 @@ public class RegistroPeregrinoController implements Initializable{
 		
 		onLimpiar();
 		//saveAlert(newPeregrino);
-		MiAlerta.showInformationAlert("Peregrino registrado con éxito", "Se ha registrado el peregrino "+newPeregrino.getNombre()+" ("+newPeregrino.getUsuario().getUsuario()+", "+newPeregrino.getUsuario().getEmail()+") en la aplicación."
-										+"\nSe ha sellado automáticamente el carnet en la parada inicial, pero si desea una estancia puede solicitarla en la parada.");
+		
 		Sesion.getInstancia().setId(newPeregrino.getId());
 		Sesion.getInstancia().setNombre(newPeregrino.getNombre());
 		Sesion.getInstancia().setTipo("peregrino");
+		MiAlerta.showInformationAlert("Peregrino registrado con éxito", "Se ha registrado el peregrino "+newPeregrino.getNombre()+" ("+newPeregrino.getUsuario().getUsuario()+", "+newPeregrino.getUsuario().getEmail()+") en la aplicación."
+				+"\nSe ha sellado automáticamente el carnet en la parada inicial, pero si desea una estancia puede solicitarla en la parada.");
 		stageManager.switchScene(FxmlView.VENTANA_PEREGRINO);
 	}
 

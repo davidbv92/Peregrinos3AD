@@ -1,15 +1,17 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,13 +21,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
-import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
@@ -34,35 +37,32 @@ import com.luisdbb.tarea3AD2024base.services.VisitaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.application.Platform;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
-class RegistroPeregrinoControllerTest {
+public class RegistroParadaControllerTest {
 
-    @InjectMocks
-    private RegistroPeregrinoController registroPeregrinoController;
+	@InjectMocks
+    private RegistroParadaController registroParadaController;
 
     @Mock
     private StageManager stageManager;
 
     @Mock
     private ParadaService paradaService;
-
+    
     @Mock
-    private PeregrinoService peregrinoService;
-
-    @Mock
-    private VisitaService visitaService;
+    private MiAlerta miAlerta;
 
     @Mock
     private UserService userService;
 
     @Mock
-    private TextField txtNombre;
+    private TextField txtNombreParada;
 
     @Mock
     private TextField txtUsuario;
@@ -77,10 +77,10 @@ class RegistroPeregrinoControllerTest {
     private TextField txtCorreo;
 
     @Mock
-    private ComboBox<String> cbNacionalidad;
+    private TextField txtRegion;
 
     @Mock
-    private ComboBox<String> cbParadaInicial;
+    private TextField txtResponsable;
 
     @Mock
     private Button btnRegistrar;
@@ -90,86 +90,69 @@ class RegistroPeregrinoControllerTest {
         Platform.startup(() -> {
         });
     }
-
     
     @BeforeEach
     void setUp() {
-    	MockitoAnnotations.openMocks(this);
-        when(txtNombre.getText()).thenReturn("Juan Perez");
+        when(txtResponsable.getText()).thenReturn("Juan Perez");
         when(txtUsuario.getText()).thenReturn("juanperez");
         when(txtPassword.getText()).thenReturn("password123");
         when(txtPassword2.getText()).thenReturn("password123");
         when(txtCorreo.getText()).thenReturn("juan.perez@example.com");
-        when(cbNacionalidad.getValue()).thenReturn("España");
-        when(cbParadaInicial.getValue()).thenReturn("1: Gijon (a)");
-
-        Parada paradaMock = mock(Parada.class);
-        when(paradaMock.getId()).thenReturn(1L);
-        when(paradaService.find(1L)).thenReturn(paradaMock);
+        when(txtRegion.getText()).thenReturn("a");
+        when(txtNombreParada.getText()).thenReturn("Asturias");
         
         Platform.runLater(() -> {
-        	 when(MiAlerta.showConfirmationAlert(anyString(), anyString())).thenReturn(true);
-        	 
+        	 when(MiAlerta.showConfirmationAlert(anyString(), anyString())).thenReturn(true); 
         });
-        
-       
     }
-
+    
     @DisplayName("TC-001 - Registro exitoso con datos válidos")
     @Test
     void testOnRegistrarCamposValidos() throws InterruptedException {
-//    	CountDownLatch latch = new CountDownLatch(1);
-//        
-//        Platform.runLater(() -> {
-//            registroPeregrinoController.onRegistrar();
-//            latch.countDown();
-//        });
-//        
-//        latch.await(5, TimeUnit.SECONDS);
-//        verify(peregrinoService, times(1)).save(any(Peregrino.class));
-//        assertEquals("peregrino",Sesion.getInstancia().getTipo());
-//        //verify(MiAlerta.class, times(1)).showInformationAlert(anyString());
-//        verify(stageManager, times(1)).switchScene(FxmlView.VENTANA_PEREGRINO);
+    	CountDownLatch latch = new CountDownLatch(1);
     	
-    	Platform.runLater(() -> {
-        	when(MiAlerta.showConfirmationAlert(anyString(), anyString())).thenReturn(false);
-            registroPeregrinoController.onRegistrar();
+        Platform.runLater(() -> {
+        	doNothing().when(miAlerta);
+    		MiAlerta.showWarningAlert(any(String.class));
+            registroParadaController.onRegistrar();
+            latch.countDown();
         });
-        //verify(peregrinoService, times(1)).save(any(Peregrino.class));
-        verify(stageManager, times(1)).switchScene(FxmlView.VENTANA_PEREGRINO);
+        
+        latch.await(5, TimeUnit.SECONDS);
+        verify(paradaService, times(1)).save(any(Parada.class));
+        verify(stageManager, times(1)).switchScene(FxmlView.VENTANA_ADMIN);
     }
+    
     
     @DisplayName("TC-002 - Registro cancelado por el usuario")
     @Test
     void testOnRegistrarCanceladoPorUsuario() {
         Platform.runLater(() -> {
         	when(MiAlerta.showConfirmationAlert(anyString(), anyString())).thenReturn(false);
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
         });
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
-
     
     //casos para nombres invalidos
-    // Caso Parametrizado para validar el nombre en sus diferentes posibles fallos
+    // Caso Parametrizado para validar el responsable en sus diferentes posibles fallos
     @ParameterizedTest
-    @DisplayName("TC-003 - Registro fallido por nombre inválido")
+    @DisplayName("TC-003 - Registro fallido por responsable inválido")
     @ValueSource(strings = {"", "   ", "Juan123", "Juan Perez con un nombre muy largo que excede los 50 caracteres"})
-    void testNombreInvalido(String nombre) {
-        when(txtNombre.getText()).thenReturn(nombre);
+    void testResponsableInvalido(String nombre) {
+        when(txtResponsable.getText()).thenReturn(nombre);
         
         Platform.runLater(() -> {
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
             
         });
         
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
-
     
-    //test para usuario incorrecto
+  //test para usuario incorrecto
     // Caso Parametrizado para validar el usuario en sus diferentes posibles fallos
     @ParameterizedTest
     @DisplayName("TC-004 - Registro fallido por usuario inválido")
@@ -177,10 +160,10 @@ class RegistroPeregrinoControllerTest {
     void testUsuarioInvalido(String usuario) {
         when(txtUsuario.getText()).thenReturn(usuario);
         Platform.runLater(() -> {
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
         });
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
     
     //test usuario ya registrado
@@ -197,10 +180,10 @@ class RegistroPeregrinoControllerTest {
     	
         Platform.runLater(() -> {
         	when(MiAlerta.showConfirmationAlert(anyString(), anyString())).thenReturn(false);
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
         });
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
     
     //test para password incorrecta
@@ -212,10 +195,10 @@ class RegistroPeregrinoControllerTest {
         when(txtPassword.getText()).thenReturn(password);
         when(txtPassword2.getText()).thenReturn(password);
         Platform.runLater(() -> {
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
         });
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
     
     //caso contraseñas no coinciden
@@ -227,10 +210,10 @@ class RegistroPeregrinoControllerTest {
 
 
         Platform.runLater(() -> {
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
         });
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
 
     //test para correo incorrecto
@@ -241,10 +224,10 @@ class RegistroPeregrinoControllerTest {
     void testCorreoInvalido(String usuario) {
         when(txtUsuario.getText()).thenReturn(usuario);
         Platform.runLater(() -> {
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
         });
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
     
     //test correo ya registrado
@@ -261,11 +244,37 @@ class RegistroPeregrinoControllerTest {
 
         Platform.runLater(() -> {
         	when(MiAlerta.showConfirmationAlert(anyString(), anyString())).thenReturn(false);
-            registroPeregrinoController.onRegistrar();
+            registroParadaController.onRegistrar();
         });
-        verify(peregrinoService, never()).save(any(Peregrino.class));
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
     }
-
     
+    //test region inválida
+    // Caso Parametrizado para validar la region en sus diferentes posibles fallos
+    @ParameterizedTest
+    @DisplayName("TC-010 - Registro fallido por región inválida")
+    @ValueSource(strings = {"", "   ","aa","!","1"})
+    void testRegionInvalida(String region) {
+        when(txtRegion.getText()).thenReturn(region);
+        Platform.runLater(() -> {
+            registroParadaController.onRegistrar();
+        });
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
+    }
+    
+    //test region inválida
+    // Caso Parametrizado para validar la region en sus diferentes posibles fallos
+    @ParameterizedTest
+    @DisplayName("TC-011 - Registro fallido por nombre inválido")
+    @ValueSource(strings = {"", "   ","nombre de la parada extremadamente largo para ser bueno en este mismo caso","parada  1 !"})
+    void testNombreInvalido(String nombre) {
+        when(txtNombreParada.getText()).thenReturn(nombre);
+        Platform.runLater(() -> {
+            registroParadaController.onRegistrar();
+        });
+        verify(paradaService, never()).save(any(Parada.class));
+        verify(stageManager, never()).switchScene(FxmlView.VENTANA_ADMIN);
+    }
 }

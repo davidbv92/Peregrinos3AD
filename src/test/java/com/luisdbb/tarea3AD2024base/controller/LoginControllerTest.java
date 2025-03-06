@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -77,6 +78,7 @@ class LoginControllerTest {
         when(txtPasswordVisible.getText()).thenReturn("admin");
     }
 
+    @DisplayName("TC-001 - Login correcto con usuario administrador")
     @Test
     void testLoginCorrectoAdministrador() {
         // Simula la entrada del administrador
@@ -89,6 +91,7 @@ class LoginControllerTest {
         verify(stageManager, times(1)).switchScene(FxmlView.VENTANA_ADMIN);
     }
 
+    @DisplayName("TC-002 - Login correcto con usuario peregrino")
     @Test
     void testLoginCorrectoPeregrino() {
         // Simula la entrada del usuario peregrino
@@ -111,6 +114,7 @@ class LoginControllerTest {
         verify(stageManager, times(1)).switchScene(FxmlView.VENTANA_PEREGRINO);
     }
 
+    @DisplayName("TC-003 - Login correcto con usuario parada")
     @Test
     void testLoginCorrectoParada() {
         // Crear un usuario "parada"
@@ -130,6 +134,7 @@ class LoginControllerTest {
         verify(stageManager, times(1)).switchScene(FxmlView.VENTANA_PARADA);
     }
 
+    @DisplayName("TC-004 - Login incorrecto con usuario inválido")
     @Test
     void testLoginUsuarioInvalido() {
         // Simula la entrada con un usuario incorrecto
@@ -142,6 +147,7 @@ class LoginControllerTest {
         verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
     }
 
+    @DisplayName("TC-005 - Login incorrecto con contraseña inválida")
     @Test
     void testLoginConContraseñaIncorrecta() {
         // Simula la entrada con una contraseña incorrecta
@@ -155,17 +161,5 @@ class LoginControllerTest {
         verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
     }
 
-    @Test
-    void testLoginConUsuarioIncorrecto() {
-        // Simula la entrada con un usuario no registrado
-        when(txtUsuario.getText()).thenReturn("nonexistentUser");
-        when(txtPassword.getText()).thenReturn("password");
-        when(userService.authenticate("nonexistentUser", "password")).thenReturn(false);
-
-        Platform.runLater(() -> {
-            loginController.onIniciarSesion();
-        });
-        verify(stageManager, never()).switchScene(FxmlView.VENTANA_PEREGRINO);
-    }
 }
 

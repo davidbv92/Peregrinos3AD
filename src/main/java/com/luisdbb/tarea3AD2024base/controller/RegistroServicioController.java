@@ -91,19 +91,23 @@ public class RegistroServicioController implements Initializable{
 
 	public void onCrear() {
 		if(datosValidos()) {
-			Long id=generarId();
-			String nombre=txtNombre.getText();
-			double precio=Double.parseDouble(txtPrecio.getText());
-			List<Long> ids=new ArrayList<Long>(0);
-			for (Parada parada : tableView.getSelectionModel().getSelectedItems()) {
-		        ids.add(parada.getId());
-		    }
-			Servicio s=new Servicio(id,nombre,precio,ids);
-			int anterior=servicioService.findAll().size();
-			servicioService.save(s);
-			int posterior=servicioService.findAll().size();
-			MiAlerta.showInformationAlert("Servicio creado correctamente.", "El servicio se registró correctamente, ya puede ser contratado en las paradas en las que esté disponible");;
-			stageManager.switchScene(FxmlView.VENTANA_ADMIN);
+			boolean res=MiAlerta.showConfirmationAlert("¿Desea crear el servicio?", "El servicio será creado definitivamente en el sistema.");
+			if(res) {
+				Long id=generarId();
+				String nombre=txtNombre.getText();
+				double precio=Double.parseDouble(txtPrecio.getText());
+				List<Long> ids=new ArrayList<Long>(0);
+				for (Parada parada : tableView.getSelectionModel().getSelectedItems()) {
+			        ids.add(parada.getId());
+			    }
+				Servicio s=new Servicio(id,nombre,precio,ids);
+				int anterior=servicioService.findAll().size();
+				servicioService.save(s);
+				int posterior=servicioService.findAll().size();
+				MiAlerta.showInformationAlert("Servicio creado correctamente.", "El servicio se registró correctamente, ya puede ser contratado en las paradas en las que esté disponible");;
+				stageManager.switchScene(FxmlView.VENTANA_ADMIN);
+			}
+			
 		}
 	}
 	
