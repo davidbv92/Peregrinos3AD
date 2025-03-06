@@ -32,4 +32,8 @@ public class EstanciaService {
 	public boolean existsByPeregrinoAndParadaAndFecha(Peregrino peregrino, Parada parada, LocalDate fecha) {
 		return estanciaRepository.existsByPeregrinoAndParadaAndFecha(peregrino,parada,fecha);
 	}
+
+	public List<Estancia> findByParada(Parada parada) {
+		return estanciaRepository.findByParada(parada);
+	}
 }

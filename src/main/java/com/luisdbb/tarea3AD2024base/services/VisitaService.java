@@ -24,6 +24,10 @@ public class VisitaService {
 	public List<Visita> findByPeregrino_Id(Long id) {
 		return visitaRepository.findByPeregrino_Id(id);
 	}
+	
+	public List<Visita> findByParada_Id(Long id) {
+		return visitaRepository.findByParada_Id(id);
+	}
 
 	public boolean existsByPeregrinoAndParadaAndFecha(Peregrino peregrino, Parada parada, LocalDate now) {
 		return visitaRepository.existsByPeregrinoAndParadaAndFecha(peregrino,parada,now);

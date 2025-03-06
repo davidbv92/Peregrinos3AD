@@ -20,7 +20,7 @@
             <items>
               <MenuItem fx:id="itemMostrarDatos" mnemonicParsing="false" onAction="#onMostrarDatos" text="Mostrar Datos" />
                   <MenuItem fx:id="itemSellarCarnet" mnemonicParsing="false" onAction="#onSellarCarnet" text="Sellar Carnet" />
-                  <MenuItem fx:id="itemExportarDatos" mnemonicParsing="false" onAction="#onExportarDatos" text="Exportar Datos" />
+                  <MenuItem fx:id="itemExportarDatos" mnemonicParsing="false" onAction="#onGenerarInforme" text="Generar Informe" />
             </items>
           </Menu>
           <Menu text="_Ayuda">
@@ -101,7 +101,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnExportarDatos" onAction="#onExportarDatos" prefWidth="150.0" style="-fx-background-color: #00528c;" text="E_xportar Datos" textFill="WHITE">
+                              <Button fx:id="btnGenerarInforme" onAction="#onGenerarInforme" prefWidth="150.0" style="-fx-background-color: #00528c;" text="_Generar Informe" textFill="WHITE">
                                  <VBox.margin>
                                     <Insets bottom="25.0" />
                                  </VBox.margin>
