@@ -110,6 +110,23 @@
     		<version>6.21.0</version> <!-- Asegúrate de usar la última versión disponible -->
 		</dependency>
 
+		<dependency>
+    		<groupId>org.exist-db</groupId>
+    		<artifactId>exist-core</artifactId>
+    		<version>6.3.0</version>
+    		<exclusions>
+        		<exclusion>
+            		<groupId>xml-apis</groupId>
+            		<artifactId>xml-apis</artifactId>
+        		</exclusion>
+    		</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.xmldb-org</groupId>
+			<artifactId>xmldb-api</artifactId>
+			<version>1.7.0</version>
+		</dependency>
 
 	</dependencies>
 
