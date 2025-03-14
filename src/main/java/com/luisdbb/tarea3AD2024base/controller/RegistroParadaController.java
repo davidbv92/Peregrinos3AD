@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.existDB.ExistDBManager;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
 import com.luisdbb.tarea3AD2024base.modelo.User;
@@ -153,7 +154,7 @@ public class RegistroParadaController implements Initializable{
 		parada.setResponsable(responsable);
 		
 		Parada newParada=paradaService.save(parada);
-		
+		ExistDBManager.createCollection(newParada.getNombre());
 		onLimpiar();
 		//saveAlert(newParada);
 		MiAlerta.showInformationAlert("Parada registrada con éxito", "Se ha registrado la parada "+newParada.getNombre()+" ("+newParada.getRegion()+") en la aplicación.");

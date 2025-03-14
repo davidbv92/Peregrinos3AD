@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -21,8 +22,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xmldb.api.base.XMLDBException;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.existDB.ExistDBManager;
 import com.luisdbb.tarea3AD2024base.modelo.Carnet;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
 import com.luisdbb.tarea3AD2024base.modelo.Parada;
@@ -250,7 +253,18 @@ public class RegistroPeregrinoController implements Initializable{
 		
 		Peregrino newPeregrino=peregrinoService.save(peregrino);
 		visitaService.save(visita);
-		
+		newPeregrino.exportarCarnetXML();
+		String ruta="src/main/resources/files/"+newPeregrino.getUsuario().getUsuario()+"_peregrino.xml";
+		File archivo=new File(ruta);
+		try {
+			ExistDBManager.guardarArchivoEnExistDB(archivo,carnet.getParadaInicial().getNombre());
+		} catch (XMLDBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		onLimpiar();
 		//saveAlert(newPeregrino);
 		

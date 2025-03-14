@@ -156,6 +156,18 @@ public enum FxmlView {
 			return "/fxml/Editar_Servicio.fxml";
 		}
 		
+	},CARNETS_EXPEDIDOS{
+
+		@Override
+		public String getTitle() {
+			return getStringFromResourceBundle("carnetsExpedidos.title");
+		}
+
+		@Override
+		public String getFxmlFile() {
+			return "/fxml/Carnets_Expedidos.fxml";
+		}
+		
 	};
 
 	public abstract String getTitle();
