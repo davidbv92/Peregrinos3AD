@@ -178,6 +178,15 @@ public class Peregrino implements Serializable{
 	public void setEstancias(List<Estancia> estancias) {
 		this.estancias = estancias;
 	}
+	
+	public List<Visita> getVisitas() {
+		return visitas;
+	}
+
+
+	public void setVisitas(List<Visita> visitas) {
+		this.visitas = visitas;
+	}
 
 
 	@Override
@@ -333,7 +342,10 @@ public class Peregrino implements Serializable{
        }
 		
 	}
+
+
 	
+
 	
 	//métodos
 	

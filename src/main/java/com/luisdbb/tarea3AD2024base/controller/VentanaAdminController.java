@@ -1,8 +1,14 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -11,7 +17,9 @@ import org.springframework.stereotype.Controller;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.db4o.DataConnectionDB4O;
 import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+import com.luisdbb.tarea3AD2024base.modelo.Peregrino;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
+import com.luisdbb.tarea3AD2024base.services.MongoDBService;
 import com.luisdbb.tarea3AD2024base.services.ParadaService;
 import com.luisdbb.tarea3AD2024base.services.PeregrinoService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -71,6 +79,8 @@ public class VentanaAdminController implements Initializable{
 	private ParadaService paradaService;
 	@Autowired
 	private PeregrinoService peregrinoService;
+	@Autowired
+	private MongoDBService mongoDBService;
 	
 	@Autowired
     private DataConnectionDB4O db4o;
@@ -140,9 +150,9 @@ public class VentanaAdminController implements Initializable{
 	}
 	
 	public void onBackup() {
-		MiAlerta.showInformationAlert("Backup");
-		
+		mongoDBService.generarBackup();
 	}
+
 	
 
 	
