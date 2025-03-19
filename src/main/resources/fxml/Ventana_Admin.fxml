@@ -105,6 +105,14 @@
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets bottom="25.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="btnBackup" onAction="#onBackup" prefWidth="150.0" style="-fx-background-color: #00528c;" text="_Backup" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                               </Button>
                            </children>
                         </VBox>

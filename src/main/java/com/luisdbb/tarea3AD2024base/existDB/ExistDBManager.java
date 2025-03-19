@@ -13,8 +13,10 @@ import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
 
+import com.luisdbb.tarea3AD2024base.modelo.MiAlerta;
+
 public class ExistDBManager {
-    private static final String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/";
+    private static final String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/ParadasPeregrinos5";
     private static final String USER = "admin";
     private static final String PASSWORD = "";
 
@@ -25,7 +27,7 @@ public class ExistDBManager {
             database.setProperty("create-database", "true");
             DatabaseManager.registerDatabase(database);
         } catch (Exception e) {
-            e.printStackTrace();
+        	MiAlerta.showErrorAlert("Error en el servidor de ExistDB", e.getMessage());
         }
     }
 
@@ -40,18 +42,16 @@ public class ExistDBManager {
             if (newCol == null) {
                 mgtService.createCollection(collectionName);
                 System.out.println("Colección creada: " + collectionName);
-            } else {
-                System.out.println("La colección ya existe: " + collectionName);
             }
             if (newCol != null) newCol.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            MiAlerta.showErrorAlert("Error en el servidor de ExistDB", e.getMessage());
         } finally {
             if (col != null) {
                 try {
                     col.close();
                 } catch (XMLDBException xe) {
-                    xe.printStackTrace();
+                	MiAlerta.showErrorAlert("Error en el servidor de ExistDB", xe.getMessage());
                 }
             }
         }
@@ -60,40 +60,27 @@ public class ExistDBManager {
     public static void guardarArchivoEnExistDB(File archivo, String nombre) throws XMLDBException, IOException {
         Collection col = null;
         try {
-            // Obtener la colección a la que se quiere agregar el archivo
-            col = DatabaseManager.getCollection(URI +"/"+nombre, USER, PASSWORD); // Asegúrate de usar la colección correcta
+            col = DatabaseManager.getCollection(URI +"/"+nombre, USER, PASSWORD);
             if (col == null) {
                 System.out.println("La colección no existe.");
                 return;
             }
-
-            // Crear un recurso XML para guardar el archivo
             XMLResource xmlResource = (XMLResource) col.createResource(nombre, XMLResource.RESOURCE_TYPE);
 
-            // Leer el archivo y almacenarlo como un recurso XML
-//            try (FileInputStream fileInputStream = new FileInputStream(archivo)) {
-//                xmlResource.setContent(fileInputStream);
-//                col.storeResource(xmlResource);  // Guardar el archivo en la colección existente
-//                System.out.println("El archivo ha sido guardado correctamente como: " + nombre);
-//            }
             if (archivo.exists()) {
                 XMLResource res = (XMLResource) col.createResource(archivo.getName(), "XMLResource");
                 res.setContent(archivo);
                 col.storeResource(res);
                 System.out.println("Archivo almacenado en " + nombre + ": " + archivo.getName());
-            } else {
-                System.out.println("Archivo no encontrado: " + archivo.getName());
             }
-
         } catch (XMLDBException e) {
-            e.printStackTrace();
-            throw e;  // Lanza la excepción para que el llamado pueda manejarla si es necesario
+        	MiAlerta.showErrorAlert("Error en el servidor de ExistDB", e.getMessage());
         } finally {
             if (col != null) {
                 try {
                     col.close();
                 } catch (XMLDBException xe) {
-                    xe.printStackTrace();
+                	MiAlerta.showErrorAlert("Error en el servidor de ExistDB", xe.getMessage());
                 }
             }
         }
@@ -103,39 +90,29 @@ public class ExistDBManager {
         List<String> archivos = new ArrayList<>();
         Collection col = null;
         try {
-            // Obtener la colección
-            col = DatabaseManager.getCollection(URI + collectionName, USER, PASSWORD);
+            col = DatabaseManager.getCollection(URI +"/"+ collectionName, USER, PASSWORD);
             if (col == null) {
                 System.out.println("La colección no existe.");
-                return archivos;  // Retorna lista vacía si la colección no existe
+                return archivos;
             }
-
-            // Obtener todos los recursos (archivos) dentro de la colección
-            String[] recursos = col.listResources();  // Devuelve los nombres de todos los recursos
-
-            // Añadir los nombres de los recursos a la lista de archivos
+            String[] recursos = col.listResources();
             for (String recurso : recursos) {
-                archivos.add(recurso);  // Añadimos el nombre del recurso (archivo)
+                archivos.add(recurso);
             }
-
-            // Si no se encuentran archivos
             if (archivos.isEmpty()) {
                 System.out.println("No se encontraron archivos en la colección: " + collectionName);
             }
-
         } catch (XMLDBException e) {
-            e.printStackTrace();
-            throw e;  // Lanza la excepción para que el llamado pueda manejarla si es necesario
+        	MiAlerta.showErrorAlert("Error en el servidor de ExistDB", e.getMessage());
         } finally {
             if (col != null) {
                 try {
                     col.close();
                 } catch (XMLDBException xe) {
-                    xe.printStackTrace();
+                	MiAlerta.showErrorAlert("Error en el servidor de ExistDB", xe.getMessage());
                 }
             }
         }
-
-        return archivos;  // Retorna la lista de nombres de archivos
+        return archivos;
     }
 }

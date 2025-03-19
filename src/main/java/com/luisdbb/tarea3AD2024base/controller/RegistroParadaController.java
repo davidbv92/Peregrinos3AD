@@ -154,7 +154,7 @@ public class RegistroParadaController implements Initializable{
 		parada.setResponsable(responsable);
 		
 		Parada newParada=paradaService.save(parada);
-		ExistDBManager.createCollection(newParada.getNombre());
+		ExistDBManager.createCollection(newParada.getNombre().replace(" ", "_")+"_"+newParada.getRegion());
 		onLimpiar();
 		//saveAlert(newParada);
 		MiAlerta.showInformationAlert("Parada registrada con éxito", "Se ha registrado la parada "+newParada.getNombre()+" ("+newParada.getRegion()+") en la aplicación.");

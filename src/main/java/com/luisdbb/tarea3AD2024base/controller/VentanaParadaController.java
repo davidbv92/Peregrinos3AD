@@ -85,6 +85,8 @@ public class VentanaParadaController implements Initializable {
 	@FXML
 	private Button btnVerEnvios;
 	@FXML
+	private Button btnVerCarnets;
+	@FXML
 	private Button btnCerrarSesion;
 	
 	
@@ -297,6 +299,10 @@ public class VentanaParadaController implements Initializable {
 
 	private String mapearParada(Parada parada) {
 		return parada.getNombre()+" ("+parada.getRegion()+"), gestionada por "+parada.getResponsable();
+	}
+	
+	public void onVerCarnets() {
+		stageManager.openModal(FxmlView.CARNETS_EXPEDIDOS);
 	}
 
 }

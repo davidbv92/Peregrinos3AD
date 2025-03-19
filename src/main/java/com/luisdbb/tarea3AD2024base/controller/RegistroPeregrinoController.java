@@ -257,7 +257,7 @@ public class RegistroPeregrinoController implements Initializable{
 		String ruta="src/main/resources/files/"+newPeregrino.getUsuario().getUsuario()+"_peregrino.xml";
 		File archivo=new File(ruta);
 		try {
-			ExistDBManager.guardarArchivoEnExistDB(archivo,carnet.getParadaInicial().getNombre());
+			ExistDBManager.guardarArchivoEnExistDB(archivo,carnet.getParadaInicial().getNombre().replace(" ", "_")+"_"+carnet.getParadaInicial().getRegion());
 		} catch (XMLDBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

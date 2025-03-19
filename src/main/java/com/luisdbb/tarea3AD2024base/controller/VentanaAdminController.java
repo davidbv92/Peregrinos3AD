@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
@@ -47,6 +48,8 @@ public class VentanaAdminController implements Initializable{
 	@FXML
 	private Button btnEditarServicio;
 	@FXML
+	private Button btnBackup;
+	@FXML
 	private Button btnCerrarSesion;
 	
 	@FXML
@@ -71,6 +74,9 @@ public class VentanaAdminController implements Initializable{
 	
 	@Autowired
     private DataConnectionDB4O db4o;
+	
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	
 	
@@ -131,6 +137,11 @@ public class VentanaAdminController implements Initializable{
 	
 	public void onEditarServicio() {
 		stageManager.switchScene(FxmlView.EDITAR_SERVICIO);
+	}
+	
+	public void onBackup() {
+		MiAlerta.showInformationAlert("Backup");
+		
 	}
 	
 
