@@ -1,1 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?><carnet><id>15</id><fechaexp>2025-03-14</fechaexp><expedidoen>paradaExistDB</expedidoen><peregrino><nombre>ccc</nombre><nacionalidad>Emiratos Árabes Unidos</nacionalidad></peregrino><hoy>2025-03-14</hoy><distanciaTotal>0.0</distanciaTotal><paradas/><vips>0</vips><estancias/></carnet>
+<?xml version="1.0" encoding="UTF-8"?>
+<carnet>
+	<id>15</id>
+	<fechaexp>2025-03-14</fechaexp>
+	<expedidoen>paradaExistDB</expedidoen>
+	<peregrino>
+		<nombre>ccc</nombre>
+		<nacionalidad>Emiratos Árabes Unidos</nacionalidad>
+	</peregrino>
+	<hoy>2025-03-20</hoy>
+	<distanciaTotal>10.0</distanciaTotal>
+	<paradas>
+		<parada>
+			<orden>1</orden>
+			<nombre>paradaExistDB</nombre>
+			<region>A</region>
+		</parada>
+		<parada>
+			<orden>2</orden>
+			<nombre>gijon</nombre>
+			<region>a</region>
+		</parada>
+		<parada>
+			<orden>3</orden>
+			<nombre>las arenas</nombre>
+			<region>m</region>
+		</parada>
+	</paradas>
+	<vips>1</vips>
+	<estancias>
+		<estancia>
+			<id>17</id>
+			<fecha>2025-03-20</fecha>
+			<parada>gijon</parada>
+		</estancia>
+		<estancia>
+			<id>18</id>
+			<fecha>2025-03-20</fecha>
+			<parada>las arenas</parada>
+			<vip />
+		</estancia>
+	</estancias>
+</carnet>

@@ -76,7 +76,7 @@ public class MongoDBService {
 	    }
 	    
 	    documentoPeregrinos.append("Peregrino", documentosPeregrinos);
-	    String nombreBackup = "Backup_Carnets_"+fecha;
+	    String nombreBackup = "Backup_Carnets";
 	    mongoTemplate.getCollection(nombreBackup).insertOne(documentoPeregrinos);
 	    MiAlerta.showInformationAlert("Backup terminado.", "Se ha realizado un backup exitoso de los datos de los peregrinos la aplicación en MongoDB.");
 		
