@@ -32,6 +32,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
+ * Controlador para la pantalla de registro de servicios.
+ * Permite crear nuevos servicios y asociarlos a paradas específicas.
+ * 
  * @author David Ballesteros
  * @since 20-02-2025
  */
@@ -67,6 +70,12 @@ public class RegistroServicioController implements Initializable{
     @Autowired
 	private ServicioService servicioService;
 	
+    /**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -82,6 +91,9 @@ public class RegistroServicioController implements Initializable{
         //listener para no permitir precios no correctos
 	}
 
+	/**
+     * Carga los datos de las paradas en la tabla.
+     */
 	private void cargarDatosTabla() {
 	    List<Parada> paradas = paradaService.findAll();
 	    ObservableList<Parada> observableList = FXCollections.observableArrayList(paradas);
@@ -89,6 +101,10 @@ public class RegistroServicioController implements Initializable{
 		
 	}
 
+	/**
+     * Maneja el evento de creación de un nuevo servicio.
+     * Valida los datos y crea el servicio si los datos son válidos.
+     */
 	public void onCrear() {
 		if(datosValidos()) {
 			boolean res=MiAlerta.showConfirmationAlert("¿Desea crear el servicio?", "El servicio será creado definitivamente en el sistema.");
@@ -111,11 +127,21 @@ public class RegistroServicioController implements Initializable{
 		}
 	}
 	
+	/**
+     * Genera un nuevo ID para el servicio.
+     *
+     * @return El ID generado.
+     */
 	private Long generarId() {
 		Long id=servicioService.calcularIdMaximo()+1;
 		return id;
 	}
 
+	/**
+     * Valida los datos ingresados por el usuario.
+     *
+     * @return true si los datos son válidos, false en caso contrario.
+     */
 	private boolean datosValidos() {
 		String nombre=txtNombre.getText();
 		String precio=txtPrecio.getText();
@@ -127,6 +153,12 @@ public class RegistroServicioController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el precio ingresado.
+     *
+     * @param precio El precio a validar.
+     * @return true si el precio es válido, false en caso contrario.
+     */
 	private boolean precioValido(String precio) {
 		if(precio==null || precio.isBlank() ||precio.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el precio", "El precio no puede estar vacío ni ser solo espacios en blanco.");
@@ -146,6 +178,12 @@ public class RegistroServicioController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el nombre del servicio.
+     *
+     * @param nombre El nombre a validar.
+     * @return true si el nombre es válido, false en caso contrario.
+     */
 	private boolean nombreValido(String nombre) {
 		if(nombre==null || nombre.isBlank() ||nombre.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el nombre", "El nombre no puede estar vacío ni ser solo espacios en blanco.");
@@ -168,12 +206,19 @@ public class RegistroServicioController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Maneja el evento de limpiar los campos del formulario.
+     */
 	public void onLimpiar() {
 		txtNombre.clear();
 		txtPrecio.clear();
 		tableView.getSelectionModel().clearSelection();
 	}
 	
+	/**
+     * Maneja el evento de salir de la pantalla de registro.
+     * Muestra una confirmación antes de salir y limpiar los campos.
+     */
 	public void onSalir() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas salir?, se perderán todos los datos introducidos.");
 		if(res) {

@@ -45,6 +45,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
+ * Controlador para la ventana del peregrino.
+ * Permite gestionar la visualización de datos, modificación de datos, exportación del carnet y acceso a la ayuda.
+ * 
  * @author David Ballesteros
  * @since 23-01-2025
  */
@@ -97,7 +100,12 @@ public class VentanaPeregrinoController implements Initializable{
 	@Autowired
 	private CarnetService carnetService;
 	
-	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//poner shortcuts
@@ -115,6 +123,10 @@ public class VentanaPeregrinoController implements Initializable{
 		lblCorreo.setText("Correo: "+peregrino.getUsuario().getEmail());
 	}
 	
+	/**
+     * Maneja el evento de cerrar sesión.
+     * Muestra una confirmación antes de cerrar la sesión y volver a la pantalla de inicio de sesión.
+     */
 	public void onCerrarSesion() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas cerrar tu sesión para volver a la ventana de inicio de sesión?");
 		if(res) {
@@ -126,6 +138,10 @@ public class VentanaPeregrinoController implements Initializable{
 		
 	}
 	
+	/**
+     * Maneja el evento de exportar el carnet.
+     * Exporta el carnet del peregrino a un archivo XML.
+     */
 	public void onExportarCarnet() {
 		List<Visita>visitas=visitaService.findByPeregrino_Id(peregrino.getId());
 		List<Parada> paradas=new ArrayList<>();
@@ -142,6 +158,10 @@ public class VentanaPeregrinoController implements Initializable{
 		MiAlerta.showInformationAlert("Exportación exitosa","Puede ver su carnet en: src/main/resources/files/"+peregrino.getUsuario().getUsuario()+"_peregrino.xml");
 	}
 	
+	/**
+     * Maneja el evento de mostrar los datos del peregrino.
+     * Genera un informe PDF con los datos del peregrino.
+     */
 	public void onMostrarDatos() {
 		Long idPer=Sesion.getInstancia().getId();
 		Peregrino peregrino=peregrinoService.find(idPer);
@@ -177,16 +197,30 @@ public class VentanaPeregrinoController implements Initializable{
 		generarCarnetReport(lista,ruta);
 	}
 	
+	/**
+     * Maneja el evento de modificar los datos del peregrino.
+     * Redirige a la pantalla de edición de datos.
+     */
 	public void onModificarDatos() {
 		stageManager.switchScene(FxmlView.EDITAR_DATOS);
 	}
 	
+	/**
+     * Maneja el evento de mostrar la ayuda.
+     * Abre una ventana modal con la documentación de ayuda.
+     */
 	public void onAyuda() {
 		//MiAlerta.showInformationAlert("Información accionado");
 		mostrarAyuda();
 		
 	}
 	
+	/**
+     * Genera un informe PDF del carnet del peregrino.
+     *
+     * @param listaReportData La lista de datos del carnet.
+     * @param rutaSalida      La ruta donde se guardará el archivo PDF.
+     */
 	private void generarCarnetReport(List<ReportData> listaReportData, String rutaSalida) {
 		try {
             //cargar el Jasper
@@ -212,6 +246,9 @@ public class VentanaPeregrinoController implements Initializable{
 		
 	}
 
+	/**
+     * Muestra la ventana de ayuda con la documentación HTML.
+     */
 	private void mostrarAyuda() {
 		WebView webView=new WebView();
 		String url=getClass().getResource("/help/ventanaPeregrinoHelp.html").toExternalForm();

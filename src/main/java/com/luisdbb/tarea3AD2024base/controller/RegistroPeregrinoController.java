@@ -50,6 +50,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
+ * Controlador para la pantalla de registro de peregrinos.
+ * Permite registrar nuevos peregrinos en el sistema, validando los datos ingresados.
+ * 
  * @author David Ballesteros
  * @since 23-01-2025
  */
@@ -92,7 +95,12 @@ public class RegistroPeregrinoController implements Initializable{
 	private UserService userService;
 	
 	
-	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//cargar los combobox
@@ -107,6 +115,12 @@ public class RegistroPeregrinoController implements Initializable{
 		
 	}
 
+	/**
+     * Crea un icono a partir de una ruta de imagen.
+     *
+     * @param ruta La ruta de la imagen.
+     * @return Un nodo que representa el icono.
+     */
 	private Node crearIcono(String string) {
 		Image imagen=new Image(getClass().getResourceAsStream(string));
         ImageView viewImagen=new ImageView(imagen);
@@ -116,6 +130,9 @@ public class RegistroPeregrinoController implements Initializable{
 
 	}
 
+	/**
+     * Carga las paradas en el ComboBox.
+     */
 	private void cargarParadas() {
 		List<Parada> paradas=paradaService.findAll();
 		List<String> datos=convertirParadasString(paradas);
@@ -126,6 +143,12 @@ public class RegistroPeregrinoController implements Initializable{
 		
 	}
 
+	/**
+     * Convierte una lista de paradas en una lista de cadenas para mostrarlas en el ComboBox.
+     *
+     * @param paradas La lista de paradas.
+     * @return Una lista de cadenas que representan las paradas.
+     */
 	private List<String> convertirParadasString(List<Parada> paradas) {
 		List<String> resultado=new ArrayList<>();
 		for(Parada p:paradas) {
@@ -135,6 +158,9 @@ public class RegistroPeregrinoController implements Initializable{
 		return resultado;
 	}
 
+	/**
+     * Carga las nacionalidades en el ComboBox desde un archivo XML.
+     */
 	private void cargarNacionalidades() {
 		try {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("files/paises.xml");
@@ -158,6 +184,9 @@ public class RegistroPeregrinoController implements Initializable{
 		
 	}
 
+	/**
+     * Maneja el evento de limpiar los campos del formulario.
+     */
 	public void onLimpiar() {
 		txtNombre.clear();
 		txtUsuario.clear();
@@ -168,6 +197,10 @@ public class RegistroPeregrinoController implements Initializable{
 		//cbParadaInicial
 	}
 	
+	/**
+     * Maneja el evento de salir de la pantalla de registro.
+     * Muestra una confirmación antes de salir y limpiar los campos.
+     */
 	public void onSalir() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas salir?, se perderán todos los datos introducidos.");
 		if(res) {
@@ -177,6 +210,10 @@ public class RegistroPeregrinoController implements Initializable{
 		}
 	}
 	
+	/**
+     * Maneja el evento de registrar un nuevo peregrino.
+     * Valida los campos y registra el peregrino si los datos son válidos.
+     */
 	public void onRegistrar() {
 		
 		if(camposValidos()) {
@@ -188,6 +225,11 @@ public class RegistroPeregrinoController implements Initializable{
 		}
 	}
 
+	/**
+     * Muestra los datos que se van a registrar.
+     *
+     * @return Una cadena con los datos a registrar.
+     */
 	private String mostrarDatosRegistro() {
 		String username=txtUsuario.getText();
 		String nombre=txtNombre.getText();
@@ -210,6 +252,9 @@ public class RegistroPeregrinoController implements Initializable{
 		return res;
 	}
 
+	/**
+     * Registra un nuevo peregrino en el sistema.
+     */
 	private void registrarPeregrino() {
 		String username=txtUsuario.getText();
 		String password=txtPassword.getText();
@@ -276,6 +321,11 @@ public class RegistroPeregrinoController implements Initializable{
 		stageManager.switchScene(FxmlView.VENTANA_PEREGRINO);
 	}
 
+	/**
+     * Valida los campos del formulario.
+     *
+     * @return true si todos los campos son válidos, false en caso contrario.
+     */
 	private boolean camposValidos() {
 		String username=txtUsuario.getText();
 		String password=txtPassword.getText();
@@ -303,6 +353,12 @@ public class RegistroPeregrinoController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida la parada inicial seleccionada.
+     *
+     * @param paradaInicial La parada inicial a validar.
+     * @return true si la parada es válida, false en caso contrario.
+     */
 	private boolean paradaValida(String paradaInicial) {
 		if(paradaInicial==null || paradaInicial.isBlank() ||paradaInicial.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en la selección de parada inicial.", "La parada inicial del peregrino no puede estar vacío ni ser solo espacios en blanco.");
@@ -320,6 +376,12 @@ public class RegistroPeregrinoController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida la nacionalidad seleccionada.
+     *
+     * @param nacionalidad La nacionalidad a validar.
+     * @return true si la nacionalidad es válida, false en caso contrario.
+     */
 	private boolean nacionalidadValida(String nacionalidad) {
 		if(nacionalidad==null || nacionalidad.isBlank() ||nacionalidad.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en la selección de nacionalidad.", "La nacionalidad del peregrino no puede estar vacío ni ser solo espacios en blanco.");
@@ -328,6 +390,12 @@ public class RegistroPeregrinoController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el nombre del peregrino.
+     *
+     * @param nombre El nombre del peregrino a validar.
+     * @return true si el nombre es válido, false en caso contrario.
+     */
 	private boolean peregrinoValido(String responsable) {
 		if(responsable==null || responsable.isBlank() ||responsable.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el nombre del peregrino.", "El nombre del peregrino no puede estar vacío ni ser solo espacios en blanco.");
@@ -347,6 +415,12 @@ public class RegistroPeregrinoController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el correo electrónico.
+     *
+     * @param correo El correo electrónico a validar.
+     * @return true si el correo es válido, false en caso contrario.
+     */
 	private boolean correoValido(String correo) {
 		if(correo==null || correo.isBlank() ||correo.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el correo electrónico", "El correo electrónico no puede estar vacío ni ser solo espacios en blanco.");
@@ -373,6 +447,13 @@ public class RegistroPeregrinoController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida la contraseña ingresada.
+     *
+     * @param password  La contraseña a validar.
+     * @param password2 La confirmación de la contraseña.
+     * @return true si la contraseña es válida, false en caso contrario.
+     */
 	private boolean passwordValida(String password, String password2) {
 		if(password==null || password.isBlank() ||password.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en la contraseña", "La contraseña no puede estar vacío ni ser solo espacios en blanco.");
@@ -396,6 +477,12 @@ public class RegistroPeregrinoController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el usuario ingresado.
+     *
+     * @param username  El usuario a validar.
+     * @return true si el usuario es válida, false en caso contrario.
+     */
 	private boolean usuarioValido(String username) {
 		if(username==null || username.isBlank() ||username.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el nombre de usuario", "El nombre de usuario no puede estar vacío ni ser solo espacios en blanco.");

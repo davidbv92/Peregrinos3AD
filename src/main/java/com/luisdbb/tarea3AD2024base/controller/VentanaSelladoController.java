@@ -37,6 +37,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * Controlador para la ventana de sellado de carnets.
+ * Permite sellar carnets de peregrinos, gestionar estancias y actualizar información de visitas.
+ * 
+ * @author David Ballesteros
+ * @since 23-01-2025
+ */
 @Controller
 public class VentanaSelladoController implements Initializable{
 
@@ -90,7 +97,12 @@ public class VentanaSelladoController implements Initializable{
 	
 	private Peregrino peregrino=null;
 	
-	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//reseteo de peregrino y parada
@@ -144,7 +156,9 @@ public class VentanaSelladoController implements Initializable{
 		rdbtnVipNo.setSelected(true);
 	}
 
-
+	/**
+     * Carga los peregrinos en el ComboBox.
+     */
 	private void cargarPeregrinos() {
 		List<Peregrino> peregrinos=peregrinoService.findAll();
 		List<String> datos=convertirPeregrinosString(peregrinos);
@@ -154,7 +168,12 @@ public class VentanaSelladoController implements Initializable{
 		
 	}
 
-
+	/**
+     * Convierte una lista de peregrinos en una lista de cadenas para mostrarlas en el ComboBox.
+     *
+     * @param peregrinos La lista de peregrinos.
+     * @return Una lista de cadenas que representan los peregrinos.
+     */
 	private List<String> convertirPeregrinosString(List<Peregrino> peregrinos) {
 		List<String> resultado=new ArrayList<>();
 		for(Peregrino p:peregrinos) {
@@ -164,7 +183,10 @@ public class VentanaSelladoController implements Initializable{
 		return resultado;
 	}
 
-
+	/**
+     * Maneja el evento de salir de la ventana de sellado.
+     * Muestra una confirmación antes de volver a la ventana anterior.
+     */
 	public void onSalir() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas salir?, no se realizará ninguna acción sobre el peregrino.");
 		if(res) {
@@ -173,6 +195,10 @@ public class VentanaSelladoController implements Initializable{
 		}
 	}
 	
+	/**
+     * Maneja el evento de sellar el carnet.
+     * Valida los datos y realiza el sellado del carnet o la estancia según corresponda.
+     */
 	public void onSellar() {
 		if(datosValidos()) {
 			boolean quiereEstancia=rdbtnEstanciaSi.isSelected();
@@ -228,13 +254,19 @@ public class VentanaSelladoController implements Initializable{
 		
 	}
 
-
+	/**
+     * Limpia los botones de radio de estancia y VIP.
+     */
 	private void limpiarRadioButtons() {
 		rdbtnEstanciaNo.setSelected(true);
 		
 	}
 
-
+	/**
+     * Valida los datos ingresados por el usuario.
+     *
+     * @return true si los datos son válidos, false en caso contrario.
+     */
 	private boolean datosValidos() {
 		if(!peregrinoValido()) {
 			return false;
@@ -245,7 +277,11 @@ public class VentanaSelladoController implements Initializable{
 		}
 	}
 
-
+	/**
+     * Valida las selecciones de estancia y VIP.
+     *
+     * @return true si las selecciones son válidas, false en caso contrario.
+     */
 	private boolean seleccionesValidas() {
 		if((!rdbtnEstanciaSi.isSelected()) && (!rdbtnEstanciaNo.isSelected())) {
 			MiAlerta.showWarningAlert("Error en la estancia", "No ha especificado si quiere estancia o no.");
@@ -258,7 +294,11 @@ public class VentanaSelladoController implements Initializable{
 		}
 	}
 
-
+	/**
+     * Valida que se haya seleccionado un peregrino válido.
+     *
+     * @return true si el peregrino es válido, false en caso contrario.
+     */
 	private boolean peregrinoValido() {
 		if(peregrino==null) {
 			//MiAlerta.showWarningAlert("Error en la selección del peregrino", "Debes seleccionar un peregrino para realizarle el sellado");
@@ -274,7 +314,12 @@ public class VentanaSelladoController implements Initializable{
 		
 	}
 
-
+	/**
+     * Verifica si el peregrino existe en la base de datos.
+     *
+     * @param p El peregrino a verificar.
+     * @return true si el peregrino existe, false en caso contrario.
+     */
 	private boolean existePeregrinoBBDD(Peregrino p) {
 		if(p.getUsuario()!=null) {
 			if(p.getUsuario().getUsuario()!=null) {
@@ -286,7 +331,11 @@ public class VentanaSelladoController implements Initializable{
 
 	}
 
-
+	/**
+     * Verifica si el peregrino puede estanciarse en la parada actual.
+     *
+     * @return true si puede estanciarse, false en caso contrario.
+     */
 	private boolean puedeEstanciar() {
 		boolean existe=estanciaService.existsByPeregrinoAndParadaAndFecha(peregrino, parada, LocalDate.now());
 		if(existe) {
@@ -296,7 +345,11 @@ public class VentanaSelladoController implements Initializable{
 		return true;
 	}
 
-
+	/**
+     * Verifica si el peregrino puede sellar su carnet en la parada actual.
+     *
+     * @return true si puede sellar, false en caso contrario.
+     */
 	private boolean puedeSellar() {
 		boolean existe=visitaService.existsByPeregrinoAndParadaAndFecha(peregrino, parada, LocalDate.now());
 		if(existe) {

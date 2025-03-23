@@ -38,6 +38,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 
 /**
+ * Controlador para la pantalla de inicio de sesión.
+ * Permite a los usuarios iniciar sesión, registrarse o recuperar su contraseña.
+ * También gestiona la autenticación de usuarios y la navegación a otras pantallas.
+ * 
  * @author David Ballesteros
  * @since 23-01-2025
  */
@@ -94,7 +98,12 @@ public class LoginController implements Initializable{
 	@Value("${admin.password}")
 	private String adminPassword;
 	
-	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Sesion.getInstancia().setId(null);
@@ -139,6 +148,11 @@ public class LoginController implements Initializable{
 //		helpStage.show();
 //		
 //	}
+	
+	/**
+     * Maneja el evento de inicio de sesión.
+     * Valida las credenciales del usuario y redirige a la pantalla correspondiente.
+     */
 	public void onIniciarSesion() {
 		if (getUsername().equals(adminUsername) && getPassword().equals(adminPassword)) {
 	        Sesion.getInstancia().setId(0L);
@@ -186,6 +200,11 @@ public class LoginController implements Initializable{
 		
 	}
 	
+	/**
+     * Obtiene la contraseña ingresada por el usuario.
+     *
+     * @return La contraseña ingresada.
+     */
 	public String getPassword() {
 		if(panelEncriptado.isVisible()) {
 			return txtPassword.getText();
@@ -195,10 +214,19 @@ public class LoginController implements Initializable{
 		
 	}
 
+	/**
+     * Obtiene el nombre de usuario o correo electrónico ingresado por el usuario.
+     *
+     * @return El nombre de usuario o correo electrónico ingresado.
+     */
 	public String getUsername() {
 		return txtUsuario.getText();
 	}
 
+	/**
+     * Maneja el evento de recuperar contraseña.
+     * Muestra un mensaje indicando que la funcionalidad no está disponible.
+     */
 	public void onRecuperarPassword() {
 		MiAlerta.showInformationAlert("Esta funcionalidad no está disponible en esta versión");
 		//MiAlerta.showInformationAlert("Conjuntos", mostrarConjuntos());
@@ -213,10 +241,18 @@ public class LoginController implements Initializable{
 //		return sol;
 //	}
 
+	/**
+     * Maneja el evento de registrarse.
+     * Redirige a la pantalla de registro de peregrinos.
+     */
 	public void onRegistrarse() {
 		stageManager.switchScene(FxmlView.REGISTRO_PEREGRINO);
 	}
 	
+	/**
+     * Maneja el evento de mostrar la contraseña.
+     * Hace visible la contraseña en texto plano.
+     */
 	public void onMostrar() {
 		txtPasswordVisible.setText(txtPassword.getText());
 		panelDesencriptado.setVisible(true);
@@ -224,6 +260,10 @@ public class LoginController implements Initializable{
 		txtPasswordVisible.requestFocus();
 	}
 	
+	/**
+     * Maneja el evento de ocultar la contraseña.
+     * Oculta la contraseña y la muestra como asteriscos.
+     */
 	public void onOcultar() {
 		txtPassword.setText(txtPasswordVisible.getText());
 		panelEncriptado.setVisible(true);

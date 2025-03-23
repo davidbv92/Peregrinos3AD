@@ -45,64 +45,156 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 /**
+ * Controlador para la gestión de los detalles de la estancia.
+ * Permite registrar servicios, calcular costes y validar campos.
+ * Además, gestiona el envío a casa y la actualización de información del peregrino y parada.
+ * 
  * @author David Ballesteros
  * @since 24-02-2025
  */
 @Controller
 public class DetallesEstanciaController implements Initializable{
 
+	/**
+	 * Panel para mostrar los servicios seleccionables.
+	 */
 	@FXML
 	private VBox panelServicios;
+	
+	/**
+	 * Panel para gestionar los detalles del envío a casa.
+	 */
 	@FXML
 	private GridPane panelEnvio;
 	
-	@FXML
-	private ComboBox<String> cbPago;
-	@FXML
-	private TextField txtExtra;
-	@FXML
-	private TextField txtDireccion;
-	@FXML
-	private TextField txtLocalidad;
-	@FXML
-	private TextField txtPeso;
-	@FXML
-	private TextField txtAlto;
-	@FXML
-	private TextField txtAncho;
-	@FXML
-	private TextField txtProfundo;
-	@FXML
-	private CheckBox checkUrgente;
+	  /**
+	   * ComboBox para seleccionar el método de pago.
+	   */
+	  @FXML
+	  private ComboBox<String> cbPago;
 	
-	@FXML
-	private Button btnVolver;
-	@FXML
-	private Button btnLimpiar;
-	@FXML
-	private Button btnSellar;
+	  /**
+	   * Campo de texto para especificar información adicional.
+	   */
+	  @FXML
+	  private TextField txtExtra;
+	
+	  /**
+	   * Campo de texto para ingresar la dirección del envío.
+	   */
+	  @FXML
+	  private TextField txtDireccion;
+	
+	  /**
+	   * Campo de texto para ingresar la localidad del envío.
+	   */
+	  @FXML
+	  private TextField txtLocalidad;
+	  
+	  /**
+	   * Campo de texto para ingresar el peso del paquete a enviar.
+	   */
+	  @FXML
+	  private TextField txtPeso;
+
+	  /**
+	   * Campo de texto para ingresar la altura del paquete.
+	   */
+	  @FXML
+	  private TextField txtAlto;
+
+	  /**
+	   * Campo de texto para ingresar el ancho del paquete.
+	   */
+	  @FXML
+	  private TextField txtAncho;
+
+	  /**
+	   * Campo de texto para ingresar la profundidad del paquete.
+	   */
+	  @FXML
+	  private TextField txtProfundo;
+
+	  /**
+	   * CheckBox para indicar si el envío es urgente.
+	   */
+	  @FXML
+	  private CheckBox checkUrgente;
+	
+	  /**
+	   * Botón para volver a la pantalla anterior.
+	   */
+	  @FXML
+	  private Button btnVolver;
+
+	  /**
+	   * Botón para limpiar los campos ingresados.
+	   */
+	  @FXML
+	  private Button btnLimpiar;
+
+	  /**
+	   * Botón para sellar y registrar la estancia.
+	   */
+	  @FXML
+	  private Button btnSellar;
+
 	
 	private List<Servicio> listaServicios=new ArrayList<>(0);
 	private List<CheckBox> checkBoxes = new ArrayList<>(0); 
 	
+	/**
+     * Manejador de etapas para gestionar ventanas y escenas.
+     */
 	@Lazy
     @Autowired
     private StageManager stageManager;
 	
+	/**
+     * Servicio para la gestión de servicios.
+     */
 	@Autowired
     private ServicioService servicioService;
+	
+	/**
+     * Servicio para la gestión de conjuntosContratados.
+     */
 	@Autowired
     private ConjuntoContratadoService conjuntoContratadoService;
+	
+	/**
+     * Servicio para la gestión de envioACasa.
+     */
 	@Autowired
     private EnvioACasaService envioACasaService;
+	
+	/**
+     * Servicio para la gestión de paradas.
+     */
 	@Autowired
 	private ParadaService paradaService;
+	
+	/**
+     * Servicio para la gestión de peregrinos.
+     */
 	@Autowired
 	private PeregrinoService peregrinoService;
+	
+	/**
+     * Servicio para la gestión de carnets.
+     */
 	@Autowired
 	private CarnetService carnetService;
+	
+	/**
+     * Servicio para la gestión de visitas.
+     */
 	@Autowired
 	private VisitaService visitaService;
+	
+	/**
+     * Servicio para la gestión de estancias.
+     */
 	@Autowired
 	private EstanciaService estanciaService;
 	
@@ -112,6 +204,12 @@ public class DetallesEstanciaController implements Initializable{
 	
 	private Servicio servicio=null;
 	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//resets
@@ -135,6 +233,9 @@ public class DetallesEstanciaController implements Initializable{
 		
 	}
 	
+	/**
+     * Carga los métodos de pago en el ComboBox.
+     */
 	private void cargarComboPago() {
 		cbPago.getItems().add("Efectivo");
 		cbPago.getItems().add("Tarjeta");
@@ -143,6 +244,12 @@ public class DetallesEstanciaController implements Initializable{
 		
 	}
 
+	/**
+     * Busca el servicio "Envío a Casa" en la lista de servicios.
+     *
+     * @param listaServicios2 La lista de servicios.
+     * @return La posición del servicio "Envío a Casa" en la lista, o -1 si no se encuentra.
+     */
 	private int buscarEnvioACasa(List<Servicio> listaServicios2) {
 		for(int i=0;i<listaServicios2.size();i++) {
 			Servicio s=listaServicios2.get(i);
@@ -153,6 +260,9 @@ public class DetallesEstanciaController implements Initializable{
 		return -1;
 	}
 
+	/**
+     * Carga los servicios en el panel de selección.
+     */
 	private void cargarServicios() {
 		for (Servicio s : listaServicios) {
 			String cadena=s.formatoCadena();
@@ -163,6 +273,10 @@ public class DetallesEstanciaController implements Initializable{
 		
 	}
 
+	/**
+     * Maneja el evento de sellado de la estancia.
+     * Valida los campos, registra la estancia y gestiona el envío a casa si es necesario.
+     */
 	public void onSellar() {
 		if(camposValidos()) {
 			boolean res=MiAlerta.showConfirmationAlert("¿Desea resgistrar la estancia con estos datos?", "La estancia con el conjunto de servicios y todos los datos que ha introducido quedarán registrados. Si desea modificar algo puede volver accionando Cancelar");
@@ -265,6 +379,12 @@ public class DetallesEstanciaController implements Initializable{
 //        MiAlerta.showInformationAlert(mostrarSeleccionados(seleccionados));
 	}
 	
+	/**
+     * Calcula el total de los servicios seleccionados.
+     *
+     * @param listaServicios2 La lista de servicios.
+     * @return El total calculado.
+     */
 	private double calcularTotal(List<Servicio> listaServicios2) {
 		List<Integer>posiciones=new ArrayList<>(0);
 		for(int i=0;i<checkBoxes.size();i++) {
@@ -280,6 +400,11 @@ public class DetallesEstanciaController implements Initializable{
 		return total;
 	}
 
+	/**
+     * Valida los campos del formulario.
+     *
+     * @return true si todos los campos son válidos, false en caso contrario.
+     */
 	private boolean camposValidos() {
 		String pago=cbPago.getValue();
 		String extra=txtExtra.getText();
@@ -319,6 +444,14 @@ public class DetallesEstanciaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida las medidas del paquete.
+     *
+     * @param alto      La altura del paquete.
+     * @param ancho     El ancho del paquete.
+     * @param profundo  La profundidad del paquete.
+     * @return true si las medidas son válidas, false en caso contrario.
+     */
 	private boolean medidasValidas(String alto, String ancho, String profundo) {
 		if(alto==null || alto.isBlank() ||alto.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el alto", "El alto no puede estar vacío ni ser solo espacios en blanco.");
@@ -360,6 +493,12 @@ public class DetallesEstanciaController implements Initializable{
 	    }
 	}
 
+	/**
+     * Valida el peso del paquete.
+     *
+     * @param peso El peso del paquete.
+     * @return true si el peso es válido, false en caso contrario.
+     */
 	private boolean pesoValido(String peso) {
 		if(peso==null || peso.isBlank() ||peso.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el peso", "El peso no puede estar vacío ni ser solo espacios en blanco.");
@@ -392,6 +531,12 @@ public class DetallesEstanciaController implements Initializable{
 		}
 	}
 
+	/**
+     * Valida la localidad del envío.
+     *
+     * @param localidad La localidad del envío.
+     * @return true si la localidad es válida, false en caso contrario.
+     */
 	private boolean localidadValida(String localidad) {
 		if(localidad==null || localidad.isBlank() ||localidad.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en la localidad", "La localidad no puede estar vacío ni ser solo espacios en blanco.");
@@ -411,6 +556,12 @@ public class DetallesEstanciaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida la direccion del envío.
+     *
+     * @param direccion La direccion del envío.
+     * @return true si la direccion es válida, false en caso contrario.
+     */
 	private boolean direccionValida(String direccion) {
 		if(direccion==null || direccion.isBlank() ||direccion.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en la direccion", "La direccion no puede estar vacía ni ser solo espacios en blanco.");
@@ -430,6 +581,12 @@ public class DetallesEstanciaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el extra del conjunto.
+     *
+     * @param extra El extra del conjunto.
+     * @return true si el extra es válido, false en caso contrario.
+     */
 	private boolean extraValido(String extra) {
 		if(extra==null || extra.isBlank() ||extra.isEmpty()) {
 			extra="";
@@ -441,6 +598,12 @@ public class DetallesEstanciaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el método de pago del conjunto.
+     *
+     * @param pago El método de pago del conjunto.
+     * @return true si el método de pago es válido, false en caso contrario.
+     */
 	private boolean pagoValido(String pago) {
 		List<String> pagos=new ArrayList<>();
 		for(String s:cbPago.getItems()) {
@@ -449,6 +612,12 @@ public class DetallesEstanciaController implements Initializable{
 		return pagos.contains(pago);
 	}
 
+	/**
+     * Valida la seleccion del conjunto.
+     *
+     * @param seleccionados La lista de servicios seleccionados del conjunto.
+     * @return true si el conjunto es válido, false en caso contrario.
+     */
 	private String mostrarSeleccionados(List<Servicio> seleccionados) {
 		String res="";
 		for(Servicio s:seleccionados) {
@@ -457,6 +626,9 @@ public class DetallesEstanciaController implements Initializable{
 		return res;
 	}
 
+	/**
+     * Limpia las selecciones y entradas de los campos.
+     */
 	public void onLimpiar() {
 		List<Servicio> seleccionados = new ArrayList<>();
       for (int i = 0; i < listaServicios.size(); i++) {
@@ -468,6 +640,9 @@ public class DetallesEstanciaController implements Initializable{
       MiAlerta.showInformationAlert(mostrarSeleccionados(seleccionados));
 	}
 	
+	/**
+     * Cancela la selección de servicios y vuelve a la ventana de sellado.
+     */
 	public void onVolver() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas volver?, no se guardarán los datos.");
 		if(res) {

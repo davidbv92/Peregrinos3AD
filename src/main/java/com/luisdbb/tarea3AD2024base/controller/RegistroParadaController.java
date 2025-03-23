@@ -29,6 +29,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
+ * Controlador para la pantalla de registro de paradas.
+ * Permite registrar nuevas paradas en el sistema, validando los datos ingresados.
+ * 
  * @author David Ballesteros
  * @since 25-01-2025
  */
@@ -65,7 +68,12 @@ public class RegistroParadaController implements Initializable{
 	@Autowired
 	private UserService userService;
 
-
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//ICONOS
@@ -75,6 +83,12 @@ public class RegistroParadaController implements Initializable{
 		
 	}
 	
+	/**
+     * Crea un icono a partir de una ruta de imagen.
+     *
+     * @param ruta La ruta de la imagen.
+     * @return Un nodo que representa el icono.
+     */
 	private Node crearIcono(String string) {
 		Image imagen=new Image(getClass().getResourceAsStream(string));
         ImageView viewImagen=new ImageView(imagen);
@@ -84,6 +98,9 @@ public class RegistroParadaController implements Initializable{
 
 	}
 
+	/**
+     * Maneja el evento de limpiar los campos del formulario.
+     */
 	public void onLimpiar() {
 		txtResponsable.clear();
 		txtUsuario.clear();
@@ -94,6 +111,10 @@ public class RegistroParadaController implements Initializable{
 		txtRegion.clear();
 	}
 	
+	/**
+     * Maneja el evento de salir de la pantalla de registro.
+     * Muestra una confirmación antes de salir y limpiar los campos.
+     */
 	public void onSalir() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas salir?, se perderán todos los datos introducidos.");
 		if(res) {
@@ -103,6 +124,10 @@ public class RegistroParadaController implements Initializable{
 		}
 	}
 	
+	/**
+     * Maneja el evento de registrar una nueva parada.
+     * Valida los campos y registra la parada si los datos son válidos.
+     */
 	public void onRegistrar() {
 		
 		if(camposValidos()) {
@@ -114,6 +139,11 @@ public class RegistroParadaController implements Initializable{
 		}
 	}
 	
+	/**
+     * Muestra los datos que se van a registrar.
+     *
+     * @return Una cadena con los datos a registrar.
+     */
 	private String mostrarDatosRegistro() {
 		String username=txtUsuario.getText();
 		String nombreParada=txtNombreParada.getText();
@@ -131,6 +161,9 @@ public class RegistroParadaController implements Initializable{
 		return res;
 	}
 
+	/**
+     * Registra una nueva parada en el sistema.
+     */
 	private void registrarParada() {
 		String username=txtUsuario.getText();
 		String password=txtPassword.getText();
@@ -161,6 +194,11 @@ public class RegistroParadaController implements Initializable{
 		stageManager.switchScene(FxmlView.VENTANA_ADMIN);
 	}
 
+	/**
+     * Valida los campos del formulario.
+     *
+     * @return true si todos los campos son válidos, false en caso contrario.
+     */
 	private boolean camposValidos() {
 		String username=txtUsuario.getText();
 		String password=txtPassword.getText();
@@ -185,6 +223,12 @@ public class RegistroParadaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el nombre del responsable.
+     *
+     * @param responsable El nombre del responsable a validar.
+     * @return true si el nombre es válido, false en caso contrario.
+     */
 	private boolean responsableValido(String responsable) {
 		if(responsable==null || responsable.isBlank() ||responsable.isEmpty()) {
 			MiAlerta.showErrorAlert("Error en el nombre del responsable.", "El nombre del responsable no puede estar vacío ni ser solo espacios en blanco.");
@@ -204,6 +248,12 @@ public class RegistroParadaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el correo electrónico.
+     *
+     * @param correo El correo electrónico a validar.
+     * @return true si el correo es válido, false en caso contrario.
+     */
 	private boolean correoValido(String correo) {
 		if(correo==null || correo.isBlank() ||correo.isEmpty()) {
 			MiAlerta.showErrorAlert("Error en el correo electrónico", "El correo electrónico no puede estar vacío ni ser solo espacios en blanco.");
@@ -230,6 +280,13 @@ public class RegistroParadaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida los datos de la parada (nombre y región).
+     *
+     * @param nombreParada El nombre de la parada a validar.
+     * @param region       La región de la parada a validar.
+     * @return true si los datos son válidos, false en caso contrario.
+     */
 	private boolean datosParadaValidos(String nombreParada, String region) {
 		if(nombreParada==null || nombreParada.isBlank() ||nombreParada.isEmpty()) {
 			MiAlerta.showErrorAlert("Error en el nombre de la parada.", "El nombre de la parada no puede estar vacío ni ser solo espacios en blanco.");
@@ -277,6 +334,13 @@ public class RegistroParadaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida la contraseña ingresada.
+     *
+     * @param password  La contraseña a validar.
+     * @param password2 La confirmación de la contraseña.
+     * @return true si la contraseña es válida, false en caso contrario.
+     */
 	private boolean passwordValida(String password, String password2) {
 		if(password==null || password.isBlank() ||password.isEmpty()) {
 			MiAlerta.showErrorAlert("Error en la contraseña", "La contraseña no puede estar vacío ni ser solo espacios en blanco.");
@@ -300,6 +364,12 @@ public class RegistroParadaController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el nombre de usuario.
+     *
+     * @param username El nombre de usuario a validar.
+     * @return true si el nombre de usuario es válido, false en caso contrario.
+     */
 	private boolean usuarioValido(String username) {
 		if(username==null || username.isBlank() ||username.isEmpty()) {
 			MiAlerta.showErrorAlert("Error en el nombre de usuario", "El nombre de usuario no puede estar vacío ni ser solo espacios en blanco.");

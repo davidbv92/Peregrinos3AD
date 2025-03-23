@@ -22,18 +22,39 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * Controlador de la vista que muestra los carnets expedidos en una parada específica.
+ * Implementa la interfaz Initializable para inicializar los componentes de la vista.
+ * 
+ * @author David Ballesteros
+ * @since 01-03-2025
+ */
 @Controller
 public class CarnetsExpedidosController implements Initializable{
 
+	/**
+     * Tabla que muestra la lista de carnets expedidos.
+     */
 	@FXML
 	private TableView<String> tableView;
 	
+	/**
+     * Columna de la tabla que muestra el nombre de los carnets.
+     */
 	@FXML
 	private TableColumn<String,String> colNombre;
 	
+	/**
+     * Servicio de parada para obtener datos relacionados con la parada.
+     */
 	@Autowired
 	private ParadaService paradaService;
 
+	/**
+     * Inicializa los componentes de la vista y carga los carnets expedidos.
+     * @param location URL de localización del recurso.
+     * @param resources Conjunto de recursos internacionalizados para la vista.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Parada parada=paradaService.find(Sesion.getInstancia().getId());

@@ -24,6 +24,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
+ * Controlador para la visualización de los envíos realizados.
+ * Muestra una tabla con los envíos realizados por la parada actual.
+ * 
  * @author David Ballesteros
  * @since 24-02-2025
  */
@@ -57,6 +60,12 @@ public class EnviosRealizadosController implements Initializable{
 	@Autowired
     private EnvioACasaService envioACasaService;
 	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -77,7 +86,9 @@ public class EnviosRealizadosController implements Initializable{
 		
 	}
 
-
+	/**
+     * Carga los datos de los envíos realizados en la tabla.
+     */
 	private void cargarDatosTabla() {
 		List<EnvioACasa> listaEnvios = envioACasaService.findByIdParada(Sesion.getInstancia().getId());
 	    ObservableList<EnvioACasa> observableList = FXCollections.observableArrayList(listaEnvios);

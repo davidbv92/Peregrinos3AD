@@ -29,27 +29,69 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Controlador para la vista de detalles de una parada específica.
+ * Permite buscar estancias dentro de un rango de fechas y visualizar la información en una tabla.
+ * Implementa la interfaz Initializable para inicializar los componentes de la vista.
+ * 
+ * @author David Ballesteros
+ * @since 24-02-2025
+ */
 @Controller
 public class DatosParadaController implements Initializable{
 
-	@FXML
-	private DatePicker fechaInicio;
-	@FXML
-	private DatePicker fechaFin;
-	@FXML
-	private TextField mostrarFechaInicio;
-	@FXML
-	private TextField mostrarFechaFin;
-	@FXML
-	private Button btnBuscar;
-	@FXML
-	private TextField txtId;
-	@FXML
-	private TextField txtNombre;
-	@FXML
-	private TextField txtRegion;
+	/**
+     * Selector de fecha de inicio.
+     */
+    @FXML
+    private DatePicker fechaInicio;
+
+    /**
+     * Selector de fecha de fin.
+     */
+    @FXML
+    private DatePicker fechaFin;
+
+    /**
+     * Campo de texto para mostrar la fecha de inicio seleccionada.
+     */
+    @FXML
+    private TextField mostrarFechaInicio;
+
+    /**
+     * Campo de texto para mostrar la fecha de fin seleccionada.
+     */
+    @FXML
+    private TextField mostrarFechaFin;
+    
+    /**
+     * Botón para realizar la búsqueda de estancias.
+     */
+    @FXML
+    private Button btnBuscar;
+
+    /**
+     * Campo de texto para mostrar el ID de la parada.
+     */
+    @FXML
+    private TextField txtId;
+
+    /**
+     * Campo de texto para mostrar el nombre de la parada.
+     */
+    @FXML
+    private TextField txtNombre;
+
+    /**
+     * Campo de texto para mostrar la región de la parada.
+     */
+    @FXML
+    private TextField txtRegion;
 	
-	@FXML
+    /**
+     * Tabla que muestra la lista de estancias registradas.
+     */
+    @FXML
     private TableView<Estancia> tableView;
     @FXML
     private TableColumn<Estancia, Long> colId;
@@ -60,17 +102,35 @@ public class DatosParadaController implements Initializable{
     @FXML
     private TableColumn<Estancia, Boolean> colVip;
 	
+    /**
+     * Manejador de etapas para gestionar ventanas y escenas.
+     */
     @Lazy
     @Autowired
     private StageManager stageManager;
+
+    /**
+     * Servicio para la gestión de paradas.
+     */
+    @Autowired
+    private ParadaService paradaService;
+
+    /**
+     * Servicio para la gestión de estancias.
+     */
+    @Autowired
+    private EstanciaService estanciaService;
+
+    /**
+     * Lista observable que contiene las estancias a mostrar en la tabla.
+     */
+    private ObservableList<Estancia> listaEstancias = FXCollections.observableArrayList();
 	
-	@Autowired
-	private ParadaService paradaService;
-	@Autowired
-	private EstanciaService estanciaService;
-	
-	private ObservableList<Estancia> listaEstancias = FXCollections.observableArrayList();
-	
+    /**
+     * Inicializa los componentes y la configuración de la tabla.
+     * @param location URL de localización del recurso.
+     * @param resources Conjunto de recursos internacionalizados para la vista.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//preparar tabla
@@ -84,7 +144,9 @@ public class DatosParadaController implements Initializable{
         
 	}
 	
-	
+	/**
+     * Maneja el evento de búsqueda de estancias según las fechas seleccionadas.
+     */
 	public void onBuscar() {
 		if(validarFechas()) {
 			Parada parada=paradaService.find(Sesion.getInstancia().getId());
@@ -104,6 +166,10 @@ public class DatosParadaController implements Initializable{
 	}
 
 
+	/**
+     * Valida las fechas seleccionadas en los controles DatePicker.
+     * @return true si las fechas son válidas, false en caso contrario.
+     */
 	private boolean validarFechas() {
 		LocalDate fechaInicioSeleccionada=fechaInicio.getValue();
 		LocalDate fechaFinSeleccionada=fechaFin.getValue();

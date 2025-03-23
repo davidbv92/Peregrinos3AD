@@ -36,6 +36,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
+ * Controlador para la ventana de administración.
+ * Permite gestionar paradas, servicios, realizar copias de seguridad y acceder a la ayuda.
+ * 
  * @author David Ballesteros
  * @since 25-01-2025
  */
@@ -89,7 +92,12 @@ public class VentanaAdminController implements Initializable{
 	private MongoTemplate mongoTemplate;
 	
 	
-	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//acelerator
@@ -105,11 +113,18 @@ public class VentanaAdminController implements Initializable{
 		
 	}
 	
+	/**
+     * Maneja el evento de mostrar la ayuda.
+     * Abre una ventana modal con la documentación de ayuda.
+     */
 	public void onAyuda() {
 		//MiAlerta.showInformationAlert("Información accionado");
 		mostrarAyuda();
 	}
 	
+	/**
+     * Muestra la ventana de ayuda con la documentación HTML.
+     */
 	private void mostrarAyuda() {
 		WebView webView=new WebView();
 		String url=getClass().getResource("/help/ventanaAdminHelp.html").toExternalForm();
@@ -127,6 +142,10 @@ public class VentanaAdminController implements Initializable{
 		helpStage.show();
 	}
 
+	/**
+     * Maneja el evento de cerrar sesión.
+     * Muestra una confirmación antes de cerrar la sesión y volver a la pantalla de inicio de sesión.
+     */
 	public void onCerrarSesion() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas cerrar tu sesión para volver a la ventana de inicio de sesión?");
 		if(res) {
@@ -137,18 +156,34 @@ public class VentanaAdminController implements Initializable{
 		}
 	}
 	
+	/**
+     * Maneja el evento de registrar una nueva parada.
+     * Redirige a la pantalla de registro de paradas.
+     */
 	public void onRegistrarParada() {
 		stageManager.switchScene(FxmlView.REGISTRO_PARADA);
 	}
 	
+	/**
+     * Maneja el evento de crear un nuevo servicio.
+     * Redirige a la pantalla de registro de servicios.
+     */
 	public void onCrearServicio() {
 		stageManager.switchScene(FxmlView.REGISTRO_SERVICIO);
 	}
 	
+	/**
+     * Maneja el evento de editar un servicio existente.
+     * Redirige a la pantalla de edición de servicios.
+     */
 	public void onEditarServicio() {
 		stageManager.switchScene(FxmlView.EDITAR_SERVICIO);
 	}
 	
+	/**
+     * Maneja el evento de realizar una copia de seguridad.
+     * Genera un backup de la base de datos MongoDB.
+     */
 	public void onBackup() {
 		mongoDBService.generarBackup();
 	}

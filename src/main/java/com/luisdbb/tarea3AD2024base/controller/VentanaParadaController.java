@@ -49,6 +49,9 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 
 /**
+ * Controlador para la ventana de la parada.
+ * Permite gestionar sellado de carnets, generar informes, ver envíos y carnets expedidos.
+ * 
  * @author David Ballesteros
  * @since 23-01-2025
  */
@@ -102,7 +105,12 @@ public class VentanaParadaController implements Initializable {
     private EstanciaService estanciaService;
 	
 	
-	
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//poner shortcuts
@@ -120,7 +128,10 @@ public class VentanaParadaController implements Initializable {
 		
 	}
 
-	
+	/**
+     * Maneja el evento de cerrar sesión.
+     * Muestra una confirmación antes de cerrar la sesión y volver a la pantalla de inicio de sesión.
+     */
 	public void onCerrarSesion() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas cerrar tu sesión para volver a la ventana de inicio de sesión?");
 		if(res) {
@@ -131,26 +142,45 @@ public class VentanaParadaController implements Initializable {
 		}
 	}
 	
+	/**
+     * Maneja el evento de sellar un carnet.
+     * Redirige a la pantalla de sellado de carnets.
+     */
 	public void onSellarCarnet() {
 		//MiAlerta.showInformationAlert("Sellar Carnet accionado");
 		stageManager.switchScene(FxmlView.VENTANA_SELLADO);
 	}
 	
+	/**
+     * Maneja el evento de mostrar los datos de la parada.
+     * Abre una ventana modal con los detalles de la parada.
+     */
 	public void onMostrarDatos() {
 		//MiAlerta.showInformationAlert("Mostrar datos accionado");
 		stageManager.openModal(FxmlView.DATOS_PARADA);
 	}
 	
+	/**
+     * Maneja el evento de generar un informe.
+     * Genera un informe PDF con estadísticas de la parada.
+     */
 	public void onGenerarInforme() {
 		//MiAlerta.showInformationAlert("Esta funcionalidad no está disponible en esta versión.");
 		generarInforme();
 	}
 	
+	/**
+     * Maneja el evento de mostrar la ayuda.
+     * Abre una ventana modal con la documentación de ayuda.
+     */
 	public void onAyuda() {
 		//MiAlerta.showInformationAlert("Información accionado");
 		mostrarAyuda();
 	}
 	
+	/**
+     * Muestra la ventana de ayuda con la documentación HTML.
+     */
 	private void mostrarAyuda() {
 		WebView webView=new WebView();
 		String url=getClass().getResource("/help/ventanaParadaHelp.html").toExternalForm();
@@ -168,11 +198,17 @@ public class VentanaParadaController implements Initializable {
 		helpStage.show();
 	}
 	
+	/**
+     * Maneja el evento de ver los envíos realizados.
+     * Abre una ventana modal con los envíos realizados por la parada.
+     */
 	public void onVerEnvios() {
 		stageManager.openModal(FxmlView.ENVIOS_REALIZADOS);
 	}
 	
-	
+	/**
+     * Genera un informe PDF con estadísticas de la parada.
+     */
 	public void generarInforme() {
 	    Parada parada = paradaService.find(Sesion.getInstancia().getId());
 	    try {
@@ -296,11 +332,20 @@ public class VentanaParadaController implements Initializable {
 	    }
 	}
 
-
+	/**
+     * Mapea la información de la parada a una cadena.
+     *
+     * @param parada La parada a mapear.
+     * @return Una cadena con la información de la parada.
+     */
 	private String mapearParada(Parada parada) {
 		return parada.getNombre()+" ("+parada.getRegion()+"), gestionada por "+parada.getResponsable();
 	}
 	
+	/**
+     * Maneja el evento de ver los carnets expedidos.
+     * Abre una ventana modal con los carnets expedidos por la parada.
+     */
 	public void onVerCarnets() {
 		stageManager.openModal(FxmlView.CARNETS_EXPEDIDOS);
 	}

@@ -33,6 +33,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
+ * Controlador para la edición de servicios.
+ * Permite modificar el nombre, precio y paradas asociadas a un servicio.
+ * 
  * @author David Ballesteros
  * @since 04-02-2025
  */
@@ -77,7 +80,12 @@ public class EditarServiciosController implements Initializable{
     private String nombreAntiguo="";
     private Servicio servicio=null;
     
-    
+    /**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//resetear servicio
@@ -111,7 +119,9 @@ public class EditarServiciosController implements Initializable{
 	    });
 	}
 
-
+	/**
+     * Carga los datos de las paradas en la tabla.
+     */
 	private void cargarDatosTabla() {
 	    List<Parada> paradas = paradaService.findAll();
 	    ObservableList<Parada> observableList = FXCollections.observableArrayList(paradas);
@@ -119,7 +129,11 @@ public class EditarServiciosController implements Initializable{
 		
 	}
 
-
+	/**
+     * Marca las paradas seleccionadas en la tabla.
+     *
+     * @param servicio El servicio cuyas paradas se deben marcar.
+     */
 	private void marcarParadasSeleccionadas(Servicio servicio) {
 		tableView.getSelectionModel().clearSelection();
 	    List<Long> idsParadas = servicio.getParadas();
@@ -130,13 +144,20 @@ public class EditarServiciosController implements Initializable{
 	    }
 	}
 
-
+	/**
+     * Obtiene el ID del servicio a partir de la cadena seleccionada en el ComboBox.
+     *
+     * @param newValue La cadena seleccionada en el ComboBox.
+     * @return El ID del servicio.
+     */
 	private long obtenerIdServicio(String newValue) {
 		String idString = newValue.split(" ")[0];
 	    return Long.parseLong(idString);
 	}
 
-
+	/**
+     * Carga los IDs de los servicios en el ComboBox.
+     */
 	private void cargarCbIds() {
 		List<Servicio> servicios=servicioService.findAll();
 		for(Servicio s:servicios) {
@@ -146,12 +167,19 @@ public class EditarServiciosController implements Initializable{
 		
 	}
 
-
+	/**
+     * Mapea un servicio a una cadena para mostrarlo en el ComboBox.
+     *
+     * @param s El servicio a mapear.
+     * @return Una cadena que representa el servicio.
+     */
 	private String mapearServicio(Servicio s) {
 		return s.getId()+" ("+s.getNombre()+")";
 	}
 	
-	
+	/**
+     * Maneja el evento de limpiar los campos del formulario.
+     */
 	public void onLimpiar() {
 		if(!txtNombre.isDisabled()) {
 			txtNombre.setText("");
@@ -162,6 +190,9 @@ public class EditarServiciosController implements Initializable{
 		tableView.getSelectionModel().clearSelection();
 	}
 	
+	/**
+     * Maneja el evento de editar un servicio.
+     */
 	public void onEditar() {
 		if(datosValidos()) {
 			boolean res=MiAlerta.showConfirmationAlert("¿Desea editar el servicio?", "El servicio será modificado con los nuevos valores definitivamente en el sistema.");
@@ -187,7 +218,11 @@ public class EditarServiciosController implements Initializable{
 		}
 	}
 
-
+	/**
+     * Valida los datos ingresados por el usuario.
+     *
+     * @return true si los datos son válidos, false en caso contrario.
+     */
 	private boolean datosValidos() {
 		String nombre=txtNombre.getText();
 		String precio=txtPrecio.getText();
@@ -201,6 +236,11 @@ public class EditarServiciosController implements Initializable{
 		return true;
 	}
 	
+	/**
+     * Valida que se haya seleccionado un servicio.
+     *
+     * @return true si el servicio es válido, false en caso contrario.
+     */
 	private boolean servicioValido() {
 		if(servicio==null) {
 			MiAlerta.showWarningAlert("Error en la selección del servicio", "Debes escoger un servicio para editar.");
@@ -217,7 +257,12 @@ public class EditarServiciosController implements Initializable{
 		}
 	}
 
-
+	/**
+     * Valida el precio ingresado.
+     *
+     * @param precio El precio a validar.
+     * @return true si el precio es válido, false en caso contrario.
+     */
 	private boolean precioValido(String precio) {
 		if(precio==null || precio.isBlank() ||precio.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el precio", "El precio no puede estar vacío ni ser solo espacios en blanco.");
@@ -237,6 +282,12 @@ public class EditarServiciosController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el nombre ingresado.
+     *
+     * @param nombre El nombre a validar.
+     * @return true si el nombre es válido, false en caso contrario.
+     */
 	private boolean nombreValido(String nombre) {
 		if(nombre==null || nombre.isBlank() ||nombre.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el nombre", "El nombre no puede estar vacío ni ser solo espacios en blanco.");
@@ -262,6 +313,9 @@ public class EditarServiciosController implements Initializable{
 	}
 
 
+	/**
+     * Maneja el evento de salir de la ventana de edición.
+     */
 	public void onSalir() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas salir?, no se realizará ninguna modificación.");
 		if(res) {

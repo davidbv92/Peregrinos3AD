@@ -31,6 +31,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
+ * Controlador para la edición de los datos del peregrino.
+ * Permite modificar el nombre y la nacionalidad del peregrino.
+ * 
  * @author David Ballesteros
  * @since 04-02-2025
  */
@@ -67,6 +70,12 @@ public class EditarDatosController implements Initializable{
 	
 	private Peregrino peregrino=new Peregrino();
 
+	/**
+     * Inicializa el controlador después de que se haya cargado su elemento raíz.
+     *
+     * @param location  La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se conoce.
+     */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//reset de peregrino
@@ -81,6 +90,9 @@ public class EditarDatosController implements Initializable{
 		lblCorreo.setText("Correo: "+peregrino.getUsuario().getEmail());
 	}
 
+	/**
+     * Carga las nacionalidades desde un archivo XML en el ComboBox.
+     */
 	private void cargarNacionalidades() {
 		try {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("files/paises.xml");
@@ -104,6 +116,10 @@ public class EditarDatosController implements Initializable{
 		
 	}
 	
+	/**
+     * Maneja el evento de salir de la ventana de edición.
+     * Muestra una confirmación antes de volver a la ventana anterior.
+     */
 	public void onSalir() {
 		boolean res=MiAlerta.showConfirmationAlert("¿Estás seguro de que deseas salir?, no se realizará ninguna acción sobre el peregrino.");
 		if(res) {
@@ -112,6 +128,10 @@ public class EditarDatosController implements Initializable{
 		}
 	}
 	
+	/**
+     * Maneja el evento de modificación de los datos del peregrino.
+     * Valida los datos y muestra una confirmación antes de realizar la modificación.
+     */
 	public void onModificar() {
 		if(validarDatos()) {
 			boolean res=MiAlerta.showConfirmationAlert("¿Quieres modificar los siguientes datos?", mostrarDatosModificacion());
@@ -122,6 +142,11 @@ public class EditarDatosController implements Initializable{
 		//MiAlerta.showInformationAlert("Editar datos accionado");
 	}
 
+	/**
+     * Muestra los datos que se van a modificar.
+     *
+     * @return Una cadena con los datos a modificar.
+     */
 	private String mostrarDatosModificacion() {
 		String nombre=txtNombre.getText();
 		String nacionalidad=(String) cbNacionalidad.getValue();
@@ -130,6 +155,9 @@ public class EditarDatosController implements Initializable{
 		return res;
 	}
 
+	/**
+     * Modifica los datos del peregrino y los guarda en la base de datos.
+     */
 	private void modificarPeregrino() {
 		String nombrePeregrino=txtNombre.getText();
 		String nacionalidad=(String) cbNacionalidad.getValue();
@@ -143,6 +171,11 @@ public class EditarDatosController implements Initializable{
 		stageManager.switchScene(FxmlView.VENTANA_PEREGRINO);
 	}
 
+	/**
+     * Valida los datos ingresados por el usuario.
+     *
+     * @return true si los datos son válidos, false en caso contrario.
+     */
 	private boolean validarDatos() {
 		String nombrePeregrino=txtNombre.getText();
 		String nacionalidad=(String) cbNacionalidad.getValue();
@@ -154,6 +187,12 @@ public class EditarDatosController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida la nacionalidad seleccionada.
+     *
+     * @param nacionalidad La nacionalidad a validar.
+     * @return true si la nacionalidad es válida, false en caso contrario.
+     */
 	private boolean nacionalidadValida(String nacionalidad) {
 		if(nacionalidad==null || nacionalidad.isBlank() ||nacionalidad.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en la selección de nacionalidad.", "La nacionalidad del peregrino no puede estar vacío ni ser solo espacios en blanco.");
@@ -162,6 +201,12 @@ public class EditarDatosController implements Initializable{
 		return true;
 	}
 
+	/**
+     * Valida el nombre del peregrino.
+     *
+     * @param nombrePeregrino El nombre a validar.
+     * @return true si el nombre es válido, false en caso contrario.
+     */
 	private boolean nombreValido(String nombrePeregrino) {
 		if(nombrePeregrino==null || nombrePeregrino.isBlank() ||nombrePeregrino.isEmpty()) {
 			MiAlerta.showWarningAlert("Error en el nombre del peregrino.", "El nombre del peregrino no puede estar vacío ni ser solo espacios en blanco.");
