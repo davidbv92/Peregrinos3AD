@@ -44,22 +44,36 @@
                      <children>
                         <FlowPane fx:id="panelEncriptado" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <PasswordField fx:id="txtPassword" prefHeight="25.0" prefWidth="180.0" promptText="contraseña" />
-                              <Button fx:id="btnMostrar" text="_Mostrar" onAction="#onMostrar">
-                                 <FlowPane.margin>
-                                    <Insets left="22.0" />
-                                 </FlowPane.margin>
-                              </Button>
+                              <PasswordField fx:id="txtPassword" prefHeight="25.0" prefWidth="214.0" promptText="contraseña" />
+                              <Button fx:id="btnMostrar" onAction="#onMostrar">
+							   <graphic>
+							      <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+							         <image>
+							            <Image url="@../images/mostrar.png" />
+							         </image>
+							      </ImageView>
+							   </graphic>
+							   <FlowPane.margin>
+							      <Insets left="10.0" />
+							   </FlowPane.margin>
+							</Button>
                            </children>
                         </FlowPane>
                         <FlowPane fx:id="panelDesencriptado" prefHeight="200.0" prefWidth="200.0" visible="false">
                            <children>
-                              <TextField fx:id="txtPasswordVisible" prefHeight="25.0" prefWidth="180.0" promptText="contraseña" />
-                              <Button fx:id="btnOcultar" text="_Ocultar" onAction="#onOcultar">
-                                 <FlowPane.margin>
-                                    <Insets left="25.0" />
-                                 </FlowPane.margin>
-                              </Button>
+                              <TextField fx:id="txtPasswordVisible" prefHeight="25.0" prefWidth="214.0" promptText="contraseña" />
+                              <Button fx:id="btnOcultar" onAction="#onOcultar">
+							   <graphic>
+							      <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+							         <image>
+							            <Image url="@../images/ocultar.png" />
+							         </image>
+							      </ImageView>
+							   </graphic>
+							   <FlowPane.margin>
+							      <Insets left="10.0" />
+							   </FlowPane.margin>
+							</Button>
                            </children>
                            <StackPane.margin>
                               <Insets />
