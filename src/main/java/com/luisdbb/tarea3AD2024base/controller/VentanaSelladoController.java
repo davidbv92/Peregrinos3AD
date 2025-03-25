@@ -95,7 +95,7 @@ public class VentanaSelladoController implements Initializable{
 	
 	private Parada parada=new Parada();
 	
-	private Peregrino peregrino=null;
+	Peregrino peregrino=null;
 	
 	/**
      * Inicializa el controlador después de que se haya cargado su elemento raíz.
@@ -267,7 +267,7 @@ public class VentanaSelladoController implements Initializable{
      *
      * @return true si los datos son válidos, false en caso contrario.
      */
-	private boolean datosValidos() {
+	boolean datosValidos() {
 		if(!peregrinoValido()) {
 			return false;
 		}else if(!seleccionesValidas()) {
@@ -282,7 +282,7 @@ public class VentanaSelladoController implements Initializable{
      *
      * @return true si las selecciones son válidas, false en caso contrario.
      */
-	private boolean seleccionesValidas() {
+	boolean seleccionesValidas() {
 		if((!rdbtnEstanciaSi.isSelected()) && (!rdbtnEstanciaNo.isSelected())) {
 			MiAlerta.showWarningAlert("Error en la estancia", "No ha especificado si quiere estancia o no.");
 			return false;
@@ -336,7 +336,7 @@ public class VentanaSelladoController implements Initializable{
      *
      * @return true si puede estanciarse, false en caso contrario.
      */
-	private boolean puedeEstanciar() {
+	boolean puedeEstanciar() {
 		boolean existe=estanciaService.existsByPeregrinoAndParadaAndFecha(peregrino, parada, LocalDate.now());
 		if(existe) {
 			//MiAlerta.showWarningAlert("Error en la estanciación del peregrino", "El peregrino ya tiene una estancia hoy en esta parada" );
@@ -350,7 +350,7 @@ public class VentanaSelladoController implements Initializable{
      *
      * @return true si puede sellar, false en caso contrario.
      */
-	private boolean puedeSellar() {
+	boolean puedeSellar() {
 		boolean existe=visitaService.existsByPeregrinoAndParadaAndFecha(peregrino, parada, LocalDate.now());
 		if(existe) {
 			//MiAlerta.showWarningAlert("Error en el sellado del carnet", "El peregrino ya ha sido sellado hoy en esta parada" );
